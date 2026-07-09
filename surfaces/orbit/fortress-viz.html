@@ -418,7 +418,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
         <canvas id="orbCanvas" width="300" height="300"></canvas>
       </div>
       <div class="voice-prompt" id="voicePrompt">"I want to sell to Alan"</div>
-      <div class="voice-status" id="voiceStatus">Hold Orb or SPACEBAR to speak</div>
+      <div class="voice-status" id="voiceStatus">Click Orb or hold SPACEBAR to speak</div>
       <button class="skip-btn" id="btnSkipVoice">Skip Voice Mode</button>
     </div>
 
@@ -1138,22 +1138,6 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
     var btnSkip = document.getElementById("btnSkipVoice");
     var banner = document.getElementById("voiceMatchBanner");
     
-    // Request microphone access immediately on load to prevent PTT async delays
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
-      microphoneStream = stream;
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      var source = audioContext.createMediaStreamSource(stream);
-      analyser = audioContext.createAnalyser();
-      analyser.fftSize = 256;
-      source.connect(analyser);
-      dataArray = new Uint8Array(analyser.frequencyBinCount);
-      
-      voiceStatus.textContent = "Hold Orb or SPACEBAR to speak";
-    }).catch(function(err) {
-      console.warn("Initial microphone permission request failed: ", err);
-      voiceStatus.textContent = "Microphone permission required";
-    });
-    
     // Canvas Orb Animation
     var time = 0;
     function animateOrb() {
@@ -1218,27 +1202,29 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
     var recordedChunks = [];
     var isRecording = false;
 
-    function startVoiceRecording() {
+    function toggleOrStartRecording(fromSpace) {
+      if (isRecording) {
+        stopVoiceRecording();
+        return;
+      }
+      startVoiceRecording(fromSpace);
+    }
+
+    function startVoiceRecording(fromSpace) {
       if (isRecording) return;
-      if (!activePress) return; // If user already released before mic initialized
 
       recordedChunks = [];
       
       var startMicAndRecorder = function(stream) {
         microphoneStream = stream;
         
-        // Final sanity check for release before we spin up recorder
-        if (!activePress) return;
-        
-        // Setup volume analysis (only if not already setup)
-        if (!analyser) {
-          audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          var source = audioContext.createMediaStreamSource(stream);
-          analyser = audioContext.createAnalyser();
-          analyser.fftSize = 256;
-          source.connect(analyser);
-          dataArray = new Uint8Array(analyser.frequencyBinCount);
-        }
+        // Setup volume analysis
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        var source = audioContext.createMediaStreamSource(stream);
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
 
         // Setup MediaRecorder
         var options = {};
@@ -1256,11 +1242,10 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
 
         mediaRecorder.start();
         isRecording = true;
-        
-        if (voiceStatus.textContent.indexOf("SPACE") !== -1) {
+        if (fromSpace === true) {
           voiceStatus.textContent = "Recording... Release SPACE to submit";
         } else {
-          voiceStatus.textContent = "Recording... Release orb to submit";
+          voiceStatus.textContent = "Recording... Click orb to submit";
         }
         voiceStatus.className = "voice-status listening";
         voicePrompt.textContent = "Listening to your voice...";
@@ -1345,42 +1330,27 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
       recognition.start();
     }
     
-    var activePress = false;
-
-    function handlePressStart(e) {
-      if (e) e.preventDefault();
-      if (activePress) return;
-      activePress = true;
-      startVoiceRecording();
-    }
-
-    function handlePressEnd(e) {
-      if (e) e.preventDefault();
-      if (!activePress) return;
-      activePress = false;
-      stopVoiceRecording();
-    }
-
     var orb = document.getElementById("orbContainer");
-    orb.addEventListener("mousedown", handlePressStart);
-    orb.addEventListener("touchstart", handlePressStart);
-    
-    window.addEventListener("mouseup", handlePressEnd);
-    window.addEventListener("touchend", handlePressEnd);
+    orb.addEventListener("click", function() {
+      toggleOrStartRecording(false);
+    });
 
+    var spacePressed = false;
     window.addEventListener("keydown", function(e) {
       if (e.code === "Space" || e.keyCode === 32) {
         e.preventDefault();
-        if (e.repeat) return;
-        voiceStatus.textContent = "Recording... Release SPACE to submit";
-        handlePressStart();
+        if (e.repeat || spacePressed) return;
+        spacePressed = true;
+        startVoiceRecording(true);
       }
     });
 
     window.addEventListener("keyup", function(e) {
       if (e.code === "Space" || e.keyCode === 32) {
         e.preventDefault();
-        handlePressEnd();
+        if (!spacePressed) return;
+        spacePressed = false;
+        stopVoiceRecording();
       }
     });
     

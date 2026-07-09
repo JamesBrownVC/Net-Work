@@ -388,18 +388,17 @@ class Handler(BaseHTTPRequestHandler):
             content_length = int(self.headers.get('Content-Length', 0))
             audio_bytes = self.rfile.read(content_length)
 
-            browser_content_type = self.headers.get('Content-Type', 'audio/webm')
-            ext = "webm"
-            if "mp4" in browser_content_type or "m4a" in browser_content_type:
-                ext = "mp4"
-            elif "ogg" in browser_content_type:
-                ext = "ogg"
-            elif "wav" in browser_content_type:
-                ext = "wav"
-            elif "mpeg" in browser_content_type or "mp3" in browser_content_type:
-                ext = "mp3"
-
             api_key = os.getenv("GRADIUM_API_KEY")
+            if not api_key:
+                env_path = Path(__file__).resolve().parent.parent / ".env.local"
+                if env_path.exists():
+                    for line in env_path.read_text(encoding="utf-8").splitlines():
+                        if line.strip() and not line.strip().startswith("#") and "=" in line:
+                            k, v = line.strip().split("=", 1)
+                            if k.strip() == "GRADIUM_API_KEY":
+                                api_key = v.strip()
+                                break
+
             if not api_key:
                 self._send(json.dumps({"error": "No GRADIUM_API_KEY set on the server"}, default=str).encode("utf-8"), "application/json")
                 return
@@ -414,8 +413,8 @@ class Handler(BaseHTTPRequestHandler):
                     ''.encode('utf-8'),
                     'whisper-large-v3-turbo'.encode('utf-8'),
                     f'--{boundary}'.encode('utf-8'),
-                    f'Content-Disposition: form-data; name="file"; filename="audio.{ext}"'.encode('utf-8'),
-                    f'Content-Type: {browser_content_type}'.encode('utf-8'),
+                    'Content-Disposition: form-data; name="file"; filename="audio.webm"'.encode('utf-8'),
+                    'Content-Type: audio/webm'.encode('utf-8'),
                     ''.encode('utf-8'),
                     audio_data,
                     f'--{boundary}--'.encode('utf-8'),
