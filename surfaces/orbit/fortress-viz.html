@@ -1138,6 +1138,22 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
     var btnSkip = document.getElementById("btnSkipVoice");
     var banner = document.getElementById("voiceMatchBanner");
     
+    // Request microphone access immediately on load to prevent PTT async delays
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
+      microphoneStream = stream;
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      var source = audioContext.createMediaStreamSource(stream);
+      analyser = audioContext.createAnalyser();
+      analyser.fftSize = 256;
+      source.connect(analyser);
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
+      
+      voiceStatus.textContent = "Hold Orb or SPACEBAR to speak";
+    }).catch(function(err) {
+      console.warn("Initial microphone permission request failed: ", err);
+      voiceStatus.textContent = "Microphone permission required";
+    });
+    
     // Canvas Orb Animation
     var time = 0;
     function animateOrb() {
@@ -1204,19 +1220,25 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
 
     function startVoiceRecording() {
       if (isRecording) return;
+      if (!activePress) return; // If user already released before mic initialized
 
       recordedChunks = [];
       
       var startMicAndRecorder = function(stream) {
         microphoneStream = stream;
         
-        // Setup volume analysis
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        var source = audioContext.createMediaStreamSource(stream);
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
-        source.connect(analyser);
-        dataArray = new Uint8Array(analyser.frequencyBinCount);
+        // Final sanity check for release before we spin up recorder
+        if (!activePress) return;
+        
+        // Setup volume analysis (only if not already setup)
+        if (!analyser) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          var source = audioContext.createMediaStreamSource(stream);
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 256;
+          source.connect(analyser);
+          dataArray = new Uint8Array(analyser.frequencyBinCount);
+        }
 
         // Setup MediaRecorder
         var options = {};
@@ -1234,6 +1256,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
 
         mediaRecorder.start();
         isRecording = true;
+        
         if (voiceStatus.textContent.indexOf("SPACE") !== -1) {
           voiceStatus.textContent = "Recording... Release SPACE to submit";
         } else {
