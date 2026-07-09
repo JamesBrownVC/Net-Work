@@ -425,7 +425,8 @@ class Handler(BaseHTTPRequestHandler):
                 headers = {
                     'Authorization': f'Bearer {key}',
                     'Content-Type': f'multipart/form-data; boundary={boundary}',
-                    'Content-Length': str(len(body))
+                    'Content-Length': str(len(body)),
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
                 }
                 req = urllib.request.Request(url, data=body, headers=headers, method='POST')
                 try:
@@ -437,12 +438,13 @@ class Handler(BaseHTTPRequestHandler):
                     print("[web] Groq HTTP Error: ", err_msg)
                     raise Exception(err_msg)
 
-            def transcribe_audio_gradium(audio_data, key):
+            def transcribe_audio_gradium(audio_data, key, content_type="audio/webm"):
                 url = "https://api.gradium.ai/api/speech/asr"
                 headers = {
                     'x-api-key': key,
-                    'Content-Type': 'audio/wav',
-                    'Content-Length': str(len(audio_data))
+                    'Content-Type': content_type,
+                    'Content-Length': str(len(audio_data)),
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
                 }
                 req = urllib.request.Request(url, data=audio_data, headers=headers, method='POST')
                 try:
@@ -466,10 +468,12 @@ class Handler(BaseHTTPRequestHandler):
                     raise Exception(err_msg)
 
             try:
-                if api_key.startswith("gsk_"):
+                req_content_type = self.headers.get("Content-Type", "audio/webm")
+                try:
+                    text = transcribe_audio_gradium(audio_bytes, api_key, req_content_type)
+                except Exception as gradium_err:
+                    print("[web] Gradium ASR failed, trying Groq Whisper:", gradium_err)
                     text = transcribe_audio_groq(audio_bytes, api_key)
-                else:
-                    text = transcribe_audio_gradium(audio_bytes, api_key)
                 self._send(json.dumps({"text": text}, default=str).encode("utf-8"), "application/json")
             except Exception as exc:
                 self._send(json.dumps({"error": str(exc)}, default=str).encode("utf-8"), "application/json")

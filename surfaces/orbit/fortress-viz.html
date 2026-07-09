@@ -418,7 +418,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
         <canvas id="orbCanvas" width="300" height="300"></canvas>
       </div>
       <div class="voice-prompt" id="voicePrompt">"I want to sell to Alan"</div>
-      <div class="voice-status" id="voiceStatus">Click Orb or hold SPACEBAR to speak</div>
+      <div class="voice-status" id="voiceStatus">Click Orb once to start recording, click again to stop</div>
       <button class="skip-btn" id="btnSkipVoice">Skip Voice Mode</button>
     </div>
 
@@ -1243,9 +1243,9 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
         mediaRecorder.start();
         isRecording = true;
         if (fromSpace === true) {
-          voiceStatus.textContent = "Recording... Release SPACE to submit";
+          voiceStatus.textContent = "Recording... Release SPACE to stop & submit";
         } else {
-          voiceStatus.textContent = "Recording... Click orb to submit";
+          voiceStatus.textContent = "Recording... Click orb again to stop & submit";
         }
         voiceStatus.className = "voice-status listening";
         voicePrompt.textContent = "Listening to your voice...";
@@ -1371,14 +1371,19 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
         }
       }
       
+      var displayPhrase = phrase || "sell to alan";
       if (showAlanBanner) {
-        banner.classList.add("show");
-        setTimeout(function() {
-          exitVoiceMode(matchedDomain, matchedTarget);
-        }, 1500);
+        banner.textContent = "AI Agent: Acknowledged request to target Alan @ NovaPay — mapping fortress graph...";
       } else {
-        exitVoiceMode(matchedDomain, matchedTarget);
+        banner.textContent = "AI Agent: Acknowledged command '" + displayPhrase + "' — mapping optimal network path...";
       }
+      banner.classList.add("show");
+      voiceStatus.textContent = "AI Agent acknowledged. Rendering graph...";
+      voiceStatus.className = "voice-status listening";
+      
+      setTimeout(function() {
+        exitVoiceMode(matchedDomain, matchedTarget);
+      }, 1400);
     }
     
     function exitVoiceMode(co, tg) {
