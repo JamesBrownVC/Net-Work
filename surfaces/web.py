@@ -439,7 +439,14 @@ class Handler(BaseHTTPRequestHandler):
                     raise Exception(err_msg)
 
             def transcribe_audio_gradium(audio_data, key, content_type="audio/webm"):
-                url = "https://api.gradium.ai/api/speech/asr"
+                fmt = "webm"
+                if "ogg" in content_type:
+                    fmt = "ogg"
+                elif "wav" in content_type:
+                    fmt = "wav"
+                elif "mp4" in content_type or "m4a" in content_type:
+                    fmt = "mp4"
+                url = f"https://api.gradium.ai/api/speech/asr?input_format={fmt}"
                 headers = {
                     'x-api-key': key,
                     'Content-Type': content_type,
