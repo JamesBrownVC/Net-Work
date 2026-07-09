@@ -105,3 +105,16 @@ class BattlePlan(BaseModel):
         lines += ["", "## Next Steps"]
         lines += [f"- {s}" for s in self.next_steps]
         return "\n".join(lines)
+
+
+class ActionPlan(BaseModel):
+    """In-depth plan for the account's next base action: why, how, and the
+    ready-to-send artifacts (email + meeting proposal)."""
+
+    rationale: str
+    steps: list[str] = Field(default_factory=list)
+    email_subject: str
+    email_body: str
+    meeting_when: str
+    meeting_duration_mins: int = 30
+    meeting_agenda: str = ""

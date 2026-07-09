@@ -1,5 +1,5 @@
 # ruff: noqa: E501  (embedded HTML/JS template lines run long)
-"""Minimal web view of the Account Conquest Room (stdlib only, no build step).
+"""Minimal web view of Net-Work (stdlib only, no build step).
 
 Run: python -m surfaces.web  ->  http://localhost:8787
 GET /            the dashboard page
@@ -79,7 +79,7 @@ def _brief_markdown(brief: dict) -> str:
     return "\n".join(lines)
 
 PAGE = """<!doctype html>
-<html><head><meta charset="utf-8"><title>Account Conquest Room</title>
+<html><head><meta charset="utf-8"><title>Net-Work</title>
 <style>
 :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --text:#e6edf3;
         --dim:#8b949e; --accent:#f0883e; --good:#3fb950; --warm:#f85149; }
@@ -114,7 +114,7 @@ button { background:var(--accent); border:0; color:#0d1117; font-weight:600;
 #next li { margin:4px 0 4px 16px; }
 .muted { color:var(--dim); }
 </style></head><body>
-<h1>Account <span>Conquest</span> Room</h1>
+<h1><span>Net</span>-Work</h1>
 <div id="sub">target: novapay.io &middot; objective: CRO &middot; mode: fixtures &middot;
   <a href="/orbit?account=novapay.io" style="color:var(--accent)">Orbit pre-call brief &rarr;</a></div>
 <button id="go" onclick="run()">Run conquest</button>
@@ -254,6 +254,55 @@ class Handler(BaseHTTPRequestHandler):
                 brief = {"error": str(exc)}
             self._send(json.dumps(brief, default=str).encode("utf-8"), "application/json")
             return
+        if parsed.path == "/api/call-script":
+            from agents.brief import build_call_script
+
+            query = parse_qs(parsed.query)
+            try:
+                data = build_call_script(query.get("person", [""])[0])
+            except Exception as exc:
+                data = {"error": str(exc)}
+            self._send(json.dumps(data, default=str).encode("utf-8"), "application/json")
+            return
+        if parsed.path == "/api/action-plan":
+            from agents.brief import build_action_plan
+
+            query = parse_qs(parsed.query)
+            try:
+                data = build_action_plan(query.get("person", [""])[0])
+            except Exception as exc:
+                data = {"error": str(exc)}
+            self._send(json.dumps(data, default=str).encode("utf-8"), "application/json")
+            return
+        if parsed.path == "/api/send-email":
+            from agents.brief import send_email
+
+            query = parse_qs(parsed.query)
+            try:
+                data = send_email(
+                    query.get("to", [""])[0],
+                    query.get("subject", [""])[0],
+                    query.get("body", [""])[0],
+                )
+            except Exception as exc:
+                data = {"error": str(exc)}
+            self._send(json.dumps(data, default=str).encode("utf-8"), "application/json")
+            return
+        if parsed.path == "/api/book-meeting":
+            from agents.brief import book_meeting
+
+            query = parse_qs(parsed.query)
+            try:
+                data = book_meeting(
+                    query.get("person", [""])[0],
+                    query.get("when", [""])[0],
+                    int(query.get("duration", ["30"])[0]),
+                    query.get("agenda", [""])[0],
+                )
+            except Exception as exc:
+                data = {"error": str(exc)}
+            self._send(json.dumps(data, default=str).encode("utf-8"), "application/json")
+            return
         if parsed.path == "/api/deck":
             import asyncio
 
@@ -277,7 +326,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
-    print(f"Account Conquest Room -> http://localhost:{PORT}")
+    print(f"Net-Work -> http://localhost:{PORT}")
     ThreadingHTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
 
 

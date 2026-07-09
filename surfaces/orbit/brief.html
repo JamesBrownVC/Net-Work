@@ -43,6 +43,52 @@
   .sen-pill { font: 600 11px Consolas, monospace; padding: 3px 8px; border-radius: 8px;
     background: var(--surface); border: 1px solid var(--border-bright); color: var(--text-2); }
   .reach { font: 600 12px Consolas, monospace; color: var(--ok-fg); }
+  .intro-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600;
+    padding: 2px 8px 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .pill .mark { width: 12px; height: 12px; border-radius: 4px; flex: none; background: currentColor;
+    color: var(--card); display: inline-flex; align-items: center; justify-content: center;
+    font-size: 7px; font-weight: 700; line-height: 1; }
+  .pill.li  { background: var(--li-bg);  color: var(--li-fg); }
+  .pill.enr { background: var(--enr-bg); color: var(--enr-fg); }
+  .pill.inc { background: var(--surface); color: var(--text-2); border: 1px solid var(--border-bright); }
+  .incentives-head { padding: 12px 16px 4px; border-top: 1px solid var(--border); }
+  .incentives-head .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-2); font-weight: 700; }
+  .incentives-row { display: flex; gap: 8px; flex-wrap: wrap; padding: 6px 16px 14px; }
+  .incentive-chip { display: flex; align-items: center; gap: 6px; font-size: 12.5px;
+    padding: 6px 10px; border-radius: var(--radius-sm); background: var(--surface);
+    border: 1px solid var(--border-bright); }
+  .script-box { padding: 14px 16px; white-space: pre-wrap; font: 13px/1.6 Consolas, monospace;
+    color: var(--text); border-top: 1px solid var(--border); display: none; }
+  .script-box.show { display: block; }
+  .action-summary { display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; gap: 12px; }
+  .action-title { font-size: 15px; font-weight: 700; }
+  .action-meta { color: var(--text-2); font-size: 12.5px; margin-top: 3px; }
+  .action-value { font: 700 20px Consolas, monospace; color: var(--ok-fg); text-align: right; }
+  .action-value .l { font-size: 10.5px; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--text-2); font-weight: 400; }
+  .plan-steps { padding: 4px 16px 14px; border-top: 1px solid var(--border); }
+  .plan-step { display: flex; gap: 10px; padding: 7px 0; font-size: 13.5px; line-height: 1.5; }
+  .plan-step .num { flex: none; width: 20px; height: 20px; border-radius: 50%; background: var(--surface);
+    border: 1px solid var(--border-bright); font: 700 11px Consolas, monospace; display: flex;
+    align-items: center; justify-content: center; color: var(--text-2); }
+  .plan-rationale { padding: 10px 16px; color: var(--text-2); font-size: 13px; font-style: italic;
+    border-top: 1px solid var(--border); }
+  .field { padding: 10px 16px; border-top: 1px solid var(--border); }
+  .field .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-2); font-weight: 700; margin-bottom: 5px; }
+  .field input, .field textarea { width: 100%; background: var(--surface); color: var(--text);
+    border: 1px solid var(--border-bright); border-radius: var(--radius-sm); padding: 8px 10px;
+    font: 13px/1.5 inherit; resize: vertical; }
+  .field textarea { min-height: 90px; font-family: Consolas, monospace; font-size: 12.5px; }
+  .field-row { display: flex; gap: 10px; }
+  .field-row .field { flex: 1; padding-left: 0; }
+  .action-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; }
+  .confirm { padding: 10px 16px; font-size: 13px; color: var(--ok-fg); border-top: 1px solid var(--border);
+    display: none; }
+  .confirm.show { display: block; }
 </style>
 </head>
 <body>
@@ -113,9 +159,22 @@
           <div class="section-head"><div class="section-title"><span class="tick"></span>Ask them to introduce you to</div>
             <div class="section-meta">Ranked by value × reachability</div></div>
           <div class="card" id="introCard"></div>
+          <div class="card" id="incentivesCard" style="margin-top:10px"></div>
+          <div style="margin-top:10px; display:flex; justify-content:flex-end;">
+            <button class="btn btn-ghost" id="scriptBtn">Generate calling script</button>
+          </div>
+          <div class="card script-box" id="scriptBox"></div>
         </section>
       </div>
     </div>
+
+    <!-- NEXT BASE ACTION: the allocator's top pick, turned into an actual plan -->
+    <section>
+      <div class="section-head"><div class="section-title"><span class="tick"></span>Next base action</div>
+        <div class="section-meta">Allocator's top-value play for this account</div></div>
+      <div class="card" id="actionCard"></div>
+      <div class="card" id="planCard" style="display:none; margin-top:10px"></div>
+    </section>
 
     <!-- THE FINAL CASTLE: intentionally-empty slot for the fortress/conquest map.
          Do NOT put a chart/stub here; it gets replaced by the real conquest map.
@@ -200,17 +259,41 @@
         '<div class="ev-text">'+esc(c.text)+'<br><span class="cite" style="background:var(--accent-soft);color:var(--accent)">'+esc(c.evidence)+'</span></div></div>'; });
     document.getElementById("relCard").innerHTML=rc;
     // onward intros
-    var ic="";
+    var ic="", incRow="", seenInc={};
     (b.onward_intros||[]).forEach(function(o){
+      var src = o.source || {kind:"enr", mark:"F", label:"FullEnrich org chart"};
+      var inc = o.incentive || {icon:"🎁", label:"Gift box"};
       ic+='<div class="intro"><div class="intro-avatar">'+initials(o.name)+'</div>'+
         '<div class="intro-main"><div class="intro-name">'+esc(o.name)+
           ' <span class="sen-pill">'+esc(o.seniority)+'</span></div>'+
-          '<div class="intro-reason">'+esc(o.reason)+'</div></div>'+
+          '<div class="intro-reason">'+esc(o.reason)+'</div>'+
+          '<div class="intro-tags">'+
+            '<span class="pill '+esc(src.kind)+'"><span class="mark">'+esc(src.mark)+'</span>'+esc(src.label)+'</span>'+
+            '<span class="pill inc">'+esc(inc.icon)+' '+esc(inc.label)+'</span>'+
+          '</div></div>'+
         '<div class="reach">p '+o.reachability.toFixed(2)+'</div></div>';
+      if(!seenInc[inc.label]){ seenInc[inc.label]=true;
+        incRow+='<div class="incentive-chip">'+esc(inc.icon)+' '+esc(inc.label)+'</div>'; }
     });
     if(!ic){ ic='<div class="ev-text" style="padding:16px;color:var(--text-2)">'+
       'No org-graph intros mapped for this account yet (needs FullEnrich org data).</div>'; }
     document.getElementById("introCard").innerHTML=ic;
+    document.getElementById("incentivesCard").innerHTML = incRow ?
+      '<div class="incentives-head"><span class="lbl">Suggested thank-you incentives</span></div>'+
+      '<div class="incentives-row">'+incRow+'</div>' : "";
+    // next base action
+    var na=b.next_action;
+    var ac=document.getElementById("actionCard");
+    if(na){
+      ac.innerHTML='<div class="action-summary"><div><div class="action-title">'+esc(na.label)+'</div>'+
+        '<div class="action-meta">'+esc(na.flavor)+' · ~'+na.hours+'h'+(na.eur_cost?' · €'+na.eur_cost+' spend':'')+'</div></div>'+
+        '<div class="action-value"><div class="l">Expected uplift</div>€'+Math.round(na.u_eur).toLocaleString()+'</div></div>'+
+        '<div class="action-footer"><button class="btn btn-primary" id="planBtn">Generate plan</button></div>';
+      document.getElementById("planBtn").addEventListener("click", loadActionPlan);
+    } else {
+      ac.innerHTML='<div class="ev-text" style="padding:16px;color:var(--text-2)">'+
+        'No positive-value action recommended for this account right now.</div>';
+    }
     status.textContent="Brief ready · "+p.name;
     var pulse=document.querySelector("#statusLine .pulse");
     if(pulse){ pulse.style.animation="none"; pulse.style.opacity="0.9"; }
@@ -223,6 +306,82 @@
       .catch(function(){ toast("Gamma export failed"); });
   });
   document.getElementById("slackBtn").addEventListener("click", function(){ toast("Sending to Slack…"); });
+
+  function loadActionPlan(){
+    var btn=document.getElementById("planBtn");
+    var card=document.getElementById("planCard");
+    btn.disabled=true; btn.textContent="Generating…";
+    card.style.display="block";
+    card.innerHTML='<div class="plan-rationale" style="border-top:none">Building the plan — steps, an email draft, and a meeting proposal…</div>';
+    fetch("/api/action-plan?person="+encodeURIComponent(EMAIL)).then(function(r){return r.json();})
+      .then(function(plan){
+        if(plan.error){ card.innerHTML='<div class="ev-text" style="padding:16px">'+esc(plan.error)+'</div>';
+          btn.disabled=false; btn.textContent="Generate plan"; return; }
+        renderActionPlan(plan);
+        btn.disabled=false; btn.textContent="Regenerate plan";
+      }).catch(function(){ card.innerHTML='<div class="ev-text" style="padding:16px">Backend unreachable.</div>';
+        btn.disabled=false; btn.textContent="Generate plan"; });
+  }
+
+  function renderActionPlan(plan){
+    var card=document.getElementById("planCard");
+    var stepsHtml=(plan.steps||[]).map(function(s,i){
+      return '<div class="plan-step"><div class="num">'+(i+1)+'</div><div>'+esc(s)+'</div></div>'; }).join("");
+    card.innerHTML =
+      '<div class="plan-rationale" style="border-top:none">'+esc(plan.rationale)+'</div>'+
+      '<div class="plan-steps">'+stepsHtml+'</div>'+
+      '<div class="field"><div class="lbl">Email subject</div><input id="emailSubject" value="'+esc(plan.email_draft.subject)+'"></div>'+
+      '<div class="field"><div class="lbl">Email body</div><textarea id="emailBody">'+esc(plan.email_draft.body)+'</textarea></div>'+
+      '<div class="action-footer"><button class="btn btn-ghost" id="sendEmailBtn">Send email</button></div>'+
+      '<div class="confirm" id="emailConfirm"></div>'+
+      '<div class="field-row" style="padding:10px 16px 0">'+
+        '<div class="field"><div class="lbl">Proposed time</div><input id="meetWhen" value="'+esc(plan.meeting_proposal.when)+'"></div>'+
+        '<div class="field"><div class="lbl">Duration (min)</div><input id="meetDuration" value="'+esc(plan.meeting_proposal.duration_mins)+'"></div>'+
+      '</div>'+
+      '<div class="field"><div class="lbl">Agenda</div><input id="meetAgenda" value="'+esc(plan.meeting_proposal.agenda)+'"></div>'+
+      '<div class="action-footer"><button class="btn btn-primary" id="bookMeetingBtn">Book meeting</button></div>'+
+      '<div class="confirm" id="meetConfirm"></div>';
+
+    document.getElementById("sendEmailBtn").addEventListener("click", function(){
+      var btn=this; btn.disabled=true; btn.textContent="Sending…";
+      var subject=document.getElementById("emailSubject").value;
+      var body=document.getElementById("emailBody").value;
+      fetch("/api/send-email?to="+encodeURIComponent(EMAIL)+"&subject="+encodeURIComponent(subject)+
+        "&body="+encodeURIComponent(body)).then(function(r){return r.json();})
+        .then(function(d){
+          var c=document.getElementById("emailConfirm");
+          c.classList.add("show"); c.textContent="✓ "+d.status+" — sent to "+d.to+" at "+d.sent_at;
+          btn.disabled=false; btn.textContent="Send email"; toast("Email sent");
+        }).catch(function(){ btn.disabled=false; btn.textContent="Send email"; toast("Send failed"); });
+    });
+    document.getElementById("bookMeetingBtn").addEventListener("click", function(){
+      var btn=this; btn.disabled=true; btn.textContent="Booking…";
+      var when=document.getElementById("meetWhen").value;
+      var dur=document.getElementById("meetDuration").value;
+      var agenda=document.getElementById("meetAgenda").value;
+      fetch("/api/book-meeting?person="+encodeURIComponent(EMAIL)+"&when="+encodeURIComponent(when)+
+        "&duration="+encodeURIComponent(dur)+"&agenda="+encodeURIComponent(agenda)).then(function(r){return r.json();})
+        .then(function(d){
+          var c=document.getElementById("meetConfirm");
+          c.classList.add("show"); c.textContent="✓ "+d.status+" — "+d.when+" ("+d.duration_mins+"m)";
+          btn.disabled=false; btn.textContent="Book meeting"; toast("Meeting booked");
+        }).catch(function(){ btn.disabled=false; btn.textContent="Book meeting"; toast("Booking failed"); });
+    });
+  }
+
+  document.getElementById("scriptBtn").addEventListener("click", function(){
+    var box=document.getElementById("scriptBox");
+    var btn=document.getElementById("scriptBtn");
+    btn.disabled=true; btn.textContent="Generating…";
+    box.classList.add("show"); box.textContent="Writing a talk track that asks for the intro…";
+    fetch("/api/call-script?person="+encodeURIComponent(EMAIL)).then(function(r){return r.json();})
+      .then(function(d){
+        if(d.error){ box.textContent="Error: "+d.error; }
+        else { box.textContent=d.script; }
+        btn.disabled=false; btn.textContent="Regenerate calling script";
+      }).catch(function(){ box.textContent="Backend unreachable."; btn.disabled=false;
+        btn.textContent="Generate calling script"; });
+  });
   document.getElementById("themeToggle").addEventListener("click", function(){
     var light=document.body.classList.toggle("light");
     document.getElementById("themeIcon").textContent=light?"☀":"☾";

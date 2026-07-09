@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "acr-web",
-      "runtimeExecutable": ".venv/Scripts/python.exe",
+      "runtimeExecutable": ".venv/bin/python",
       "runtimeArgs": ["-m", "surfaces.web"],
       "port": 8787
     }
