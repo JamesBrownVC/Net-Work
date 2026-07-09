@@ -28,5 +28,5 @@ Thumbs.db
 # Personal data (GDPR) — never commit enriched contacts / org charts / comment targets
 leads_enrichis.csv
 *_enrichis.csv
-organigramme_comptes.md
+organigramme*.md
 poc_power_user_commentaires.md
