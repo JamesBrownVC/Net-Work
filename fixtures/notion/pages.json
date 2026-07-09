@@ -1,0 +1,132 @@
+[
+ {
+  "id": "ref:case-0",
+  "type": "case_study",
+  "source_doc": "notion://case-studies/0",
+  "industry": "fintech",
+  "product": "Atlas Core",
+  "outcome": "Customer in fintech achieved 38% faster settlement within two quarters.",
+  "quote": "Atlas paid for itself before the first renewal.",
+  "metric": "38% faster settlement"
+ },
+ {
+  "id": "ref:case-1",
+  "type": "case_study",
+  "source_doc": "notion://case-studies/1",
+  "industry": "logistics",
+  "product": "Atlas Insights",
+  "outcome": "Customer in logistics achieved 22% cost reduction within two quarters.",
+  "quote": "Atlas paid for itself before the first renewal.",
+  "metric": "22% cost reduction"
+ },
+ {
+  "id": "ref:case-2",
+  "type": "case_study",
+  "source_doc": "notion://case-studies/2",
+  "industry": "healthtech",
+  "product": "Atlas Connect",
+  "outcome": "Customer in healthtech achieved 4x reporting speed within two quarters.",
+  "quote": "Atlas paid for itself before the first renewal.",
+  "metric": "4x reporting speed"
+ },
+ {
+  "id": "ref:case-3",
+  "type": "case_study",
+  "source_doc": "notion://case-studies/3",
+  "industry": "retail",
+  "product": "Atlas Guard",
+  "outcome": "Customer in retail achieved 17% churn drop within two quarters.",
+  "quote": "Atlas paid for itself before the first renewal.",
+  "metric": "17% churn drop"
+ },
+ {
+  "id": "ref:case-4",
+  "type": "case_study",
+  "source_doc": "notion://case-studies/4",
+  "industry": "SaaS",
+  "product": "Atlas Core",
+  "outcome": "Customer in SaaS achieved 2.1x pipeline coverage within two quarters.",
+  "quote": "Atlas paid for itself before the first renewal.",
+  "metric": "2.1x pipeline coverage"
+ },
+ {
+  "id": "ref:case-5",
+  "type": "case_study",
+  "source_doc": "notion://case-studies/5",
+  "industry": "manufacturing",
+  "product": "Atlas Insights",
+  "outcome": "Customer in manufacturing achieved 31% fewer outages within two quarters.",
+  "quote": "Atlas paid for itself before the first renewal.",
+  "metric": "31% fewer outages"
+ },
+ {
+  "id": "note:datafjord.example",
+  "type": "note",
+  "company_domain": "datafjord.example",
+  "ts": "2025-12-22T13:00:00",
+  "text": "Account plan for Datafjord: stage expansion_talks, owner priya@atlasrev.io."
+ },
+ {
+  "id": "note:rheinwerkindus.example",
+  "type": "note",
+  "company_domain": "rheinwerkindus.example",
+  "ts": "2026-03-07T13:00:00",
+  "text": "Account plan for Rheinwerk Industrie: stage at_risk, owner priya@atlasrev.io."
+ },
+ {
+  "id": "note:optimalogistic.example",
+  "type": "note",
+  "company_domain": "optimalogistic.example",
+  "ts": "2026-01-19T13:00:00",
+  "text": "Account plan for Optima Logistics: stage at_risk, owner priya@atlasrev.io."
+ },
+ {
+  "id": "note:urbanbasket.example",
+  "type": "note",
+  "company_domain": "urbanbasket.example",
+  "ts": "2025-12-22T13:00:00",
+  "text": "Account plan for Urban Basket: stage at_risk, owner sofia@atlasrev.io."
+ },
+ {
+  "id": "note:northwindretai.example",
+  "type": "note",
+  "company_domain": "northwindretai.example",
+  "ts": "2026-04-16T13:00:00",
+  "text": "Account plan for Northwind Retail: stage at_risk, owner tom@atlasrev.io."
+ },
+ {
+  "id": "note:vektorsoftware.example",
+  "type": "note",
+  "company_domain": "vektorsoftware.example",
+  "ts": "2026-01-01T13:00:00",
+  "text": "Account plan for Vektor Software: stage renewal_due, owner lena@atlasrev.io."
+ },
+ {
+  "id": "note:swifthaul.example",
+  "type": "note",
+  "company_domain": "swifthaul.example",
+  "ts": "2025-12-24T13:00:00",
+  "text": "Account plan for SwiftHaul: stage renewal_due, owner sofia@atlasrev.io."
+ },
+ {
+  "id": "note:vitalsignsyste.example",
+  "type": "note",
+  "company_domain": "vitalsignsyste.example",
+  "ts": "2025-12-26T13:00:00",
+  "text": "Account plan for VitalSign Systems: stage live, owner lena@atlasrev.io."
+ },
+ {
+  "id": "note:cargoluxdigita.example",
+  "type": "note",
+  "company_domain": "cargoluxdigita.example",
+  "ts": "2026-05-22T13:00:00",
+  "text": "Account plan for Cargolux Digital: stage live, owner marco@atlasrev.io."
+ },
+ {
+  "id": "note:helioshealth.example",
+  "type": "note",
+  "company_domain": "helioshealth.example",
+  "ts": "2026-01-29T13:00:00",
+  "text": "Account plan for Helios Health: stage expansion_talks, owner priya@atlasrev.io."
+ }
+]
