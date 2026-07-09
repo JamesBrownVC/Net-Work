@@ -1197,87 +1197,130 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
     }
     requestAnimationFrame(animateOrb);
     
-    // Web Speech API
-    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    var recognition = null;
-    if (SpeechRecognition) {
-      recognition = new SpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = true;
-      recognition.lang = 'en-US';
+    // Audio Recording and Server STT Integration
+    var mediaRecorder = null;
+    var recordedChunks = [];
+    var isRecording = false;
+
+    function startVoiceRecording() {
+      if (isRecording) {
+        stopVoiceRecording();
+        return;
+      }
+
+      recordedChunks = [];
+      
+      var startMicAndRecorder = function(stream) {
+        microphoneStream = stream;
+        
+        // Setup volume analysis
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        var source = audioContext.createMediaStreamSource(stream);
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+        // Setup MediaRecorder
+        var options = {};
+        if (MediaRecorder.isTypeSupported('audio/webm')) options.mimeType = 'audio/webm';
+        else if (MediaRecorder.isTypeSupported('audio/ogg')) options.mimeType = 'audio/ogg';
+        
+        mediaRecorder = new MediaRecorder(stream, options);
+        mediaRecorder.ondataavailable = function(e) {
+          if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+        mediaRecorder.onstop = function() {
+          var audioBlob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+          sendAudioToServer(audioBlob);
+        };
+
+        mediaRecorder.start();
+        isRecording = true;
+        voiceStatus.textContent = "Recording... Tap orb to finish";
+        voiceStatus.className = "voice-status listening";
+        voicePrompt.textContent = "Listening to your voice...";
+      };
+
+      if (microphoneStream) {
+        startMicAndRecorder(microphoneStream);
+      } else {
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(startMicAndRecorder).catch(function(err) {
+          console.warn("MediaRecorder mic access denied, falling back to Web Speech: ", err);
+          fallbackToWebSpeech();
+        });
+      }
     }
-    
-    var isListening = false;
-    
-    function startListening() {
-      if (!recognition) {
+
+    function stopVoiceRecording() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+      isRecording = false;
+      voiceStatus.className = "voice-status";
+    }
+
+    function sendAudioToServer(blob) {
+      voiceStatus.textContent = "Transcribing with Gradium STT...";
+      fetch("/api/transcribe", {
+        method: "POST",
+        headers: { "Content-Type": blob.type },
+        body: blob
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.error) throw new Error(data.error);
+        var text = data.text || "";
+        if (!text.trim()) {
+          voiceStatus.textContent = "No speech detected. Tap to try again.";
+          voicePrompt.textContent = '"..."';
+          return;
+        }
+        voicePrompt.textContent = '"' + text + '"';
+        resolveVoiceCommand(text.toLowerCase());
+      })
+      .catch(function(err) {
+        console.warn("Server transcription failed, falling back to browser STT: ", err);
+        fallbackToWebSpeech();
+      });
+    }
+
+    function fallbackToWebSpeech() {
+      var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
         voiceStatus.textContent = "Speech recognition not supported in this browser.";
         return;
       }
-      if (isListening) return;
-      
-      // Request mic and configure volume analysis
-      if (!audioContext) {
-        navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
-          microphoneStream = stream;
-          audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          var source = audioContext.createMediaStreamSource(stream);
-          analyser = audioContext.createAnalyser();
-          analyser.fftSize = 256;
-          source.connect(analyser);
-          dataArray = new Uint8Array(analyser.frequencyBinCount);
-        }).catch(function(err) {
-          console.warn("Microphone access denied: ", err);
-        });
-      } else if (audioContext.state === "suspended") {
-        audioContext.resume();
-      }
-      
-      try {
-        recognition.start();
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    
-    if (recognition) {
+      var recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
       recognition.onstart = function() {
-        isListening = true;
-        voiceStatus.textContent = "Listening...";
+        voiceStatus.textContent = "Browser listening...";
         voiceStatus.className = "voice-status listening";
         voicePrompt.textContent = "...";
       };
-      
+
       recognition.onresult = function(event) {
-        var transcript = "";
-        for (var i = event.resultIndex; i < event.results.length; ++i) {
-          transcript += event.results[i][0].transcript;
-        }
-        voicePrompt.textContent = '"' + transcript + '"';
+        var text = event.results[0][0].transcript;
+        voicePrompt.textContent = '"' + text + '"';
+        resolveVoiceCommand(text.toLowerCase());
       };
-      
-      recognition.onerror = function(event) {
-        console.error("Speech recognition error", event.error);
-        isListening = false;
-        voiceStatus.textContent = "Click to retry";
+
+      recognition.onerror = function() {
+        voiceStatus.textContent = "Tap to retry";
         voiceStatus.className = "voice-status";
       };
-      
+
       recognition.onend = function() {
-        isListening = false;
         voiceStatus.className = "voice-status";
-        
-        // Match command
-        var text = voicePrompt.textContent.toLowerCase().replace(/['"]/g, "").trim();
-        if (text && text !== "...") {
-          resolveVoiceCommand(text);
-        } else {
-          voiceStatus.textContent = "Tap orb to speak";
-        }
       };
+
+      recognition.start();
     }
     
-    document.getElementById("orbContainer").addEventListener("click", startListening);
+    document.getElementById("orbContainer").addEventListener("click", startVoiceRecording);
     
     btnSkip.addEventListener("click", function() {
       exitVoiceMode("novapay.io", "CRO");
