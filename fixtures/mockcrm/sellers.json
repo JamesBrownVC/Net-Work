@@ -1,0 +1,42 @@
+[
+ {
+  "id": "person:lena@atlasrev.io",
+  "full_name": "Lena Fischer",
+  "email": "lena@atlasrev.io",
+  "title": "Account Executive",
+  "dept": "Sales",
+  "seniority_level": "IC"
+ },
+ {
+  "id": "person:marco@atlasrev.io",
+  "full_name": "Marco Duval",
+  "email": "marco@atlasrev.io",
+  "title": "Account Executive",
+  "dept": "Sales",
+  "seniority_level": "IC"
+ },
+ {
+  "id": "person:priya@atlasrev.io",
+  "full_name": "Priya Nair",
+  "email": "priya@atlasrev.io",
+  "title": "Account Executive",
+  "dept": "Sales",
+  "seniority_level": "IC"
+ },
+ {
+  "id": "person:tom@atlasrev.io",
+  "full_name": "Tom Okafor",
+  "email": "tom@atlasrev.io",
+  "title": "Account Executive",
+  "dept": "Sales",
+  "seniority_level": "IC"
+ },
+ {
+  "id": "person:sofia@atlasrev.io",
+  "full_name": "Sofia Lindqvist",
+  "email": "sofia@atlasrev.io",
+  "title": "Account Executive",
+  "dept": "Sales",
+  "seniority_level": "IC"
+ }
+]
