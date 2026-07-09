@@ -321,6 +321,63 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
   .stats-panel { width: 220px; padding: 14px; }
   .legend { display: none; }
 }
+
+/* Voice overlay styles */
+.voice-overlay {
+  position: absolute; inset: 0; z-index: 1000;
+  background: var(--bg); display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  visibility: visible; opacity: 1;
+}
+.voice-overlay.hidden {
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
+.orb-container {
+  position: relative; width: 300px; height: 300px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.voice-prompt {
+  margin-top: 30px; font-size: 20px; font-weight: 600;
+  color: var(--text); font-family: inherit; text-align: center;
+  max-width: 500px; line-height: 1.4; letter-spacing: -0.02em;
+}
+.voice-status {
+  margin-top: 10px; font-size: 13px; color: var(--text-2);
+  text-align: center; text-transform: uppercase; letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.voice-status.listening {
+  color: var(--accent);
+  animation: pulse-text 1.5s infinite ease-in-out;
+}
+@keyframes pulse-text {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.skip-btn {
+  position: absolute; bottom: 40px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-2); border-radius: 9px; padding: 8px 16px;
+  font-size: 12.5px; font-family: inherit; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.skip-btn:hover {
+  border-color: var(--border-bright); color: var(--text);
+}
+.voice-match-banner {
+  position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+  background: var(--accent-tint-bg); border: 1px solid var(--accent-border);
+  color: var(--accent); font-size: 13px; font-weight: 600;
+  padding: 6px 14px; border-radius: 20px;
+  opacity: 0; transition: opacity 0.3s ease;
+  z-index: 100; pointer-events: none;
+  white-space: nowrap;
+}
+.voice-match-banner.show {
+  opacity: 1;
+}
 </style>
 </head>
 <body>
@@ -354,6 +411,17 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
 
   <!-- CANVAS -->
   <div class="canvas-wrap" id="canvasWrap">
+    <!-- Voice Orb Overlay -->
+    <div id="voiceOverlay" class="voice-overlay">
+      <div class="voice-match-banner" id="voiceMatchBanner">Translating 'Alan' request to NovaPay demo world...</div>
+      <div class="orb-container" id="orbContainer">
+        <canvas id="orbCanvas" width="300" height="300"></canvas>
+      </div>
+      <div class="voice-prompt" id="voicePrompt">"I want to sell to Alan"</div>
+      <div class="voice-status" id="voiceStatus">Click the orb and say where you want to sell</div>
+      <button class="skip-btn" id="btnSkipVoice">Skip Voice Mode</button>
+    </div>
+
     <!-- Loading -->
     <div class="loading-state" id="loadingState">
       <div class="loading-spinner"></div>
@@ -550,23 +618,54 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
       .call(zoomBehavior.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
   }
 
-  // Fetch data
-  statusText.textContent = "Loading fortress graph for " + company + "…";
-  fetch("/api/fortress-graph?company=" + encodeURIComponent(company) + "&target=" + encodeURIComponent(target))
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      if (data.error) throw new Error(data.error);
-      graphData = data;
-      loadingState.classList.add("hidden");
-      statusText.textContent = "Building force layout…";
-      buildGraph();
-    })
-    .catch(function (err) {
-      loadingState.classList.add("hidden");
-      errorState.classList.add("show");
-      document.getElementById("errorMsg").textContent = err.message || "Failed to load graph.";
-      statusText.textContent = "Error loading graph";
-    });
+  // Helper to load and render graph
+  function loadFortressGraph(co, tg) {
+    company = co;
+    target = tg;
+    loadingState.classList.remove("hidden");
+    errorState.classList.remove("show");
+    statusText.textContent = "Loading fortress graph for " + company + "…";
+    
+    fetch("/api/fortress-graph?company=" + encodeURIComponent(company) + "&target=" + encodeURIComponent(target))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.error) throw new Error(data.error);
+        graphData = data;
+        loadingState.classList.add("hidden");
+        statusText.textContent = "Building force layout…";
+        buildGraph();
+      })
+      .catch(function (err) {
+        loadingState.classList.add("hidden");
+        errorState.classList.add("show");
+        document.getElementById("errorMsg").textContent = err.message || "Failed to load graph.";
+        statusText.textContent = "Error loading graph";
+      });
+  }
+
+  // Matches for voice control
+  var companyMatches = {
+    "alan": { domain: "novapay.io", name: "Alan (NovaPay Demo)", banner: true },
+    "allen": { domain: "novapay.io", name: "Alan (NovaPay Demo)", banner: true },
+    "align": { domain: "novapay.io", name: "Alan (NovaPay Demo)", banner: true },
+    "nova": { domain: "novapay.io", name: "NovaPay" },
+    "novapay": { domain: "novapay.io", name: "NovaPay" },
+    "meridian": { domain: "meridianbank.example", name: "Meridian Bank" },
+    "cargolux": { domain: "cargoluxdigita.example", name: "Cargolux Digital" },
+    "helios": { domain: "helioshealth.example", name: "Helios Health" },
+    "northwind": { domain: "northwindretai.example", name: "Northwind Retail" },
+    "quantiq": { domain: "quantiqlabs.example", name: "Quantiq Labs" },
+    "cortex": { domain: "cortexmedical.example", name: "Cortex Medical" }
+  };
+
+  // State checks for initialization
+  var hasCompany = params.has("company");
+  if (hasCompany) {
+    document.getElementById("voiceOverlay").classList.add("hidden");
+    loadFortressGraph(company, target);
+  } else {
+    initVoiceOverlay();
+  }
 
   function buildGraph() {
     var wrap = document.getElementById("canvasWrap");
@@ -893,9 +992,10 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
         }, 200);
       }
 
-      // Add idle breathing to non-path nodes
+      // Settle force simulation and stop movement
       setTimeout(function () {
-        allNodes.classed("idle", true);
+        if (simulation) simulation.stop();
+        allNodes.classed("idle", false);
         animating = false;
       }, 600);
     }, statsStart);
@@ -1022,6 +1122,209 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
     tooltip.style.top = y + "px";
   }
   function hideTooltip() { tooltip.classList.remove("show"); }
+
+  var audioContext = null;
+  var analyser = null;
+  var dataArray = null;
+  var microphoneStream = null;
+  var micVolume = 0;
+
+  function initVoiceOverlay() {
+    var overlay = document.getElementById("voiceOverlay");
+    var orbCanvas = document.getElementById("orbCanvas");
+    var ctx = orbCanvas.getContext("2d");
+    var voicePrompt = document.getElementById("voicePrompt");
+    var voiceStatus = document.getElementById("voiceStatus");
+    var btnSkip = document.getElementById("btnSkipVoice");
+    var banner = document.getElementById("voiceMatchBanner");
+    
+    // Canvas Orb Animation
+    var time = 0;
+    function animateOrb() {
+      if (overlay.classList.contains("hidden")) return;
+      requestAnimationFrame(animateOrb);
+      time += 0.05;
+      ctx.clearRect(0, 0, 300, 300);
+      
+      // Update mic volume if analyzer is active
+      if (analyser && dataArray) {
+        analyser.getByteFrequencyData(dataArray);
+        var sum = 0;
+        for (var i = 0; i < dataArray.length; i++) {
+          sum += dataArray[i];
+        }
+        var average = sum / dataArray.length;
+        micVolume = average / 255.0; // scale to 0-1
+      }
+      
+      var cx = 150, cy = 150;
+      var baseRadius = 65 + micVolume * 70;
+      
+      ctx.globalCompositeOperation = "screen";
+      
+      // 1. Accent/Orange glow
+      ctx.beginPath();
+      var r1 = baseRadius + Math.sin(time) * 6;
+      var grad1 = ctx.createRadialGradient(cx, cy, 0, cx, cy, r1);
+      grad1.addColorStop(0, "rgba(242, 92, 31, 0.85)");
+      grad1.addColorStop(0.5, "rgba(242, 92, 31, 0.3)");
+      grad1.addColorStop(1, "rgba(242, 92, 31, 0)");
+      ctx.fillStyle = grad1;
+      ctx.arc(cx + Math.cos(time * 0.7) * 12, cy + Math.sin(time * 0.5) * 12, r1, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // 2. Cyan/Blue glow
+      ctx.beginPath();
+      var r2 = baseRadius + Math.sin(time * 1.3 + 1) * 9;
+      var grad2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, r2);
+      grad2.addColorStop(0, "rgba(66, 133, 244, 0.8)");
+      grad2.addColorStop(0.5, "rgba(66, 133, 244, 0.25)");
+      grad2.addColorStop(1, "rgba(66, 133, 244, 0)");
+      ctx.fillStyle = grad2;
+      ctx.arc(cx + Math.sin(time * 0.6) * 15, cy + Math.cos(time * 0.8) * 15, r2, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // 3. Green/Warm glow
+      ctx.beginPath();
+      var r3 = baseRadius + Math.sin(time * 0.8 + 2) * 7;
+      var grad3 = ctx.createRadialGradient(cx, cy, 0, cx, cy, r3);
+      grad3.addColorStop(0, "rgba(87, 192, 138, 0.85)");
+      grad3.addColorStop(0.5, "rgba(87, 192, 138, 0.2)");
+      grad3.addColorStop(1, "rgba(87, 192, 138, 0)");
+      ctx.fillStyle = grad3;
+      ctx.arc(cx + Math.cos(time * 1.1) * 9, cy + Math.sin(time * 0.9) * 9, r3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(animateOrb);
+    
+    // Web Speech API
+    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var recognition = null;
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+    }
+    
+    var isListening = false;
+    
+    function startListening() {
+      if (!recognition) {
+        voiceStatus.textContent = "Speech recognition not supported in this browser.";
+        return;
+      }
+      if (isListening) return;
+      
+      // Request mic and configure volume analysis
+      if (!audioContext) {
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
+          microphoneStream = stream;
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          var source = audioContext.createMediaStreamSource(stream);
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 256;
+          source.connect(analyser);
+          dataArray = new Uint8Array(analyser.frequencyBinCount);
+        }).catch(function(err) {
+          console.warn("Microphone access denied: ", err);
+        });
+      } else if (audioContext.state === "suspended") {
+        audioContext.resume();
+      }
+      
+      try {
+        recognition.start();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    
+    if (recognition) {
+      recognition.onstart = function() {
+        isListening = true;
+        voiceStatus.textContent = "Listening...";
+        voiceStatus.className = "voice-status listening";
+        voicePrompt.textContent = "...";
+      };
+      
+      recognition.onresult = function(event) {
+        var transcript = "";
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          transcript += event.results[i][0].transcript;
+        }
+        voicePrompt.textContent = '"' + transcript + '"';
+      };
+      
+      recognition.onerror = function(event) {
+        console.error("Speech recognition error", event.error);
+        isListening = false;
+        voiceStatus.textContent = "Click to retry";
+        voiceStatus.className = "voice-status";
+      };
+      
+      recognition.onend = function() {
+        isListening = false;
+        voiceStatus.className = "voice-status";
+        
+        // Match command
+        var text = voicePrompt.textContent.toLowerCase().replace(/['"]/g, "").trim();
+        if (text && text !== "...") {
+          resolveVoiceCommand(text);
+        } else {
+          voiceStatus.textContent = "Tap orb to speak";
+        }
+      };
+    }
+    
+    document.getElementById("orbContainer").addEventListener("click", startListening);
+    
+    btnSkip.addEventListener("click", function() {
+      exitVoiceMode("novapay.io", "CRO");
+    });
+    
+    function resolveVoiceCommand(phrase) {
+      var matchedDomain = "novapay.io";
+      var matchedTarget = "CRO";
+      var showAlanBanner = false;
+      
+      for (var key in companyMatches) {
+        if (phrase.indexOf(key) !== -1) {
+          matchedDomain = companyMatches[key].domain;
+          if (companyMatches[key].banner) showAlanBanner = true;
+          break;
+        }
+      }
+      
+      if (showAlanBanner) {
+        banner.classList.add("show");
+        setTimeout(function() {
+          exitVoiceMode(matchedDomain, matchedTarget);
+        }, 1500);
+      } else {
+        exitVoiceMode(matchedDomain, matchedTarget);
+      }
+    }
+    
+    function exitVoiceMode(co, tg) {
+      if (microphoneStream) {
+        microphoneStream.getTracks().forEach(function(track) { track.stop(); });
+      }
+      if (audioContext) {
+        audioContext.close();
+        audioContext = null;
+        analyser = null;
+        dataArray = null;
+      }
+      
+      overlay.classList.add("hidden");
+      
+      var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?company=" + co + "&target=" + tg;
+      window.history.pushState({ path: newUrl }, '', newUrl);
+      
+      loadFortressGraph(co, tg);
+    }
+  }
 })();
 </script>
 </body>
