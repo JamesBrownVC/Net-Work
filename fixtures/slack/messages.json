@@ -2,7 +2,7 @@
  {
   "id": "slack:1",
   "channel": "#acct-ledgerline",
-  "ts": "2026-06-02T14:58:20",
+  "ts": "2026-06-02T15:58:20",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "ledgerline.example",
@@ -11,7 +11,7 @@
  {
   "id": "slack:2",
   "channel": "#acct-ledgerline",
-  "ts": "2026-06-28T08:24:59",
+  "ts": "2026-06-28T09:24:59",
   "user_email": "sofia@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "ledgerline.example",
@@ -20,7 +20,7 @@
  {
   "id": "slack:3",
   "channel": "#acct-ledgerline",
-  "ts": "2025-10-10T07:56:55",
+  "ts": "2025-10-10T08:56:55",
   "user_email": "marco@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "ledgerline.example",
@@ -29,7 +29,7 @@
  {
   "id": "slack:4",
   "channel": "#acct-ledgerline",
-  "ts": "2026-02-21T11:52:44",
+  "ts": "2026-02-21T12:52:44",
   "user_email": "lena@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "ledgerline.example",
@@ -38,7 +38,7 @@
  {
   "id": "slack:5",
   "channel": "#acct-ledgerline",
-  "ts": "2025-10-25T15:29:42",
+  "ts": "2025-10-25T16:29:42",
   "user_email": "sofia@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "ledgerline.example",
@@ -47,7 +47,7 @@
  {
   "id": "slack:6",
   "channel": "#acct-ledgerline",
-  "ts": "2025-12-09T09:07:55",
+  "ts": "2025-12-09T10:07:55",
   "user_email": "tom@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "ledgerline.example",
@@ -56,7 +56,7 @@
  {
   "id": "slack:7",
   "channel": "#acct-ledgerline",
-  "ts": "2025-12-24T10:07:24",
+  "ts": "2025-12-24T11:07:24",
   "user_email": "priya@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "ledgerline.example",
@@ -65,7 +65,7 @@
  {
   "id": "slack:8",
   "channel": "#acct-ledgerline",
-  "ts": "2025-12-06T16:51:05",
+  "ts": "2025-12-06T17:51:05",
   "user_email": "marco@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "ledgerline.example",
@@ -74,7 +74,7 @@
  {
   "id": "slack:9",
   "channel": "#acct-ledgerline",
-  "ts": "2025-12-23T16:00:22",
+  "ts": "2025-12-23T17:00:22",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "ledgerline.example",
@@ -83,7 +83,7 @@
  {
   "id": "slack:10",
   "channel": "#acct-ledgerline",
-  "ts": "2025-12-27T15:31:06",
+  "ts": "2025-12-27T16:31:06",
   "user_email": "tom@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "ledgerline.example",
@@ -92,7 +92,7 @@
  {
   "id": "slack:11",
   "channel": "#acct-ledgerline",
-  "ts": "2026-05-15T14:37:56",
+  "ts": "2026-05-15T15:37:56",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "ledgerline.example",
@@ -101,7 +101,7 @@
  {
   "id": "slack:12",
   "channel": "#acct-marchecentral",
-  "ts": "2026-01-13T11:23:50",
+  "ts": "2026-01-13T12:23:50",
   "user_email": "sofia@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "marchecentral.example",
@@ -110,7 +110,7 @@
  {
   "id": "slack:13",
   "channel": "#acct-marchecentral",
-  "ts": "2025-11-02T09:44:10",
+  "ts": "2025-11-02T10:44:10",
   "user_email": "lena@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "marchecentral.example",
@@ -119,7 +119,7 @@
  {
   "id": "slack:14",
   "channel": "#acct-marchecentral",
-  "ts": "2025-12-01T09:52:15",
+  "ts": "2025-12-01T10:52:15",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "marchecentral.example",
@@ -128,7 +128,7 @@
  {
   "id": "slack:15",
   "channel": "#acct-marchecentral",
-  "ts": "2026-02-09T05:03:44",
+  "ts": "2026-02-09T06:03:44",
   "user_email": "tom@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "marchecentral.example",
@@ -137,7 +137,7 @@
  {
   "id": "slack:16",
   "channel": "#acct-marchecentral",
-  "ts": "2025-09-18T02:59:14",
+  "ts": "2025-09-18T03:59:14",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "marchecentral.example",
@@ -146,7 +146,7 @@
  {
   "id": "slack:17",
   "channel": "#acct-marchecentral",
-  "ts": "2026-05-17T12:23:26",
+  "ts": "2026-05-17T13:23:26",
   "user_email": "tom@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "marchecentral.example",
@@ -155,7 +155,7 @@
  {
   "id": "slack:18",
   "channel": "#acct-marchecentral",
-  "ts": "2026-06-20T00:36:51",
+  "ts": "2026-06-20T01:36:51",
   "user_email": "priya@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "marchecentral.example",
@@ -164,7 +164,7 @@
  {
   "id": "slack:19",
   "channel": "#acct-marchecentral",
-  "ts": "2025-11-26T07:28:00",
+  "ts": "2025-11-26T08:28:00",
   "user_email": "tom@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "marchecentral.example",
@@ -173,7 +173,7 @@
  {
   "id": "slack:20",
   "channel": "#acct-marchecentral",
-  "ts": "2025-10-30T04:17:05",
+  "ts": "2025-10-30T05:17:05",
   "user_email": "marco@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "marchecentral.example",
@@ -182,7 +182,7 @@
  {
   "id": "slack:21",
   "channel": "#acct-alpenstahlag",
-  "ts": "2026-03-17T15:08:04",
+  "ts": "2026-03-17T16:08:04",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "alpenstahlag.example",
@@ -191,7 +191,7 @@
  {
   "id": "slack:22",
   "channel": "#acct-alpenstahlag",
-  "ts": "2026-04-24T01:05:46",
+  "ts": "2026-04-24T02:05:46",
   "user_email": "tom@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "alpenstahlag.example",
@@ -200,7 +200,7 @@
  {
   "id": "slack:23",
   "channel": "#acct-alpenstahlag",
-  "ts": "2025-11-28T15:18:12",
+  "ts": "2025-11-28T16:18:12",
   "user_email": "tom@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "alpenstahlag.example",
@@ -209,7 +209,7 @@
  {
   "id": "slack:24",
   "channel": "#acct-alpenstahlag",
-  "ts": "2026-05-12T01:05:06",
+  "ts": "2026-05-12T02:05:06",
   "user_email": "sofia@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "alpenstahlag.example",
@@ -218,7 +218,7 @@
  {
   "id": "slack:25",
   "channel": "#acct-alpenstahlag",
-  "ts": "2025-12-20T14:42:30",
+  "ts": "2025-12-20T15:42:30",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "alpenstahlag.example",
@@ -227,7 +227,7 @@
  {
   "id": "slack:26",
   "channel": "#acct-alpenstahlag",
-  "ts": "2025-10-14T10:44:37",
+  "ts": "2025-10-14T11:44:37",
   "user_email": "priya@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "alpenstahlag.example",
@@ -236,7 +236,7 @@
  {
   "id": "slack:27",
   "channel": "#acct-alpenstahlag",
-  "ts": "2025-10-23T01:24:41",
+  "ts": "2025-10-23T02:24:41",
   "user_email": "priya@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "alpenstahlag.example",
@@ -245,7 +245,7 @@
  {
   "id": "slack:28",
   "channel": "#acct-alpenstahlag",
-  "ts": "2025-09-25T04:13:54",
+  "ts": "2025-09-25T05:13:54",
   "user_email": "sofia@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "alpenstahlag.example",
@@ -254,7 +254,7 @@
  {
   "id": "slack:29",
   "channel": "#acct-alpenstahlag",
-  "ts": "2026-05-07T12:09:39",
+  "ts": "2026-05-07T13:09:39",
   "user_email": "tom@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "alpenstahlag.example",
@@ -263,7 +263,7 @@
  {
   "id": "slack:30",
   "channel": "#acct-alpenstahlag",
-  "ts": "2026-01-04T14:47:44",
+  "ts": "2026-01-04T15:47:44",
   "user_email": "sofia@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "alpenstahlag.example",
@@ -272,7 +272,7 @@
  {
   "id": "slack:31",
   "channel": "#acct-alpenstahlag",
-  "ts": "2026-02-27T07:36:39",
+  "ts": "2026-02-27T08:36:39",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "alpenstahlag.example",
@@ -281,7 +281,7 @@
  {
   "id": "slack:32",
   "channel": "#acct-boutiquenord",
-  "ts": "2025-11-16T14:35:17",
+  "ts": "2025-11-16T15:35:17",
   "user_email": "priya@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "boutiquenord.example",
@@ -290,7 +290,7 @@
  {
   "id": "slack:33",
   "channel": "#acct-boutiquenord",
-  "ts": "2026-04-30T14:24:16",
+  "ts": "2026-04-30T15:24:16",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "boutiquenord.example",
@@ -299,7 +299,7 @@
  {
   "id": "slack:34",
   "channel": "#acct-boutiquenord",
-  "ts": "2026-05-02T13:25:25",
+  "ts": "2026-05-02T14:25:25",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "boutiquenord.example",
@@ -308,7 +308,7 @@
  {
   "id": "slack:35",
   "channel": "#acct-boutiquenord",
-  "ts": "2026-03-23T12:40:20",
+  "ts": "2026-03-23T13:40:20",
   "user_email": "marco@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "boutiquenord.example",
@@ -317,7 +317,7 @@
  {
   "id": "slack:36",
   "channel": "#acct-boutiquenord",
-  "ts": "2026-01-17T12:14:46",
+  "ts": "2026-01-17T13:14:46",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "boutiquenord.example",
@@ -326,7 +326,7 @@
  {
   "id": "slack:37",
   "channel": "#acct-boutiquenord",
-  "ts": "2026-03-11T04:11:59",
+  "ts": "2026-03-11T05:11:59",
   "user_email": "lena@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "boutiquenord.example",
@@ -335,7 +335,7 @@
  {
   "id": "slack:38",
   "channel": "#acct-cortexmedical",
-  "ts": "2026-01-15T07:01:28",
+  "ts": "2026-01-15T08:01:28",
   "user_email": "priya@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "cortexmedical.example",
@@ -344,7 +344,7 @@
  {
   "id": "slack:39",
   "channel": "#acct-cortexmedical",
-  "ts": "2026-03-04T12:59:33",
+  "ts": "2026-03-04T13:59:33",
   "user_email": "marco@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "cortexmedical.example",
@@ -353,7 +353,7 @@
  {
   "id": "slack:40",
   "channel": "#acct-cortexmedical",
-  "ts": "2026-06-20T18:48:11",
+  "ts": "2026-06-20T19:48:11",
   "user_email": "marco@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "cortexmedical.example",
@@ -362,7 +362,7 @@
  {
   "id": "slack:41",
   "channel": "#acct-cortexmedical",
-  "ts": "2026-03-31T23:43:28",
+  "ts": "2026-04-01T00:43:28",
   "user_email": "lena@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "cortexmedical.example",
@@ -371,7 +371,7 @@
  {
   "id": "slack:42",
   "channel": "#acct-cortexmedical",
-  "ts": "2025-11-09T15:34:08",
+  "ts": "2025-11-09T16:34:08",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "cortexmedical.example",
@@ -380,7 +380,7 @@
  {
   "id": "slack:43",
   "channel": "#acct-finexacapital",
-  "ts": "2026-03-27T03:12:43",
+  "ts": "2026-03-27T04:12:43",
   "user_email": "lena@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "finexacapital.example",
@@ -389,7 +389,7 @@
  {
   "id": "slack:44",
   "channel": "#acct-finexacapital",
-  "ts": "2026-01-06T10:10:59",
+  "ts": "2026-01-06T11:10:59",
   "user_email": "lena@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "finexacapital.example",
@@ -398,7 +398,7 @@
  {
   "id": "slack:45",
   "channel": "#acct-finexacapital",
-  "ts": "2026-05-30T19:57:43",
+  "ts": "2026-05-30T20:57:43",
   "user_email": "lena@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "finexacapital.example",
@@ -407,7 +407,7 @@
  {
   "id": "slack:46",
   "channel": "#acct-finexacapital",
-  "ts": "2026-02-06T18:25:54",
+  "ts": "2026-02-06T19:25:54",
   "user_email": "priya@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "finexacapital.example",
@@ -416,7 +416,7 @@
  {
   "id": "slack:47",
   "channel": "#acct-swifthaul",
-  "ts": "2026-07-02T03:07:23",
+  "ts": "2026-07-02T04:07:23",
   "user_email": "lena@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "swifthaul.example",
@@ -425,7 +425,7 @@
  {
   "id": "slack:48",
   "channel": "#acct-swifthaul",
-  "ts": "2025-11-07T22:39:28",
+  "ts": "2025-11-07T23:39:28",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "swifthaul.example",
@@ -434,7 +434,7 @@
  {
   "id": "slack:49",
   "channel": "#acct-swifthaul",
-  "ts": "2025-12-16T15:23:23",
+  "ts": "2025-12-16T16:23:23",
   "user_email": "lena@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "swifthaul.example",
@@ -443,7 +443,7 @@
  {
   "id": "slack:50",
   "channel": "#acct-swifthaul",
-  "ts": "2026-03-14T18:59:33",
+  "ts": "2026-03-14T19:59:33",
   "user_email": "tom@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "swifthaul.example",
@@ -452,7 +452,7 @@
  {
   "id": "slack:51",
   "channel": "#acct-swifthaul",
-  "ts": "2026-03-02T22:02:31",
+  "ts": "2026-03-02T23:02:31",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "swifthaul.example",
@@ -461,7 +461,7 @@
  {
   "id": "slack:52",
   "channel": "#acct-swifthaul",
-  "ts": "2025-10-13T07:04:30",
+  "ts": "2025-10-13T08:04:30",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "swifthaul.example",
@@ -470,7 +470,7 @@
  {
   "id": "slack:53",
   "channel": "#acct-swifthaul",
-  "ts": "2026-02-28T00:29:52",
+  "ts": "2026-02-28T01:29:52",
   "user_email": "lena@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "swifthaul.example",
@@ -479,7 +479,7 @@
  {
   "id": "slack:54",
   "channel": "#acct-northwindretai",
-  "ts": "2026-05-01T15:08:40",
+  "ts": "2026-05-01T16:08:40",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "northwindretai.example",
@@ -488,7 +488,7 @@
  {
   "id": "slack:55",
   "channel": "#acct-northwindretai",
-  "ts": "2025-11-10T19:31:09",
+  "ts": "2025-11-10T20:31:09",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "northwindretai.example",
@@ -497,7 +497,7 @@
  {
   "id": "slack:56",
   "channel": "#acct-northwindretai",
-  "ts": "2026-05-31T15:41:12",
+  "ts": "2026-05-31T16:41:12",
   "user_email": "marco@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "northwindretai.example",
@@ -506,7 +506,7 @@
  {
   "id": "slack:57",
   "channel": "#acct-northwindretai",
-  "ts": "2026-03-25T23:47:10",
+  "ts": "2026-03-26T00:47:10",
   "user_email": "marco@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "northwindretai.example",
@@ -515,7 +515,7 @@
  {
   "id": "slack:58",
   "channel": "#acct-medisphere",
-  "ts": "2026-02-15T09:50:20",
+  "ts": "2026-02-15T10:50:20",
   "user_email": "lena@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "medisphere.example",
@@ -524,7 +524,7 @@
  {
   "id": "slack:59",
   "channel": "#acct-medisphere",
-  "ts": "2025-09-30T23:15:21",
+  "ts": "2025-10-01T00:15:21",
   "user_email": "marco@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "medisphere.example",
@@ -533,7 +533,7 @@
  {
   "id": "slack:60",
   "channel": "#acct-medisphere",
-  "ts": "2025-11-07T07:51:48",
+  "ts": "2025-11-07T08:51:48",
   "user_email": "marco@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "medisphere.example",
@@ -542,7 +542,7 @@
  {
   "id": "slack:61",
   "channel": "#acct-medisphere",
-  "ts": "2025-09-30T01:19:11",
+  "ts": "2025-09-30T02:19:11",
   "user_email": "sofia@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "medisphere.example",
@@ -551,7 +551,7 @@
  {
   "id": "slack:62",
   "channel": "#acct-medisphere",
-  "ts": "2026-04-26T12:34:45",
+  "ts": "2026-04-26T13:34:45",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "medisphere.example",
@@ -560,7 +560,7 @@
  {
   "id": "slack:63",
   "channel": "#acct-medisphere",
-  "ts": "2026-02-08T00:16:32",
+  "ts": "2026-02-08T01:16:32",
   "user_email": "lena@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "medisphere.example",
@@ -569,7 +569,7 @@
  {
   "id": "slack:64",
   "channel": "#acct-medisphere",
-  "ts": "2025-12-09T14:19:11",
+  "ts": "2025-12-09T15:19:11",
   "user_email": "sofia@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "medisphere.example",
@@ -578,7 +578,7 @@
  {
   "id": "slack:65",
   "channel": "#acct-medisphere",
-  "ts": "2026-05-08T16:17:23",
+  "ts": "2026-05-08T17:17:23",
   "user_email": "marco@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "medisphere.example",
@@ -587,7 +587,7 @@
  {
   "id": "slack:66",
   "channel": "#acct-medisphere",
-  "ts": "2025-11-28T17:03:48",
+  "ts": "2025-11-28T18:03:48",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "medisphere.example",
@@ -596,7 +596,7 @@
  {
   "id": "slack:67",
   "channel": "#acct-medisphere",
-  "ts": "2025-11-06T10:39:33",
+  "ts": "2025-11-06T11:39:33",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "medisphere.example",
@@ -605,7 +605,7 @@
  {
   "id": "slack:68",
   "channel": "#acct-transeurofreig",
-  "ts": "2025-12-26T05:15:34",
+  "ts": "2025-12-26T06:15:34",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "transeurofreig.example",
@@ -614,7 +614,7 @@
  {
   "id": "slack:69",
   "channel": "#acct-transeurofreig",
-  "ts": "2025-10-31T11:31:49",
+  "ts": "2025-10-31T12:31:49",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "transeurofreig.example",
@@ -623,7 +623,7 @@
  {
   "id": "slack:70",
   "channel": "#acct-transeurofreig",
-  "ts": "2026-04-09T17:14:14",
+  "ts": "2026-04-09T18:14:14",
   "user_email": "lena@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "transeurofreig.example",
@@ -632,7 +632,7 @@
  {
   "id": "slack:71",
   "channel": "#acct-transeurofreig",
-  "ts": "2026-01-07T05:27:01",
+  "ts": "2026-01-07T06:27:01",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "transeurofreig.example",
@@ -641,7 +641,7 @@
  {
   "id": "slack:72",
   "channel": "#acct-transeurofreig",
-  "ts": "2026-03-15T12:39:23",
+  "ts": "2026-03-15T13:39:23",
   "user_email": "lena@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "transeurofreig.example",
@@ -650,7 +650,7 @@
  {
   "id": "slack:73",
   "channel": "#acct-transeurofreig",
-  "ts": "2026-05-14T09:33:11",
+  "ts": "2026-05-14T10:33:11",
   "user_email": "tom@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "transeurofreig.example",
@@ -659,7 +659,7 @@
  {
   "id": "slack:74",
   "channel": "#acct-transeurofreig",
-  "ts": "2026-04-08T07:15:26",
+  "ts": "2026-04-08T08:15:26",
   "user_email": "sofia@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "transeurofreig.example",
@@ -668,7 +668,7 @@
  {
   "id": "slack:75",
   "channel": "#acct-transeurofreig",
-  "ts": "2025-10-09T10:27:08",
+  "ts": "2025-10-09T11:27:08",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "transeurofreig.example",
@@ -677,7 +677,7 @@
  {
   "id": "slack:76",
   "channel": "#acct-transeurofreig",
-  "ts": "2026-01-12T20:16:51",
+  "ts": "2026-01-12T21:16:51",
   "user_email": "lena@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "transeurofreig.example",
@@ -686,7 +686,7 @@
  {
   "id": "slack:77",
   "channel": "#acct-transeurofreig",
-  "ts": "2026-01-03T16:53:49",
+  "ts": "2026-01-03T17:53:49",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "transeurofreig.example",
@@ -695,7 +695,7 @@
  {
   "id": "slack:78",
   "channel": "#acct-transeurofreig",
-  "ts": "2026-01-24T02:33:39",
+  "ts": "2026-01-24T03:33:39",
   "user_email": "priya@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "transeurofreig.example",
@@ -704,7 +704,7 @@
  {
   "id": "slack:79",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-04-21T18:31:02",
+  "ts": "2026-04-21T19:31:02",
   "user_email": "tom@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "eisenhofmetall.example",
@@ -713,7 +713,7 @@
  {
   "id": "slack:80",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2025-10-05T01:37:54",
+  "ts": "2025-10-05T02:37:54",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "eisenhofmetall.example",
@@ -722,7 +722,7 @@
  {
   "id": "slack:81",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2025-12-16T10:40:17",
+  "ts": "2025-12-16T11:40:17",
   "user_email": "priya@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "eisenhofmetall.example",
@@ -731,7 +731,7 @@
  {
   "id": "slack:82",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2025-11-19T21:52:11",
+  "ts": "2025-11-19T22:52:11",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "eisenhofmetall.example",
@@ -740,7 +740,7 @@
  {
   "id": "slack:83",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-06-26T23:57:42",
+  "ts": "2026-06-27T00:57:42",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "eisenhofmetall.example",
@@ -749,7 +749,7 @@
  {
   "id": "slack:84",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-04-24T15:19:00",
+  "ts": "2026-04-24T16:19:00",
   "user_email": "sofia@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "eisenhofmetall.example",
@@ -758,7 +758,7 @@
  {
   "id": "slack:85",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-01-19T13:52:00",
+  "ts": "2026-01-19T14:52:00",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "eisenhofmetall.example",
@@ -767,7 +767,7 @@
  {
   "id": "slack:86",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-02-25T20:13:43",
+  "ts": "2026-02-25T21:13:43",
   "user_email": "lena@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "eisenhofmetall.example",
@@ -776,7 +776,7 @@
  {
   "id": "slack:87",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-06-27T11:27:39",
+  "ts": "2026-06-27T12:27:39",
   "user_email": "priya@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "eisenhofmetall.example",
@@ -785,7 +785,7 @@
  {
   "id": "slack:88",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-01-23T02:46:40",
+  "ts": "2026-01-23T03:46:40",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "eisenhofmetall.example",
@@ -794,7 +794,7 @@
  {
   "id": "slack:89",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-06-14T18:10:17",
+  "ts": "2026-06-14T19:10:17",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "eisenhofmetall.example",
@@ -803,7 +803,7 @@
  {
   "id": "slack:90",
   "channel": "#acct-eisenhofmetall",
-  "ts": "2026-06-19T09:25:26",
+  "ts": "2026-06-19T10:25:26",
   "user_email": "marco@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "eisenhofmetall.example",
@@ -812,7 +812,7 @@
  {
   "id": "slack:91",
   "channel": "#acct-blueriverpayme",
-  "ts": "2026-04-21T22:32:06",
+  "ts": "2026-04-21T23:32:06",
   "user_email": "tom@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "blueriverpayme.example",
@@ -821,7 +821,7 @@
  {
   "id": "slack:92",
   "channel": "#acct-blueriverpayme",
-  "ts": "2026-05-17T08:49:17",
+  "ts": "2026-05-17T09:49:17",
   "user_email": "sofia@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "blueriverpayme.example",
@@ -830,7 +830,7 @@
  {
   "id": "slack:93",
   "channel": "#acct-blueriverpayme",
-  "ts": "2025-12-24T19:35:04",
+  "ts": "2025-12-24T20:35:04",
   "user_email": "marco@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "blueriverpayme.example",
@@ -839,7 +839,7 @@
  {
   "id": "slack:94",
   "channel": "#acct-blueriverpayme",
-  "ts": "2026-01-16T03:42:15",
+  "ts": "2026-01-16T04:42:15",
   "user_email": "lena@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "blueriverpayme.example",
@@ -848,7 +848,7 @@
  {
   "id": "slack:95",
   "channel": "#acct-blueriverpayme",
-  "ts": "2026-06-20T08:36:24",
+  "ts": "2026-06-20T09:36:24",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "blueriverpayme.example",
@@ -857,7 +857,7 @@
  {
   "id": "slack:96",
   "channel": "#acct-blueriverpayme",
-  "ts": "2025-10-28T21:46:33",
+  "ts": "2025-10-28T22:46:33",
   "user_email": "priya@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "blueriverpayme.example",
@@ -866,7 +866,7 @@
  {
   "id": "slack:97",
   "channel": "#acct-blueriverpayme",
-  "ts": "2026-01-09T23:14:46",
+  "ts": "2026-01-10T00:14:46",
   "user_email": "priya@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "blueriverpayme.example",
@@ -875,7 +875,7 @@
  {
   "id": "slack:98",
   "channel": "#acct-blueriverpayme",
-  "ts": "2026-02-25T20:12:00",
+  "ts": "2026-02-25T21:12:00",
   "user_email": "sofia@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "blueriverpayme.example",
@@ -884,7 +884,7 @@
  {
   "id": "slack:99",
   "channel": "#acct-helioshealth",
-  "ts": "2026-01-19T00:03:15",
+  "ts": "2026-01-19T01:03:15",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "helioshealth.example",
@@ -893,7 +893,7 @@
  {
   "id": "slack:100",
   "channel": "#acct-helioshealth",
-  "ts": "2025-10-19T15:52:40",
+  "ts": "2025-10-19T16:52:40",
   "user_email": "marco@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "helioshealth.example",
@@ -902,7 +902,7 @@
  {
   "id": "slack:101",
   "channel": "#acct-helioshealth",
-  "ts": "2025-11-14T21:07:54",
+  "ts": "2025-11-14T22:07:54",
   "user_email": "priya@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "helioshealth.example",
@@ -911,7 +911,7 @@
  {
   "id": "slack:102",
   "channel": "#acct-helioshealth",
-  "ts": "2026-03-18T12:02:26",
+  "ts": "2026-03-18T13:02:26",
   "user_email": "priya@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "helioshealth.example",
@@ -920,7 +920,7 @@
  {
   "id": "slack:103",
   "channel": "#acct-helioshealth",
-  "ts": "2026-03-20T10:03:55",
+  "ts": "2026-03-20T11:03:55",
   "user_email": "priya@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "helioshealth.example",
@@ -929,7 +929,7 @@
  {
   "id": "slack:104",
   "channel": "#acct-helioshealth",
-  "ts": "2026-06-30T21:45:31",
+  "ts": "2026-06-30T22:45:31",
   "user_email": "sofia@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "helioshealth.example",
@@ -938,7 +938,7 @@
  {
   "id": "slack:105",
   "channel": "#acct-helioshealth",
-  "ts": "2026-02-05T19:31:36",
+  "ts": "2026-02-05T20:31:36",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "helioshealth.example",
@@ -947,7 +947,7 @@
  {
   "id": "slack:106",
   "channel": "#acct-helioshealth",
-  "ts": "2025-09-30T11:59:30",
+  "ts": "2025-09-30T12:59:30",
   "user_email": "tom@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "helioshealth.example",
@@ -956,7 +956,7 @@
  {
   "id": "slack:107",
   "channel": "#acct-helioshealth",
-  "ts": "2025-12-03T09:21:35",
+  "ts": "2025-12-03T10:21:35",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "helioshealth.example",
@@ -965,7 +965,7 @@
  {
   "id": "slack:108",
   "channel": "#acct-meridianbank",
-  "ts": "2026-01-20T11:40:20",
+  "ts": "2026-01-20T12:40:20",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "meridianbank.example",
@@ -974,7 +974,7 @@
  {
   "id": "slack:109",
   "channel": "#acct-meridianbank",
-  "ts": "2026-01-28T09:22:12",
+  "ts": "2026-01-28T10:22:12",
   "user_email": "lena@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "meridianbank.example",
@@ -983,7 +983,7 @@
  {
   "id": "slack:110",
   "channel": "#acct-meridianbank",
-  "ts": "2026-01-08T00:26:09",
+  "ts": "2026-01-08T01:26:09",
   "user_email": "sofia@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "meridianbank.example",
@@ -992,7 +992,7 @@
  {
   "id": "slack:111",
   "channel": "#acct-meridianbank",
-  "ts": "2026-04-19T01:20:41",
+  "ts": "2026-04-19T02:20:41",
   "user_email": "sofia@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "meridianbank.example",
@@ -1001,7 +1001,7 @@
  {
   "id": "slack:112",
   "channel": "#acct-meridianbank",
-  "ts": "2026-04-01T06:21:36",
+  "ts": "2026-04-01T07:21:36",
   "user_email": "priya@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "meridianbank.example",
@@ -1010,7 +1010,7 @@
  {
   "id": "slack:113",
   "channel": "#acct-meridianbank",
-  "ts": "2025-11-26T20:00:03",
+  "ts": "2025-11-26T21:00:03",
   "user_email": "lena@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "meridianbank.example",
@@ -1019,7 +1019,7 @@
  {
   "id": "slack:114",
   "channel": "#acct-meridianbank",
-  "ts": "2025-09-25T05:12:03",
+  "ts": "2025-09-25T06:12:03",
   "user_email": "tom@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "meridianbank.example",
@@ -1028,7 +1028,7 @@
  {
   "id": "slack:115",
   "channel": "#acct-quantiqlabs",
-  "ts": "2026-02-07T08:30:09",
+  "ts": "2026-02-07T09:30:09",
   "user_email": "priya@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "quantiqlabs.example",
@@ -1037,7 +1037,7 @@
  {
   "id": "slack:116",
   "channel": "#acct-quantiqlabs",
-  "ts": "2026-02-24T07:12:19",
+  "ts": "2026-02-24T08:12:19",
   "user_email": "tom@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "quantiqlabs.example",
@@ -1046,7 +1046,7 @@
  {
   "id": "slack:117",
   "channel": "#acct-quantiqlabs",
-  "ts": "2025-11-03T07:59:54",
+  "ts": "2025-11-03T08:59:54",
   "user_email": "marco@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "quantiqlabs.example",
@@ -1055,7 +1055,7 @@
  {
   "id": "slack:118",
   "channel": "#acct-quantiqlabs",
-  "ts": "2025-10-09T16:06:32",
+  "ts": "2025-10-09T17:06:32",
   "user_email": "sofia@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "quantiqlabs.example",
@@ -1064,7 +1064,7 @@
  {
   "id": "slack:119",
   "channel": "#acct-quantiqlabs",
-  "ts": "2025-11-12T13:56:15",
+  "ts": "2025-11-12T14:56:15",
   "user_email": "priya@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "quantiqlabs.example",
@@ -1073,7 +1073,7 @@
  {
   "id": "slack:120",
   "channel": "#acct-quantiqlabs",
-  "ts": "2026-03-08T09:35:02",
+  "ts": "2026-03-08T10:35:02",
   "user_email": "sofia@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "quantiqlabs.example",
@@ -1082,7 +1082,7 @@
  {
   "id": "slack:121",
   "channel": "#acct-quantiqlabs",
-  "ts": "2025-12-31T09:14:55",
+  "ts": "2025-12-31T10:14:55",
   "user_email": "marco@atlasrev.io",
   "text": "flagging slow response from their IT team",
   "company_domain": "quantiqlabs.example",
@@ -1091,7 +1091,7 @@
  {
   "id": "slack:122",
   "channel": "#acct-quantiqlabs",
-  "ts": "2026-07-03T21:41:02",
+  "ts": "2026-07-03T22:41:02",
   "user_email": "lena@atlasrev.io",
   "text": "champion said the CFO loved the dashboard",
   "company_domain": "quantiqlabs.example",
@@ -1100,7 +1100,7 @@
  {
   "id": "slack:123",
   "channel": "#acct-quantiqlabs",
-  "ts": "2026-01-23T17:20:33",
+  "ts": "2026-01-23T18:20:33",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "quantiqlabs.example",
@@ -1109,7 +1109,7 @@
  {
   "id": "slack:124",
   "channel": "#acct-quantiqlabs",
-  "ts": "2026-06-28T08:28:22",
+  "ts": "2026-06-28T09:28:22",
   "user_email": "tom@atlasrev.io",
   "text": "renewal convo went well, they want a usage review",
   "company_domain": "quantiqlabs.example",
@@ -1118,7 +1118,7 @@
  {
   "id": "slack:125",
   "channel": "#acct-quantiqlabs",
-  "ts": "2025-09-15T13:14:14",
+  "ts": "2025-09-15T14:14:14",
   "user_email": "marco@atlasrev.io",
   "text": "asked for a reference in their industry",
   "company_domain": "quantiqlabs.example",
@@ -1127,7 +1127,7 @@
  {
   "id": "slack:126",
   "channel": "#acct-quantiqlabs",
-  "ts": "2025-10-06T20:57:40",
+  "ts": "2025-10-06T21:57:40",
   "user_email": "tom@atlasrev.io",
   "text": "they mentioned budget freeze until next quarter",
   "company_domain": "quantiqlabs.example",

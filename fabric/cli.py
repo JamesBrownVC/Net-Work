@@ -152,6 +152,34 @@ def conquer(
             typer.echo(f"    {s['from']} -> {s['to']} ({s['to_title']}) p={s['p']}")
 
 
+@app.command()
+def demo(
+    target: str = typer.Option("novapay.io", "--target"),
+    objective: str = typer.Option("CRO", "--objective"),
+    deck: bool = typer.Option(True, "--deck/--no-deck", help="Also generate a Gamma deck"),
+) -> None:
+    """Full demo run: agent choreography, Unified Battle Plan, Gamma deck."""
+    import asyncio
+
+    from agents.bus import EventBus
+    from agents.orchestrator import conquer
+    from surfaces.gamma import generate_deck
+
+    bus = EventBus()
+    bus.subscribe(lambda e: typer.echo(f"  [{e.agent:12s}] {e.kind:11s} "
+                                       + ", ".join(f"{k}={v}" for k, v in e.payload.items())))
+    typer.echo(f"=== ACR run: conquer {target} (objective: {objective}) ===\n")
+
+    async def run() -> None:
+        plan = await conquer(target=target, objective=objective, bus=bus)
+        typer.echo("\n" + plan.to_markdown())
+        if deck:
+            result = await generate_deck(plan.to_markdown())
+            typer.echo(f"\ndeck [{result['status']}]: {result.get('gammaUrl', '-')}")
+
+    asyncio.run(run())
+
+
 @mcp_app.command("list-tools")
 def list_tools(name: str) -> None:
     """List MCP tools exposed by a connector's server."""

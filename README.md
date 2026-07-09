@@ -89,6 +89,22 @@ the base class and registry.
 - Idempotent upserts on natural keys; re-running ingest never duplicates.
 - Never invent API endpoints: unverified adapters stay stubbed and say so.
 
+## Demo
+
+```
+make demo            # seed + ingest + full agent run on fixtures
+fabric demo --target novapay.io --objective CRO
+```
+
+Prints the live agent choreography (Network, Conquest, Relationship,
+Allocator on the event bus), the Unified Battle Plan, and a Gamma deck link
+(mock URL without GAMMA_API_KEY; real generation with one). With
+ANTHROPIC_API_KEY set, the agents run as claude-sonnet-4-6 tool-use loops
+with claude-haiku-4-5 extraction; without it, deterministic mock twins follow
+the same tool calls and schemas. The Slack bot (`python -m surfaces.slack_bot`
+with SLACK_BOT_TOKEN + SLACK_APP_TOKEN) answers `@ConquestRoom conquer
+NovaPay`, `mark intro failed <name>`, and `allocate` in-thread with buttons.
+
 ## Phase gates
 
 `warmth` and `org_edges` tables exist but are filled by Phase 2 engines.

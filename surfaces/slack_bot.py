@@ -128,8 +128,14 @@ def main() -> None:
     @app.action("generate_deck")
     def on_deck(ack: Any, body: dict, say: Any) -> None:  # type: ignore[no-untyped-def]
         ack()
-        say(text="Deck generation queued (Phase 4 wires Gamma here).",
-            thread_ts=body["message"].get("thread_ts") or body["message"]["ts"])
+        from surfaces.gamma import generate_deck
+
+        thread = body["message"].get("thread_ts") or body["message"]["ts"]
+        say(text="Generating deck via Gamma...", thread_ts=thread)
+        plan_text = body["message"].get("text", "Battle plan")
+        result = asyncio.run(generate_deck(plan_text))
+        say(text=f"Deck [{result['status']}]: {result.get('gammaUrl', '-')} "
+                 f"(pptx: {result.get('exportUrl', '-')})", thread_ts=thread)
 
     @app.action("open_theater")
     def on_theater(ack: Any) -> None:  # type: ignore[no-untyped-def]

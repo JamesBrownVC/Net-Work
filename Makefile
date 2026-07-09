@@ -26,3 +26,9 @@ lint:
 # usage: make mcp NAME=fullenrich
 mcp:
 	$(PY) -m fabric.mcp.serve $(NAME)
+
+# one-command demo on fixtures: seed, ingest, full agent run + battle plan
+demo:
+	$(PY) scripts/seed.py
+	$(PY) scripts/ingest.py
+	$(PY) -m fabric.cli demo
