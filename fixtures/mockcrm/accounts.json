@@ -1,0 +1,479 @@
+[
+  {
+    "id": "acct-luko",
+    "name": "Luko",
+    "domain": "luko.io",
+    "industry": "Healthtech",
+    "size": "501-2000",
+    "arr": 50050.8,
+    "renewal_date": "2026-06-18",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 50050.8,
+      "products": [
+        "Corporate Cards"
+      ],
+      "opened_at": "2024-02-11",
+      "closed_at": "2024-03-04"
+    }
+  },
+  {
+    "id": "acct-malt",
+    "name": "Malt",
+    "domain": "malt.io",
+    "industry": "Martech",
+    "size": "11-50",
+    "arr": 14226.38,
+    "renewal_date": "2027-05-14",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 14226.38,
+      "products": [
+        "Payroll Automation",
+        "Invoice Ingestion"
+      ],
+      "opened_at": "2022-08-20",
+      "closed_at": "2022-09-08"
+    }
+  },
+  {
+    "id": "acct-alan",
+    "name": "Alan",
+    "domain": "alan.io",
+    "industry": "Fintech",
+    "size": "11-50",
+    "arr": 64570.44,
+    "renewal_date": "2026-08-13",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 64570.44,
+      "products": [
+        "Payroll Automation"
+      ],
+      "opened_at": "2023-04-17",
+      "closed_at": "2023-05-15"
+    }
+  },
+  {
+    "id": "acct-spendesk",
+    "name": "Spendesk",
+    "domain": "spendesk.io",
+    "industry": "Retail Tech",
+    "size": "11-50",
+    "arr": 30055.19,
+    "renewal_date": "2026-07-30",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 30055.19,
+      "products": [
+        "Invoice Ingestion"
+      ],
+      "opened_at": "2023-09-14",
+      "closed_at": "2023-10-29"
+    }
+  },
+  {
+    "id": "acct-payfit",
+    "name": "Payfit",
+    "domain": "payfit.io",
+    "industry": "Adtech",
+    "size": "51-200",
+    "arr": 64279.39,
+    "renewal_date": "2027-06-16",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 64279.39,
+      "products": [
+        "Corporate Cards"
+      ],
+      "opened_at": "2022-04-22",
+      "closed_at": "2022-05-22"
+    }
+  },
+  {
+    "id": "acct-qonto",
+    "name": "Qonto",
+    "domain": "qonto.io",
+    "industry": "Adtech",
+    "size": "11-50",
+    "arr": 28606.45,
+    "renewal_date": "2026-11-16",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 28606.45,
+      "products": [
+        "Payroll Automation",
+        "Spend Controls"
+      ],
+      "opened_at": "2023-08-15",
+      "closed_at": "2023-09-01"
+    }
+  },
+  {
+    "id": "acct-swile",
+    "name": "Swile",
+    "domain": "swile.io",
+    "industry": "Adtech",
+    "size": "201-500",
+    "arr": 49182.13,
+    "renewal_date": "2027-02-18",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 49182.13,
+      "products": [
+        "Pension Management",
+        "Spend Controls"
+      ],
+      "opened_at": "2024-04-11",
+      "closed_at": "2024-04-28"
+    }
+  },
+  {
+    "id": "acct-ledger",
+    "name": "Ledger",
+    "domain": "ledger.io",
+    "industry": "Adtech",
+    "size": "501-2000",
+    "arr": 27197.52,
+    "renewal_date": "2026-09-20",
+    "deal": {
+      "stage": "renewal_pending",
+      "amount": 27197.52,
+      "products": [
+        "Invoice Ingestion"
+      ],
+      "opened_at": "2024-06-10",
+      "closed_at": "2024-07-23"
+    }
+  },
+  {
+    "id": "acct-backmarket",
+    "name": "Back Market",
+    "domain": "backmarket.io",
+    "industry": "Insurtech",
+    "size": "51-200",
+    "arr": 21144.09,
+    "renewal_date": "2026-07-29",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 21144.09,
+      "products": [
+        "Advanced AP Automation",
+        "Pension Management",
+        "Payroll Automation"
+      ],
+      "opened_at": "2022-08-20",
+      "closed_at": "2022-09-30"
+    }
+  },
+  {
+    "id": "acct-contentsquare",
+    "name": "Contentsquare",
+    "domain": "contentsquare.io",
+    "industry": "Healthtech",
+    "size": "11-50",
+    "arr": 40789.47,
+    "renewal_date": "2026-04-07",
+    "deal": {
+      "stage": "renewal_pending",
+      "amount": 40789.47,
+      "products": [
+        "Treasury Automation",
+        "Advanced AP Automation",
+        "Spend Controls"
+      ],
+      "opened_at": "2025-04-06",
+      "closed_at": "2025-04-20"
+    }
+  },
+  {
+    "id": "acct-mirakl",
+    "name": "Mirakl",
+    "domain": "mirakl.io",
+    "industry": "Adtech",
+    "size": "2000+",
+    "arr": 25841.43,
+    "renewal_date": "2026-07-17",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 25841.43,
+      "products": [
+        "Expense Management",
+        "Spend Controls",
+        "Advanced AP Automation"
+      ],
+      "opened_at": "2023-02-16",
+      "closed_at": "2023-03-28"
+    }
+  },
+  {
+    "id": "acct-doctolib",
+    "name": "Doctolib",
+    "domain": "doctolib.io",
+    "industry": "Adtech",
+    "size": "201-500",
+    "arr": 214042.09,
+    "renewal_date": "2026-08-29",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 214042.09,
+      "products": [
+        "Treasury Automation",
+        "Payroll Automation"
+      ],
+      "opened_at": "2023-10-14",
+      "closed_at": "2023-10-28"
+    }
+  },
+  {
+    "id": "acct-ankorstore",
+    "name": "Ankorstore",
+    "domain": "ankorstore.io",
+    "industry": "Healthtech",
+    "size": "2000+",
+    "arr": 40671.08,
+    "renewal_date": "2027-04-05",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 40671.08,
+      "products": [
+        "Payroll Automation",
+        "Corporate Cards",
+        "Treasury Automation"
+      ],
+      "opened_at": "2022-03-23",
+      "closed_at": "2022-04-18"
+    }
+  },
+  {
+    "id": "acct-aircall",
+    "name": "Aircall",
+    "domain": "aircall.io",
+    "industry": "Insurtech",
+    "size": "2000+",
+    "arr": 201009.56,
+    "renewal_date": "2026-02-24",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 201009.56,
+      "products": [
+        "Pension Management",
+        "Corporate Cards"
+      ],
+      "opened_at": "2022-12-18",
+      "closed_at": "2022-12-26"
+    }
+  },
+  {
+    "id": "acct-sorare",
+    "name": "Sorare",
+    "domain": "sorare.io",
+    "industry": "Healthtech",
+    "size": "2000+",
+    "arr": 39212.91,
+    "renewal_date": "2026-03-13",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 39212.91,
+      "products": [
+        "Invoice Ingestion",
+        "Pension Management",
+        "Corporate Cards"
+      ],
+      "opened_at": "2022-09-19",
+      "closed_at": "2022-10-04"
+    }
+  },
+  {
+    "id": "acct-voodoo",
+    "name": "Voodoo",
+    "domain": "voodoo.io",
+    "industry": "Fintech",
+    "size": "51-200",
+    "arr": 34524.97,
+    "renewal_date": "2026-09-17",
+    "deal": {
+      "stage": "renewal_pending",
+      "amount": 34524.97,
+      "products": [
+        "Spend Controls",
+        "Payroll Automation"
+      ],
+      "opened_at": "2022-09-19",
+      "closed_at": "2022-10-08"
+    }
+  },
+  {
+    "id": "acct-dataiku",
+    "name": "Dataiku",
+    "domain": "dataiku.io",
+    "industry": "Insurtech",
+    "size": "11-50",
+    "arr": 21116.96,
+    "renewal_date": "2026-06-25",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 21116.96,
+      "products": [
+        "Payroll Automation",
+        "Expense Management",
+        "Advanced AP Automation"
+      ],
+      "opened_at": "2022-06-21",
+      "closed_at": "2022-08-02"
+    }
+  },
+  {
+    "id": "acct-algolia",
+    "name": "Algolia",
+    "domain": "algolia.io",
+    "industry": "Insurtech",
+    "size": "501-2000",
+    "arr": 16822.29,
+    "renewal_date": "2026-06-09",
+    "deal": {
+      "stage": "renewal_pending",
+      "amount": 16822.29,
+      "products": [
+        "Treasury Automation",
+        "Spend Controls",
+        "Pension Management"
+      ],
+      "opened_at": "2022-01-22",
+      "closed_at": "2022-03-01"
+    }
+  },
+  {
+    "id": "acct-younited",
+    "name": "Younited",
+    "domain": "younited.io",
+    "industry": "Adtech",
+    "size": "11-50",
+    "arr": 72144.74,
+    "renewal_date": "2026-10-30",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 72144.74,
+      "products": [
+        "Advanced AP Automation",
+        "Payroll Automation"
+      ],
+      "opened_at": "2025-01-06",
+      "closed_at": "2025-02-09"
+    }
+  },
+  {
+    "id": "acct-shifttechnology",
+    "name": "Shift Technology",
+    "domain": "shifttechnology.io",
+    "industry": "HR Tech",
+    "size": "501-2000",
+    "arr": 67578.22,
+    "renewal_date": "2027-05-05",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 67578.22,
+      "products": [
+        "Treasury Automation",
+        "Payroll Automation"
+      ],
+      "opened_at": "2024-07-10",
+      "closed_at": "2024-07-29"
+    }
+  },
+  {
+    "id": "acct-ivalua",
+    "name": "Ivalua",
+    "domain": "ivalua.io",
+    "industry": "Retail Tech",
+    "size": "501-2000",
+    "arr": 21305.51,
+    "renewal_date": "2025-12-23",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 21305.51,
+      "products": [
+        "Expense Management",
+        "Invoice Ingestion",
+        "Corporate Cards"
+      ],
+      "opened_at": "2022-08-20",
+      "closed_at": "2022-09-02"
+    }
+  },
+  {
+    "id": "acct-sendinblue",
+    "name": "Sendinblue",
+    "domain": "sendinblue.io",
+    "industry": "Martech",
+    "size": "501-2000",
+    "arr": 32446.56,
+    "renewal_date": "2026-11-25",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 32446.56,
+      "products": [
+        "Advanced AP Automation"
+      ],
+      "opened_at": "2025-04-06",
+      "closed_at": "2025-04-23"
+    }
+  },
+  {
+    "id": "acct-payplug",
+    "name": "PayPlug",
+    "domain": "payplug.io",
+    "industry": "Fintech",
+    "size": "2000+",
+    "arr": 13456.04,
+    "renewal_date": "2026-04-09",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 13456.04,
+      "products": [
+        "Pension Management"
+      ],
+      "opened_at": "2022-08-20",
+      "closed_at": "2022-09-27"
+    }
+  },
+  {
+    "id": "acct-lydia",
+    "name": "Lydia",
+    "domain": "lydia.io",
+    "industry": "Fintech",
+    "size": "2000+",
+    "arr": 59136.25,
+    "renewal_date": "2025-12-23",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 59136.25,
+      "products": [
+        "Invoice Ingestion",
+        "Pension Management",
+        "Advanced AP Automation"
+      ],
+      "opened_at": "2023-11-13",
+      "closed_at": "2023-11-23"
+    }
+  },
+  {
+    "id": "acct-october",
+    "name": "October",
+    "domain": "october.io",
+    "industry": "Healthtech",
+    "size": "2000+",
+    "arr": 18101.26,
+    "renewal_date": "2026-06-30",
+    "deal": {
+      "stage": "closed_won",
+      "amount": 18101.26,
+      "products": [
+        "Corporate Cards",
+        "Pension Management"
+      ],
+      "opened_at": "2022-05-22",
+      "closed_at": "2022-06-02"
+    }
+  }
+]

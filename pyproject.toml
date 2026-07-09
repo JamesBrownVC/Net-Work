@@ -1,0 +1,30 @@
+[project]
+name = "acr"
+version = "0.1.0"
+description = "Account Conquest Room - Connection Fabric (Phase 1)"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.7",
+    "sqlalchemy>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["fabric"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
