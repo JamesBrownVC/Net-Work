@@ -209,10 +209,13 @@ def claude_adjustment(
     async def one(domain: str) -> None:
         context = agent_tools.recent_context(domain, n=5)
         prompt = (
-            f"Account {domain}. Recent interactions and signals:\n{json.dumps(context)}\n"
-            "Return an uplift adjustment factor in [-0.4, 0.4] for this account's "
-            "action uplifts and cite the interaction/signal ids justifying it. "
-            "Return factor 0 with empty citations if nothing is noteworthy."
+            f"Account {domain}. Recent interactions, signals, and content analysis "
+            f"(sentiment/champions/risks):\n{json.dumps(context)}\n"
+            "Weigh the content_analysis substance (sentiment trend, risk flags, "
+            "champion signals), not just the metadata. Return an uplift adjustment "
+            "factor in [-0.4, 0.4] for this account's action uplifts and cite the "
+            "interaction/signal ids justifying it. Return factor 0 with empty "
+            "citations if nothing is noteworthy."
         )
         result = await extract(prompt, AccountAdjustment)
         if result.citations:

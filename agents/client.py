@@ -136,7 +136,9 @@ async def run_agent_loop(
     return report_cls.model_validate(block.input)
 
 
-async def extract(prompt: str, schema_cls: type[BaseModel]) -> BaseModel:
+async def extract(
+    prompt: str, schema_cls: type[BaseModel], model: str = EXTRACT_MODEL
+) -> BaseModel:
     """Haiku extraction subcall with a forced strict tool."""
     import anthropic
 
@@ -144,7 +146,7 @@ async def extract(prompt: str, schema_cls: type[BaseModel]) -> BaseModel:
     tool = _report_tool("extraction", schema_cls)
     tool["strict"] = True
     response = await client.messages.create(
-        model=EXTRACT_MODEL,
+        model=model,
         max_tokens=1024,
         tools=[tool],
         tool_choice={"type": "tool", "name": "extraction"},

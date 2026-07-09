@@ -31,7 +31,18 @@ def ingest(names: list[str] | None = None, since: datetime | None = None) -> dic
     return results
 
 
+def analyze_content(limit: int | None = 12) -> int:
+    """Run the content-analysis pass after ingest (Part A). Separate step so
+    metadata ingest stays cheap and content analysis is opt-in per run."""
+    from engines.content import analyze_all_accounts
+
+    return analyze_all_accounts(limit=limit)
+
+
 if __name__ == "__main__":
-    names = sys.argv[1:] or None
+    argv = [a for a in sys.argv[1:] if a != "--analyze"]
+    names = argv or None
     for name, n in ingest(names).items():
         print(f"{name:12s} upserted {n} entities")
+    if "--analyze" in sys.argv:
+        print(f"content       analyzed {analyze_content()} interactions")

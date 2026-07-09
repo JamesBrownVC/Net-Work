@@ -12,11 +12,22 @@ class WarmNode(BaseModel):
     why: str = ""
 
 
+class ContentSignal(BaseModel):
+    """Qualitative relationship read from interaction CONTENT (Part A).
+    Every line must carry the source interaction id in brackets."""
+
+    account: str
+    sentiment_line: str = ""  # e.g. "sentiment cooled over the last 3 threads [ids]"
+    champion_signals: list[str] = Field(default_factory=list)
+    risk_flags: list[str] = Field(default_factory=list)
+
+
 class NetworkReport(BaseModel):
     target: str
     warm_nodes: list[WarmNode]
     power_centers: list[str]
     champion_notes: list[str] = Field(default_factory=list)
+    content_signal: ContentSignal | None = None
     summary: str
 
 
@@ -29,6 +40,7 @@ class RetentionRisk(BaseModel):
 
 class RelationshipReport(BaseModel):
     risks: list[RetentionRisk]
+    content_signals: list[ContentSignal] = Field(default_factory=list)
     summary: str
 
 

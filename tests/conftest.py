@@ -17,6 +17,10 @@ def seeded_world() -> None:
     from scripts.ingest import ingest
 
     ingest()
+    # Part A: populate interaction_context so content-analysis tests have data.
+    from engines.content import analyze_all_accounts
+
+    analyze_all_accounts(limit=12)
 
 
 def contract_check(name: str) -> None:

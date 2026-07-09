@@ -131,6 +131,24 @@ class ReferenceRow(Base):
     metric: Mapped[str] = mapped_column(String, default="")
 
 
+class InteractionContextRow(Base):
+    """LLM content-analysis of one interaction's text (Part A). Keyed on the
+    interaction id, so every extracted field is inherently cited to its source
+    interaction. Filled by engines/content.py, not by connectors."""
+
+    __tablename__ = "interaction_context"
+    interaction_id: Mapped[str] = mapped_column(String, primary_key=True)
+    company_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
+    person_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
+    ts: Mapped[datetime] = mapped_column(DateTime, index=True)
+    sentiment: Mapped[str] = mapped_column(String)  # positive|neutral|negative|tense
+    topics_json: Mapped[str] = mapped_column(Text, default="[]")
+    commitments_json: Mapped[str] = mapped_column(Text, default="[]")
+    risk_flags_json: Mapped[str] = mapped_column(Text, default="[]")
+    champion_signals_json: Mapped[str] = mapped_column(Text, default="[]")
+    analyzed_at: Mapped[datetime] = mapped_column(DateTime)
+
+
 class IngestStateRow(Base):
     __tablename__ = "ingest_state"
     connector: Mapped[str] = mapped_column(String, primary_key=True)

@@ -31,7 +31,11 @@ def _sigmoid(x: float) -> float:
 
 
 def components_for(
-    person: PersonRow, interactions: list[InteractionRow], now: datetime, cfg: dict[str, Any]
+    person: PersonRow,
+    interactions: list[InteractionRow],
+    now: datetime,
+    cfg: dict[str, Any],
+    content: dict[str, float] | None = None,
 ) -> dict[str, float]:
     half_life = float(cfg["half_life_days"])
     sw = cfg["seniority_weights"]
@@ -48,21 +52,28 @@ def components_for(
     reciprocity = (2.0 * min(inbound, outbound) / total) if total else 0.0
     seniority_touch = float(sw.get(person.seniority_level, 0.2)) if interactions else 0.0
     channel_diversity = len({i.kind for i in interactions}) / 5.0
+    content = content or {}
     return {
         "recency_decay": round(recency, 4),
         "freq_90d": freq_90d,
         "reciprocity": round(reciprocity, 4),
         "seniority_touch": seniority_touch,
         "channel_diversity": round(channel_diversity, 4),
+        # Part A: substance of the interactions, not just their cadence.
+        "content_sentiment": round(float(content.get("content_sentiment", 0.0)), 4),
+        "champion": round(float(content.get("champion", 0.0)), 4),
     }
 
 
 def score_person(
-    person: PersonRow, interactions: list[InteractionRow], now: datetime | None = None
+    person: PersonRow,
+    interactions: list[InteractionRow],
+    now: datetime | None = None,
+    content: dict[str, float] | None = None,
 ) -> tuple[float, dict[str, float]]:
     cfg = _config()
     now = now or datetime.now()
-    comp = components_for(person, interactions, now, cfg)
+    comp = components_for(person, interactions, now, cfg, content)
     a = cfg["coefficients"]
     z = (
         a["a1_recency"] * comp["recency_decay"]
@@ -70,14 +81,52 @@ def score_person(
         + a["a3_reciprocity"] * comp["reciprocity"]
         + a["a4_seniority_touch"] * comp["seniority_touch"]
         + a["a5_channel_diversity"] * comp["channel_diversity"]
+        + a.get("a6_content_sentiment", 0.0) * comp["content_sentiment"]
+        + a.get("a7_champion", 0.0) * comp["champion"]
         + a["bias"]
     )
     return _sigmoid(z), comp
 
 
-def compute_all(session: Session, company_domain: str | None = None) -> list[WarmthRow]:
-    """Score every person (optionally one company) and persist to warmth."""
+def _content_maps(
+    session: Session, company_domain: str | None
+) -> tuple[dict[str, float], dict[str, float]]:
+    """Per-person mean content sentiment and per-account champion strength,
+    derived from the interaction_context table. Empty if content not analyzed
+    (so warmth gracefully falls back to metadata-only)."""
+    from fabric.store import InteractionContextRow
+
+    score_map = {"positive": 1.0, "neutral": 0.0, "negative": -1.0, "tense": -0.7}
+    q = session.query(InteractionContextRow)
+    if company_domain:
+        q = q.filter(InteractionContextRow.company_id == f"company:{company_domain.lower()}")
+    per_person: dict[str, list[float]] = {}
+    champ_count: dict[str, int] = {}
+    for c in q.all():
+        if c.person_id:
+            per_person.setdefault(c.person_id, []).append(score_map[c.sentiment])
+        # Only a POSITIVE champion signal lifts warmth. A champion "going quiet"
+        # is a risk (negative/tense sentiment) and must not count as a vouch.
+        if (
+            c.champion_signals_json and c.champion_signals_json != "[]"
+            and c.sentiment in ("positive", "neutral")
+        ):
+            champ_count[c.company_id] = champ_count.get(c.company_id, 0) + 1
+    person_sent = {pid: sum(v) / len(v) for pid, v in per_person.items()}
+    champ = {cid: min(1.0, n / 2.0) for cid, n in champ_count.items()}
+    return person_sent, champ
+
+
+def compute_all(
+    session: Session, company_domain: str | None = None, use_content: bool = True
+) -> list[WarmthRow]:
+    """Score every person (optionally one company) and persist to warmth.
+
+    use_content=False computes the metadata-only score (the pre-Part-A baseline),
+    used to prove content analysis changes the number, not just decorates it.
+    """
     now = datetime.now()
+    person_sent, champ = _content_maps(session, company_domain) if use_content else ({}, {})
     query = session.query(PersonRow)
     if company_domain:
         query = query.filter(PersonRow.company_id == f"company:{company_domain.lower()}")
@@ -86,7 +135,11 @@ def compute_all(session: Session, company_domain: str | None = None) -> list[War
         interactions = (
             session.query(InteractionRow).filter(InteractionRow.person_id == person.id).all()
         )
-        score, comp = score_person(person, interactions, now)
+        content = {
+            "content_sentiment": person_sent.get(person.id, 0.0),
+            "champion": champ.get(person.company_id, 0.0),
+        }
+        score, comp = score_person(person, interactions, now, content)
         row = WarmthRow(
             person_id=person.id,
             score=round(score, 4),

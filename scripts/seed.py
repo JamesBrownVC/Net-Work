@@ -232,15 +232,56 @@ def main() -> None:
     # ---- gmail: 12 months, realistic decay, whale silent 72 days ----------
     whale = companies[0]
     quiet = {companies[idx]["domain"]: 0.3 for idx in (5, 11, 17, 21)}
+    # Cargolux Digital (index 1): the PROOF account. Its email FREQUENCY stays
+    # healthy, but the CONTENT of its recent threads has clearly soured. Warmth
+    # from metadata alone looks fine; content analysis reveals the cooling.
+    cooled = companies[1]
+    # Body banks: content the analyzer reads (mock = keyword rules, live = Haiku).
+    warm_bodies = [
+        "Thanks so much, the team is thrilled with the rollout. This has genuinely "
+        "made our quarter, really appreciate the support.",
+        "Great call today. We are excited to expand this to two more teams and the "
+        "CFO was impressed with the dashboards.",
+        "Happy to be a reference. Honestly one of the smoothest vendor relationships "
+        "we have. Looking forward to the renewal.",
+    ]
+    neutral_bodies = [
+        "Following up on the invoice question from last week, can you confirm the PO "
+        "number so finance can process it.",
+        "Scheduling the quarterly sync. Does Thursday afternoon work for your side?",
+        "Quick note on the usage review, numbers look in line with last quarter.",
+    ]
+    cooled_bodies = [
+        "To be honest we are increasingly frustrated. Response times on our support "
+        "tickets have slipped badly and it is starting to affect our operations.",
+        "Leadership has asked us to evaluate alternatives before committing to the "
+        "renewal. We are actively looking at a competitor and the pricing gap is hard "
+        "to justify given the service issues.",
+        "This is becoming an escalation. Two outages this month and no root cause yet. "
+        "I need to flag that renewal is genuinely at risk if this continues.",
+        "We appreciated the early relationship but sentiment internally has cooled. "
+        "The champion who used to push for you has gone quiet since the reorg.",
+    ]
+
+    def pick_body(dom: str, sent: float) -> str:
+        if sent >= 0.5:
+            return rng.choice(warm_bodies)
+        return rng.choice(neutral_bodies)
+
     messages = []
     mid = 0
+    # NB: no "Support escalation" here - that subject is reserved for the cooled
+    # account so a random subject line never fakes a churn signal for others.
     subjects = ["Quarterly sync", "Invoice question", "Feature request", "Renewal terms",
-                "Onboarding follow-up", "Usage review", "Support escalation", "Intro"]
+                "Onboarding follow-up", "Usage review", "Product feedback", "Intro"]
     for comp in companies:
         dom = comp["domain"]
         owner = comp["owner"]
         others = [c for c in contacts if c["company_domain"] == dom]
-        base = rng.uniform(5.0, 9.0)
+        # Cooled account keeps a steady, moderate cadence (regular contact, not
+        # silent) so its warmth sits mid-range where content visibly moves it -
+        # that's the point: metadata says "fine", content says "souring".
+        base = 2.6 if dom == cooled["domain"] else rng.uniform(5.0, 9.0)
         for month in range(12):
             month_end = NOW - timedelta(days=30 * (11 - month))
             rate = base * quiet.get(dom, 1.0) * (0.6 + 0.4 * rng.random())
@@ -252,6 +293,7 @@ def main() -> None:
                 contact = rng.choice(others)
                 direction = rng.choice(["outbound", "inbound"])
                 mid += 1
+                sent = round(rng.uniform(-0.2, 0.9), 2)
                 messages.append(
                     {
                         "id": f"gmail:{mid}",
@@ -261,12 +303,24 @@ def main() -> None:
                         "from": owner if direction == "outbound" else contact["email"],
                         "to": [contact["email"] if direction == "outbound" else owner],
                         "subject": rng.choice(subjects) + f" - {comp['name']}",
+                        "body": pick_body(dom, sent),
                         "latency_hours": round(rng.uniform(0.5, 48), 1)
                         if direction == "inbound" else None,
-                        "sentiment": round(rng.uniform(-0.2, 0.9), 2),
+                        "sentiment": sent,
                         "company_domain": dom,
                     }
                 )
+    # PROOF: overwrite Cargolux's 6 most recent inbound emails with soured content
+    # while leaving their timestamps/frequency intact. Deterministic, no rng.
+    cooled_msgs = sorted(
+        (m for m in messages if m["company_domain"] == cooled["domain"]
+         and m["direction"] == "inbound"),
+        key=lambda m: m["ts"],
+    )[-6:]
+    for i, m in enumerate(cooled_msgs):
+        m["body"] = cooled_bodies[i % len(cooled_bodies)]
+        m["subject"] = "Support escalation - " + cooled["name"]
+        m["sentiment"] = -0.6  # what a content pass would derive; metadata ignores it
     # warm-node threads with NovaPay (the 4 warm nodes, recent and friendly)
     for w_email in warm_nodes:
         for k in range(rng.randint(3, 5)):
@@ -282,6 +336,7 @@ def main() -> None:
                     "from": REPS[0][1] if direction == "outbound" else w_email,
                     "to": [w_email if direction == "outbound" else REPS[0][1]],
                     "subject": "Catching up on payment infra",
+                    "body": rng.choice(warm_bodies),
                     "latency_hours": round(rng.uniform(0.5, 12), 1)
                     if direction == "inbound" else None,
                     "sentiment": round(rng.uniform(0.4, 0.95), 2),
@@ -344,6 +399,38 @@ def main() -> None:
                     "champion_mention": rng.random() < 0.15,
                 }
             )
+    # Planted, deterministic Slack content so the demo always shows a clear
+    # champion signal and a clear risk flag with citations.
+    champion_slack = [
+        "Camille Nguyen has been vocal in here again - she publicly vouched for us "
+        "in front of their CFO and said switching would be a mistake.",
+        "Camille Nguyen is our champion at NovaPay, she keeps pushing the renewal "
+        "internally and looped in the CRO for us.",
+        "Great news, Camille Nguyen shared our case study to their whole leadership "
+        "channel and called us the best vendor they work with.",
+    ]
+    for txt in champion_slack:
+        sid += 1
+        slack_msgs.append({
+            "id": f"slack:{sid}", "channel": "#acct-novapay",
+            "ts": iso(NOW - timedelta(days=rng.uniform(2, 20))),
+            "user_email": REPS[0][1], "text": txt,
+            "company_domain": "novapay.io", "champion_mention": True,
+        })
+    risk_slack = [
+        "Heads up, their team is openly comparing us to a competitor and leadership "
+        "asked for a churn-risk review before renewal.",
+        "They escalated again today - frustrated with support latency, this is a "
+        "real churn risk if we do not fix it this week.",
+    ]
+    for txt in risk_slack:
+        sid += 1
+        slack_msgs.append({
+            "id": f"slack:{sid}", "channel": f"#acct-{cooled['domain'].split('.')[0]}",
+            "ts": iso(NOW - timedelta(days=rng.uniform(2, 15))),
+            "user_email": REPS[1][1], "text": txt,
+            "company_domain": cooled["domain"], "champion_mention": False,
+        })
     write("slack/messages.json", slack_msgs)
 
     # ---- notion: 6 case studies + account notes -----------------------------

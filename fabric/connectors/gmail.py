@@ -38,7 +38,7 @@ class GmailConnector(FixtureConnector):
                 ts=datetime.fromisoformat(p["ts"]),
                 latency_hours=p.get("latency_hours"),
                 sentiment=p.get("sentiment"),
-                summary=p.get("subject", ""),
+                summary=(p.get("subject", "") + (" - " + p["body"] if p.get("body") else "")),
                 source_ref=p["id"],
             ),
         ]

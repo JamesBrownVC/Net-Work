@@ -9,6 +9,33 @@ from agents import tools as T
 from agents.bus import EventBus
 
 
+def _content_signal(account: str, content: dict) -> S.ContentSignal:
+    """Turn the content-analysis aggregate into a cited, human-readable signal."""
+    champs = [f"{c['text']} [{c['interaction_id']}]" for c in content["champion_signals"]]
+    risks = [f"{c['text']} [{c['interaction_id']}]" for c in content["risk_flags"]]
+    trend = content["sentiment_trend"]
+    recent = content["recent_sentiment"]
+    if content["analyzed"] == 0:
+        line = "no interaction content analyzed yet"
+    elif recent <= -0.2:
+        cooling = f", cooling trend {trend:+.2f}" if trend <= -0.3 else ""
+        line = (
+            f"sentiment has cooled (recent {recent:+.2f}{cooling}) across "
+            f"{content['analyzed']} analyzed messages"
+        )
+    elif content["recent_sentiment"] >= 0.3:
+        line = (
+            f"sentiment is warm (recent {content['recent_sentiment']:+.2f}) across "
+            f"{content['analyzed']} analyzed messages"
+        )
+    else:
+        line = f"sentiment is steady ({content['recent_sentiment']:+.2f})"
+    return S.ContentSignal(
+        account=account, sentiment_line=line,
+        champion_signals=champs[:3], risk_flags=risks[:3],
+    )
+
+
 def mock_network(target: str, bus: EventBus) -> S.NetworkReport:
     bus.moved_to("Network", "org-map")
     bus.asks("Network", f"enrich_company({target})")
@@ -39,13 +66,19 @@ def mock_network(target: str, bus: EventBus) -> S.NetworkReport:
         for s in signals
         if s["kind"] == "champion_move"
     ]
+    bus.asks("Network", f"content_summary({target})")
+    content = T.content_summary(target)
+    bus.receives("Network", f"content: {content['analyzed']} analyzed, "
+                 f"recent sentiment {content['recent_sentiment']:+.2f}")
+    csig = _content_signal(target, content)
     return S.NetworkReport(
         target=target,
         warm_nodes=warm_nodes,
         power_centers=power,
         champion_notes=champions,
+        content_signal=csig,
         summary=f"{len(warm_nodes)} warm nodes into {target}; power center is the "
-        f"C-suite ({len(power)} execs). Champion move detected: enter via Finance.",
+        f"C-suite ({len(power)} execs). {csig.sentiment_line}.",
     )
 
 
@@ -55,6 +88,7 @@ def mock_relationship(bus: EventBus) -> S.RelationshipReport:
     accounts = T.portfolio_summary()
     bus.receives("Relationship", f"{len(accounts)} accounts")
     risks = []
+    content_signals = []
     for account in accounts:
         evidence = []
         if account["days_silent"] >= 60 and account["arr_eur"] >= 100_000:
@@ -63,9 +97,21 @@ def mock_relationship(bus: EventBus) -> S.RelationshipReport:
         comp = [s for s in signals if s["kind"] == "competitor_engagement"]
         if comp:
             evidence.append(f"competitor touch [{comp[0]['id']}]")
+        # Part A: content-derived risk. Catches accounts whose cadence looks
+        # fine but whose message CONTENT has soured (the metadata blind spot).
+        # Gate requires genuinely-negative recent sentiment AND a cooling trend,
+        # so steady/warm accounts with an odd keyword don't false-positive.
+        content = T.content_summary(account["domain"])
+        if content["analyzed"] and content["recent_sentiment"] <= -0.2:
+            csig = _content_signal(account["account"], content)
+            content_signals.append(csig)
+            evidence.append(csig.sentiment_line)
+            for rf in csig.risk_flags[:2]:
+                evidence.append(rf)
         if evidence:
-            bus.asks("Relationship", f"signals_for({account['domain']})")
-            bus.receives("Relationship", f"{len(signals)} signals")
+            bus.asks("Relationship", f"content_summary({account['domain']})")
+            bus.receives("Relationship", f"sentiment {content['recent_sentiment']:+.2f}, "
+                         f"{len(content['risk_flags'])} risk flags")
             risks.append(
                 S.RetentionRisk(
                     account=account["account"],
@@ -74,11 +120,14 @@ def mock_relationship(bus: EventBus) -> S.RelationshipReport:
                     evidence=evidence,
                 )
             )
-    risks.sort(key=lambda r: r.arr_eur, reverse=True)
+    # rank by severity: content-flagged risks first, then by ARR
+    risks.sort(key=lambda r: (0 if "cooled" in r.risk else 1, -r.arr_eur))
     return S.RelationshipReport(
-        risks=risks[:5],
+        risks=risks[:6],
+        content_signals=content_signals[:6],
         summary=f"{len(risks)} accounts at risk, EUR "
-        f"{sum(r.arr_eur for r in risks):,.0f} ARR exposed.",
+        f"{sum(r.arr_eur for r in risks):,.0f} ARR exposed; "
+        f"{len(content_signals)} flagged by content sentiment.",
     )
 
 

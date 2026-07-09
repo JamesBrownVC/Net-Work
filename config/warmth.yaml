@@ -1,5 +1,6 @@
 # Warmth coefficients. w = sigmoid(a1*recency + a2*ln(1+freq90) + a3*reciprocity
-#                                  + a4*seniority_touch + a5*channel_diversity + bias)
+#                                  + a4*seniority_touch + a5*channel_diversity
+#                                  + a6*content_sentiment + a7*champion + bias)
 # Recency uses exponential decay with a 30-day half-life.
 coefficients:
   a1_recency: 2.2
@@ -7,6 +8,11 @@ coefficients:
   a3_reciprocity: 1.4
   a4_seniority_touch: 0.8
   a5_channel_diversity: 0.7
+  # Part A: content substance. content_sentiment in [-1,1] (mean LLM sentiment
+  # of the person's analyzed messages); champion in [0,1] (account has a vocal
+  # champion). Both fold into warmth alongside the cadence components above.
+  a6_content_sentiment: 1.6
+  a7_champion: 0.6
   bias: -2.5
 half_life_days: 30
 seniority_weights:

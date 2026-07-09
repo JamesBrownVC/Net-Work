@@ -140,17 +140,36 @@ def recent_context(domain: str, n: int = 5) -> dict[str, Any]:
                 for r in rows
             ],
             "signals": signals_for(domain),
+            "content_analysis": content_summary(domain),
         }
+
+
+def content_summary(domain: str) -> dict[str, Any]:
+    """Content-analysis of an account's interactions (Part A): mean/recent
+    sentiment, cooling trend, champion signals and risk flags, each cited to a
+    source interaction id. Analyzes on demand if not yet cached."""
+    from engines import content as content_engine
+
+    with Session(get_engine()) as session:
+        summary = content_engine.account_content_summary(session, domain)
+        if summary["analyzed"] == 0:
+            import asyncio
+
+            asyncio.run(content_engine.analyze_account(session, domain, limit=12))
+            summary = content_engine.account_content_summary(session, domain)
+        return summary
 
 
 NETWORK_TOOLS = {
     "enrich_company": enrich_company,
     "warmth_heatmap": warmth_heatmap,
     "signals_for": signals_for,
+    "content_summary": content_summary,
 }
 RELATIONSHIP_TOOLS = {
     "portfolio_summary": portfolio_summary,
     "signals_for": signals_for,
+    "content_summary": content_summary,
 }
 CONQUEST_TOOLS = {
     "fortress_solve": fortress_solve,

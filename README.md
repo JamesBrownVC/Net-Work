@@ -96,6 +96,28 @@ the base class and registry.
 - Idempotent upserts on natural keys; re-running ingest never duplicates.
 - Never invent API endpoints: unverified adapters stay stubbed and say so.
 
+## Interaction content analysis (relationship substance)
+
+Beyond interaction *metadata* (recency, frequency, reciprocity), ACR reads the
+actual *content* of Slack messages, emails, Notion notes and call transcripts.
+`engines/content.py` runs a `claude-haiku-4-5` pass (deterministic keyword
+fallback with no key) that extracts, per interaction and cited by its id, into
+the `interaction_context` table: sentiment (positive/neutral/negative/tense),
+topics, commitments, risk flags, and champion signals.
+
+This folds into two places:
+- **Warmth** gains two config-driven components (`content_sentiment`,
+  `champion` in `config/warmth.yaml`), visible in `warmth.components_json`.
+- **The allocator's** `claude_adjustment()` now reasons over the content
+  summary, not just metadata.
+
+Run it with `scripts/ingest.py --analyze` (or `make ingest` / `make demo`).
+Proof it is not cosmetic: `Cargolux Digital` keeps a healthy email cadence but
+its recent threads have soured, so its content sentiment is `-0.47`; account
+warmth drops from `0.909` (metadata only) to `0.815` (with content), and the
+Relationship agent flags it as a churn risk that the old ARR/silence rules
+missed entirely. See `tests/test_content.py`.
+
 ## Demo
 
 ```

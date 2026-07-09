@@ -60,73 +60,73 @@
   "metric": "31% fewer outages"
  },
  {
-  "id": "note:datafjord.example",
+  "id": "note:quantiqlabs.example",
   "type": "note",
-  "company_domain": "datafjord.example",
-  "ts": "2025-12-22T14:00:00",
-  "text": "Account plan for Datafjord: stage expansion_talks, owner priya@atlasrev.io."
+  "company_domain": "quantiqlabs.example",
+  "ts": "2026-03-09T15:00:00",
+  "text": "Account plan for Quantiq Labs: stage renewal_due, owner sofia@atlasrev.io."
  },
  {
-  "id": "note:rheinwerkindus.example",
+  "id": "note:eisenhofmetall.example",
   "type": "note",
-  "company_domain": "rheinwerkindus.example",
-  "ts": "2026-03-07T14:00:00",
-  "text": "Account plan for Rheinwerk Industrie: stage at_risk, owner priya@atlasrev.io."
- },
- {
-  "id": "note:optimalogistic.example",
-  "type": "note",
-  "company_domain": "optimalogistic.example",
-  "ts": "2026-01-19T14:00:00",
-  "text": "Account plan for Optima Logistics: stage at_risk, owner priya@atlasrev.io."
- },
- {
-  "id": "note:urbanbasket.example",
-  "type": "note",
-  "company_domain": "urbanbasket.example",
-  "ts": "2025-12-22T14:00:00",
-  "text": "Account plan for Urban Basket: stage at_risk, owner sofia@atlasrev.io."
- },
- {
-  "id": "note:northwindretai.example",
-  "type": "note",
-  "company_domain": "northwindretai.example",
-  "ts": "2026-04-16T14:00:00",
-  "text": "Account plan for Northwind Retail: stage at_risk, owner tom@atlasrev.io."
- },
- {
-  "id": "note:vektorsoftware.example",
-  "type": "note",
-  "company_domain": "vektorsoftware.example",
-  "ts": "2026-01-01T14:00:00",
-  "text": "Account plan for Vektor Software: stage renewal_due, owner lena@atlasrev.io."
- },
- {
-  "id": "note:swifthaul.example",
-  "type": "note",
-  "company_domain": "swifthaul.example",
-  "ts": "2025-12-24T14:00:00",
-  "text": "Account plan for SwiftHaul: stage renewal_due, owner sofia@atlasrev.io."
- },
- {
-  "id": "note:vitalsignsyste.example",
-  "type": "note",
-  "company_domain": "vitalsignsyste.example",
-  "ts": "2025-12-26T14:00:00",
-  "text": "Account plan for VitalSign Systems: stage live, owner lena@atlasrev.io."
- },
- {
-  "id": "note:cargoluxdigita.example",
-  "type": "note",
-  "company_domain": "cargoluxdigita.example",
-  "ts": "2026-05-22T14:00:00",
-  "text": "Account plan for Cargolux Digital: stage live, owner marco@atlasrev.io."
+  "company_domain": "eisenhofmetall.example",
+  "ts": "2026-04-07T15:00:00",
+  "text": "Account plan for Eisenhof Metall: stage expansion_talks, owner tom@atlasrev.io."
  },
  {
   "id": "note:helioshealth.example",
   "type": "note",
   "company_domain": "helioshealth.example",
-  "ts": "2026-01-29T14:00:00",
+  "ts": "2026-02-07T15:00:00",
   "text": "Account plan for Helios Health: stage expansion_talks, owner priya@atlasrev.io."
+ },
+ {
+  "id": "note:vektorsoftware.example",
+  "type": "note",
+  "company_domain": "vektorsoftware.example",
+  "ts": "2026-01-04T15:00:00",
+  "text": "Account plan for Vektor Software: stage live, owner lena@atlasrev.io."
+ },
+ {
+  "id": "note:transeurofreig.example",
+  "type": "note",
+  "company_domain": "transeurofreig.example",
+  "ts": "2026-05-25T15:00:00",
+  "text": "Account plan for TransEuro Freight: stage live, owner tom@atlasrev.io."
+ },
+ {
+  "id": "note:paynordic.example",
+  "type": "note",
+  "company_domain": "paynordic.example",
+  "ts": "2026-01-01T15:00:00",
+  "text": "Account plan for PayNordic: stage expansion_talks, owner sofia@atlasrev.io."
+ },
+ {
+  "id": "note:swifthaul.example",
+  "type": "note",
+  "company_domain": "swifthaul.example",
+  "ts": "2026-03-29T15:00:00",
+  "text": "Account plan for SwiftHaul: stage at_risk, owner sofia@atlasrev.io."
+ },
+ {
+  "id": "note:urbanbasket.example",
+  "type": "note",
+  "company_domain": "urbanbasket.example",
+  "ts": "2026-05-06T15:00:00",
+  "text": "Account plan for Urban Basket: stage renewal_due, owner sofia@atlasrev.io."
+ },
+ {
+  "id": "note:blueriverpayme.example",
+  "type": "note",
+  "company_domain": "blueriverpayme.example",
+  "ts": "2026-04-08T15:00:00",
+  "text": "Account plan for BlueRiver Payments: stage at_risk, owner marco@atlasrev.io."
+ },
+ {
+  "id": "note:datafjord.example",
+  "type": "note",
+  "company_domain": "datafjord.example",
+  "ts": "2026-05-02T15:00:00",
+  "text": "Account plan for Datafjord: stage at_risk, owner priya@atlasrev.io."
  }
 ]

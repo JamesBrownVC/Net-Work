@@ -12,7 +12,7 @@ seed:
 	$(PY) scripts/seed.py
 
 ingest:
-	$(PY) scripts/ingest.py
+	$(PY) scripts/ingest.py --analyze
 
 status:
 	$(PY) -m fabric.cli status
@@ -27,8 +27,8 @@ lint:
 mcp:
 	$(PY) -m fabric.mcp.serve $(NAME)
 
-# one-command demo on fixtures: seed, ingest, full agent run + battle plan
+# one-command demo on fixtures: seed, ingest, content analysis, full agent run
 demo:
 	$(PY) scripts/seed.py
-	$(PY) scripts/ingest.py
+	$(PY) scripts/ingest.py --analyze
 	$(PY) -m fabric.cli demo

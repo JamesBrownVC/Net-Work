@@ -136,6 +136,7 @@ def test_warmth_components_and_bounds() -> None:
         assert 0.0 <= r["warmth"] <= 1.0
         assert set(r["components"]) == {
             "recency_decay", "freq_90d", "reciprocity", "seniority_touch", "channel_diversity",
+            "content_sentiment", "champion",
         }
     # the 4 warm nodes carry gmail history and must outrank cold members
     assert rows[0]["warmth"] > rows[-1]["warmth"]
