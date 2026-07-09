@@ -276,10 +276,10 @@ body.light .controls-bar { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
 
 /* SVG styles */
 .edge-line {
-  fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 1;
+  fill: none; stroke: rgba(255,255,255,0.20); stroke-width: 1;
   transition: stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease;
 }
-body.light .edge-line { stroke: rgba(0,0,0,0.06); }
+body.light .edge-line { stroke: rgba(0,0,0,0.15); }
 .edge-line.explored { stroke: var(--blue); stroke-width: 1.5; opacity: 0.7; }
 .edge-line.path-edge { stroke: var(--accent); stroke-width: 2.5; opacity: 1; }
 .edge-line.path-alt { stroke: var(--accent); stroke-width: 1.5; opacity: 0.25; }
@@ -847,7 +847,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.06); }
           var sId = typeof d.source === "object" ? d.source.id : d.source;
           var tId = typeof d.target === "object" ? d.target.id : d.target;
           return !pathEdgeSet.has(sId + "|" + tId);
-        }).style("opacity", 0.08);
+        }).style("opacity", 0.30);
       }, pathStart - 100);
 
       // Light up path edges sequentially
@@ -951,7 +951,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.06); }
       } else if (showAllPaths && graphData._pathEdgeSets.some(function (s) { return s.has(key); })) {
         el.attr("class", "edge-line path-alt").style("opacity", 0.25).style("filter", null);
       } else {
-        el.attr("class", "edge-line").style("opacity", 0.08).style("filter", null);
+        el.attr("class", "edge-line").style("opacity", 0.30).style("filter", null);
       }
     });
 
