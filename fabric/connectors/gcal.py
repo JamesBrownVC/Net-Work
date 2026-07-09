@@ -23,7 +23,8 @@ class GcalConnector(FixtureConnector):
     def _resolve_ts(payload: dict[str, Any]) -> datetime:
         if "ts" in payload:
             return datetime.fromisoformat(payload["ts"])
-        base = datetime.now().replace(hour=10, minute=0, second=0, microsecond=0)
+        hour = int(payload.get("hour", 10))
+        base = datetime.now().replace(hour=hour, minute=0, second=0, microsecond=0)
         return base + timedelta(days=int(payload["offset_days"]))
 
     def pull(self, since: datetime | None = None) -> list[RawRecord]:

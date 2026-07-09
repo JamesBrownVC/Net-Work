@@ -24,6 +24,31 @@ def _orbit_html() -> bytes:
     return (ORBIT_DIR / "index.html").read_bytes()
 
 
+def _person_brief_markdown(pb: dict) -> str:
+    """Gamma one-pager markdown for a person-centric pre-call brief."""
+    p = pb.get("person", {})
+    rel = pb.get("relationship", {})
+    lines = [
+        f"# Pre-Call Brief — {p.get('name', '')}",
+        f"{p.get('title', '')} · {p.get('company', '')} · {p.get('email', '')}",
+        "",
+        f"## Why This Call\n{pb.get('purpose', '')}",
+        "",
+        "## Our Relationship",
+        f"Warmth {rel.get('warmth', 0)} · sentiment "
+        f"{rel.get('person_sentiment', rel.get('account_recent_sentiment', 0))} · "
+        f"{rel.get('sentiment_line', '')}",
+    ]
+    for c in rel.get("champion_signals", []):
+        lines.append(f"- Champion: {c['text']} [{c['evidence']}]")
+    for r in rel.get("risk_flags", []):
+        lines.append(f"- Risk: {r['text']} [{r['evidence']}]")
+    lines += ["", "## Ask Them To Introduce You To"]
+    for o in pb.get("onward_intros", []):
+        lines.append(f"- {o['name']} ({o['title']}) — {o['reason']} (reach {o['reachability']})")
+    return "\n".join(lines)
+
+
 def _brief_markdown(brief: dict) -> str:
     """Battle-plan-style markdown for the Gamma one-pager export."""
     a = brief.get("account", {})
@@ -182,19 +207,49 @@ class Handler(BaseHTTPRequestHandler):
             ).encode("utf-8")
             self._send(body, "application/json")
             return
-        if parsed.path in ("/orbit", "/orbit/", "/orbit/index.html"):
+        if parsed.path in ("/orbit", "/orbit/", "/orbit/calendar", "/orbit/calendar.html"):
+            self._send((ORBIT_DIR / "calendar.html").read_bytes(), "text/html; charset=utf-8")
+            return
+        if parsed.path in ("/orbit/brief", "/orbit/brief.html"):
+            self._send((ORBIT_DIR / "brief.html").read_bytes(), "text/html; charset=utf-8")
+            return
+        if parsed.path == "/orbit/index.html":  # legacy account-centric brief
             self._send(_orbit_html(), "text/html; charset=utf-8")
+            return
+        if parsed.path == "/orbit/orbit.css":
+            self._send((ORBIT_DIR / "orbit.css").read_bytes(), "text/css; charset=utf-8")
             return
         if parsed.path in ("/orbit/fortress-plan.html", "/orbit/book-of-business.html"):
             name = parsed.path.rsplit("/", 1)[-1]
             self._send((ORBIT_DIR / name).read_bytes(), "text/html; charset=utf-8")
             return
-        if parsed.path == "/api/brief":
-            from agents.brief import build_brief
+        if parsed.path == "/api/calendar":
+            from agents.brief import calendar
 
-            domain = parse_qs(parsed.query).get("account", ["novapay.io"])[0]
             try:
-                brief = build_brief(domain)
+                data = {"slots": calendar()}
+            except Exception as exc:
+                data = {"error": str(exc)}
+            self._send(json.dumps(data, default=str).encode("utf-8"), "application/json")
+            return
+        if parsed.path == "/api/book":
+            from agents.brief import book_of_business
+
+            try:
+                data = {"accounts": book_of_business()}
+            except Exception as exc:
+                data = {"error": str(exc)}
+            self._send(json.dumps(data, default=str).encode("utf-8"), "application/json")
+            return
+        if parsed.path == "/api/brief":
+            from agents.brief import build_brief, build_person_brief
+
+            query = parse_qs(parsed.query)
+            try:
+                if "person" in query:  # person-centric one-pager
+                    brief = build_person_brief(query["person"][0])
+                else:  # account-centric (back-compat)
+                    brief = build_brief(query.get("account", ["novapay.io"])[0])
             except Exception as exc:  # surface, don't 500 silently
                 brief = {"error": str(exc)}
             self._send(json.dumps(brief, default=str).encode("utf-8"), "application/json")
@@ -202,12 +257,15 @@ class Handler(BaseHTTPRequestHandler):
         if parsed.path == "/api/deck":
             import asyncio
 
-            from agents.brief import build_brief
+            from agents.brief import build_brief, build_person_brief
             from surfaces.gamma import generate_deck
 
-            domain = parse_qs(parsed.query).get("account", ["novapay.io"])[0]
-            brief = build_brief(domain)
-            md = _brief_markdown(brief)
+            query = parse_qs(parsed.query)
+            if "person" in query:
+                pb = build_person_brief(query["person"][0])
+                md = _person_brief_markdown(pb)
+            else:
+                md = _brief_markdown(build_brief(query.get("account", ["novapay.io"])[0]))
             result = asyncio.run(generate_deck(md))
             self._send(json.dumps(result, default=str).encode("utf-8"), "application/json")
             return

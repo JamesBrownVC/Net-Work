@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Orbit · Pre-Call Brief</title>
+<link rel="stylesheet" href="orbit.css" />
+<style>
+  .back { color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 600; }
+  .back:hover { color: var(--accent); }
+  .who { display: flex; gap: 16px; align-items: center; padding: 16px; }
+  .who-avatar { width: 56px; height: 56px; border-radius: 50%; flex: none; display: flex;
+    align-items: center; justify-content: center; font-weight: 700; font-size: 18px;
+    background: var(--surface); border: 1px solid var(--border-bright); }
+  .who-name { font-size: 19px; font-weight: 700; }
+  .who-role { color: var(--text-2); font-size: 14px; margin-top: 2px; }
+  .who-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px;
+    font-size: 13px; color: var(--text-2); }
+  .who-meta b { color: var(--text); font-weight: 600; }
+  .purpose { padding: 0 16px 14px; }
+  .purpose-box { background: var(--accent-tint-bg); border: 1px solid var(--accent-border);
+    border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13.5px; }
+  .purpose-box .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent); font-weight: 700; margin-bottom: 3px; }
+  .metric-row { display: flex; gap: 22px; align-items: baseline; padding: 14px 16px 6px; }
+  .metric .n { font: 700 26px Consolas, monospace; }
+  .metric .l { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-2); }
+  .ev-item { display: flex; gap: 10px; padding: 10px 14px; border-top: 1px solid var(--border); }
+  .ev-badge { width: 26px; height: 26px; border-radius: 7px; flex: none; display: flex;
+    align-items: center; justify-content: center; font-size: 13px; }
+  .ev-text { font-size: 13.5px; line-height: 1.5; }
+  .cite { display: inline-block; margin-top: 4px; font: 600 11px Consolas, monospace;
+    padding: 2px 7px; border-radius: 7px; background: var(--enr-bg); color: var(--enr-fg); }
+  .intro { display: flex; gap: 14px; align-items: center; padding: 13px 16px;
+    border-top: 1px solid var(--border); }
+  .intro:first-child { border-top: none; }
+  .intro-avatar { width: 38px; height: 38px; border-radius: 50%; flex: none; display: flex;
+    align-items: center; justify-content: center; font-weight: 700; font-size: 12px;
+    background: var(--surface); border: 1px solid var(--border-bright); }
+  .intro-main { flex: 1; min-width: 0; }
+  .intro-name { font-weight: 600; font-size: 14.5px; }
+  .intro-reason { color: var(--text-2); font-size: 13px; margin-top: 1px; }
+  .sen-pill { font: 600 11px Consolas, monospace; padding: 3px 8px; border-radius: 8px;
+    background: var(--surface); border: 1px solid var(--border-bright); color: var(--text-2); }
+  .reach { font: 600 12px Consolas, monospace; color: var(--ok-fg); }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <header class="header">
+      <div class="header-top">
+        <div class="brand">
+          <div class="orbit-dot"></div>
+          <div>
+            <div class="brand-name">Orbit</div>
+            <div class="brand-sub"><a class="back" href="/orbit">← Schedule</a></div>
+          </div>
+        </div>
+        <div class="header-tools">
+          <div class="status-line" id="statusLine"><span class="pulse"></span>
+            <span id="statusText">Building brief…</span></div>
+          <button class="icon-btn" id="themeToggle" title="Toggle theme">
+            <span id="themeIcon">☾</span><span id="themeLabel">Light</span>
+          </button>
+        </div>
+      </div>
+      <nav class="tabs">
+        <a class="tab" href="/orbit"><span class="tab-dot"></span>Schedule</a>
+        <a class="tab active" href="#"><span class="tab-dot"></span>Pre-Call Brief</a>
+        <a class="tab" href="/orbit/book-of-business.html"><span class="tab-dot"></span>Book of Business</a>
+        <a class="tab" href="/orbit/fortress-plan.html"><span class="tab-dot"></span>Fortress Plan</a>
+      </nav>
+      <div class="header-main">
+        <div class="monogram" id="mono">··</div>
+        <div class="account-block">
+          <div class="account-name"><span id="pName">…</span>
+            <span class="health" id="pHealth"><span class="hd"></span>—</span></div>
+          <div class="account-sub" id="pRole">—</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="col">
+        <!-- WHO YOU'RE MEETING -->
+        <section>
+          <div class="section-head"><div class="section-title"><span class="tick"></span>Who you're meeting</div></div>
+          <div class="card">
+            <div class="who">
+              <div class="who-avatar" id="whoAvatar">··</div>
+              <div style="min-width:0">
+                <div class="who-name" id="whoName">…</div>
+                <div class="who-role" id="whoRole">—</div>
+                <div class="who-meta" id="whoMeta"></div>
+              </div>
+            </div>
+            <div class="purpose"><div class="purpose-box">
+              <div class="lbl">Why this call</div><span id="whoPurpose">—</span></div></div>
+          </div>
+        </section>
+
+        <!-- RELATIONSHIP -->
+        <section>
+          <div class="section-head"><div class="section-title"><span class="tick"></span>Our relationship</div>
+            <div class="section-meta">Warmth + content analysis · evidence-backed</div></div>
+          <div class="card" id="relCard"></div>
+        </section>
+      </div>
+
+      <div class="col">
+        <!-- THE ASK: onward intros -->
+        <section>
+          <div class="section-head"><div class="section-title"><span class="tick"></span>Ask them to introduce you to</div>
+            <div class="section-meta">Ranked by value × reachability</div></div>
+          <div class="card" id="introCard"></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- THE FINAL CASTLE: intentionally-empty slot for the fortress/conquest map.
+         Do NOT put a chart/stub here; it gets replaced by the real conquest map.
+         Data contract:
+           engines.fortress.solve(domain, target) -> {
+             target, v_deal, paths:[{steps:[{from,to,p,p_components}], R, effort, EV}] }
+         Wiring the castle later is a drop-in: fetch that JSON and render into #castleSlot. -->
+    <section>
+      <div class="section-head"><div class="section-title"><span class="tick"></span>Plan of attack — the castle</div>
+        <div class="section-meta">Fortress conquest map</div></div>
+      <div class="card" id="castleSlot" style="min-height:170px; display:flex; align-items:center;
+        justify-content:center; border:1.5px dashed var(--border-bright); text-align:center;">
+        <div style="color:var(--text-2); font-size:13px; line-height:1.6;">
+          <div style="font-size:22px; opacity:.5; margin-bottom:8px;">♜</div>
+          Conquest map renders here<br>
+          <span style="font-size:11px; opacity:.7;">fed by <code>fortress.solve()</code> path JSON — independent dataflow</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-meta">Generated by <b style="color:var(--text)">Orbit</b> · sources:
+        <span class="pill hub"><span class="mark">H</span>HubSpot</span>
+        <span class="pill sil"><span class="mark">S</span>Sillage</span>
+        <span class="pill enr"><span class="mark">F</span>FullEnrich</span></div>
+      <div class="footer-actions">
+        <button class="btn btn-ghost" id="slackBtn">Send to Slack</button>
+        <button class="btn btn-primary" id="exportBtn">Export one-pager</button>
+      </div>
+    </footer>
+  </div>
+  <div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+(function () {
+  "use strict";
+  var EMAIL = new URLSearchParams(location.search).get("person") || "elsa.jansen@novapay.io";
+  function esc(s){ return String(s==null?"":s).replace(/[&<>]/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }); }
+  function initials(n){ return (n||"··").split(/\s+/).map(function(w){return w[0];})
+    .join("").slice(0,2).toUpperCase(); }
+  function toast(m){ var w=document.getElementById("toastWrap"); var t=document.createElement("div");
+    t.className="toast"; t.innerHTML='<span class="spark">✦</span>'+m; w.appendChild(t);
+    requestAnimationFrame(function(){t.classList.add("show");});
+    setTimeout(function(){t.classList.remove("show");setTimeout(function(){t.remove();},260);},1600); }
+
+  fetch("/api/brief?person="+encodeURIComponent(EMAIL))
+    .then(function(r){return r.json();}).then(function(b){
+    var status=document.getElementById("statusText");
+    if(b.error){ status.textContent="Error: "+b.error; return; }
+    var p=b.person, rel=b.relationship;
+    // header
+    document.getElementById("pName").textContent=p.name;
+    document.getElementById("pRole").textContent=p.title+" · "+p.company;
+    document.getElementById("mono").textContent=initials(p.name);
+    var hd=document.getElementById("pHealth");
+    hd.innerHTML='<span class="hd"></span>'+esc(b.health);
+    hd.style.color = b.health==="At risk"?"var(--warm)":b.health==="Healthy"?"var(--ok-fg)":"";
+    // who
+    document.getElementById("whoAvatar").textContent=initials(p.name);
+    document.getElementById("whoName").textContent=p.name;
+    document.getElementById("whoRole").textContent=p.title+" · "+p.dept+" · "+p.company;
+    document.getElementById("whoMeta").innerHTML =
+      '<span><b>'+esc(p.email)+'</b></span>'+
+      (p.phone?'<span><b>'+esc(p.phone)+'</b></span>':'')+
+      '<span>Seniority <b>'+esc(p.seniority)+'</b></span>';
+    document.getElementById("whoPurpose").textContent=b.purpose||"General relationship call.";
+    // relationship card
+    var pct=Math.round((rel.warmth||0)*100);
+    var sen = rel.person_sentiment!=null ? rel.person_sentiment : rel.account_recent_sentiment;
+    var scol = sen<=-0.2?"var(--warm)":sen>=0.3?"var(--ok-fg)":"var(--text-2)";
+    var rc = '<div class="metric-row">'+
+      '<div class="metric"><div class="n">'+pct+'%</div><div class="l">Warmth</div></div>'+
+      '<div class="metric"><div class="n" style="color:'+scol+'">'+(sen>=0?"+":"")+sen.toFixed(2)+
+        '</div><div class="l">Sentiment</div></div></div>'+
+      '<div class="signal-talk" style="padding:2px 16px 8px">'+esc(rel.sentiment_line)+'</div>';
+    (rel.champion_signals||[]).forEach(function(c){
+      rc+='<div class="ev-item"><div class="ev-badge" style="background:var(--ok-bg);color:var(--ok-fg)">★</div>'+
+        '<div class="ev-text">'+esc(c.text)+'<br><span class="cite">'+esc(c.evidence)+'</span></div></div>'; });
+    (rel.risk_flags||[]).forEach(function(c){
+      rc+='<div class="ev-item"><div class="ev-badge" style="background:var(--accent-soft);color:var(--accent)">!</div>'+
+        '<div class="ev-text">'+esc(c.text)+'<br><span class="cite" style="background:var(--accent-soft);color:var(--accent)">'+esc(c.evidence)+'</span></div></div>'; });
+    document.getElementById("relCard").innerHTML=rc;
+    // onward intros
+    var ic="";
+    (b.onward_intros||[]).forEach(function(o){
+      ic+='<div class="intro"><div class="intro-avatar">'+initials(o.name)+'</div>'+
+        '<div class="intro-main"><div class="intro-name">'+esc(o.name)+
+          ' <span class="sen-pill">'+esc(o.seniority)+'</span></div>'+
+          '<div class="intro-reason">'+esc(o.reason)+'</div></div>'+
+        '<div class="reach">p '+o.reachability.toFixed(2)+'</div></div>';
+    });
+    if(!ic){ ic='<div class="ev-text" style="padding:16px;color:var(--text-2)">'+
+      'No org-graph intros mapped for this account yet (needs FullEnrich org data).</div>'; }
+    document.getElementById("introCard").innerHTML=ic;
+    status.textContent="Brief ready · "+p.name;
+    var pulse=document.querySelector("#statusLine .pulse");
+    if(pulse){ pulse.style.animation="none"; pulse.style.opacity="0.9"; }
+  }).catch(function(e){ document.getElementById("statusText").textContent="Backend unreachable"; });
+
+  document.getElementById("exportBtn").addEventListener("click", function(){
+    toast("Generating one-pager via Gamma…");
+    fetch("/api/deck?person="+encodeURIComponent(EMAIL)).then(function(r){return r.json();})
+      .then(function(d){ toast("Gamma deck ["+d.status+"] · "+(d.gammaUrl||"ready")); })
+      .catch(function(){ toast("Gamma export failed"); });
+  });
+  document.getElementById("slackBtn").addEventListener("click", function(){ toast("Sending to Slack…"); });
+  document.getElementById("themeToggle").addEventListener("click", function(){
+    var light=document.body.classList.toggle("light");
+    document.getElementById("themeIcon").textContent=light?"☀":"☾";
+    document.getElementById("themeLabel").textContent=light?"Dark":"Light";
+  });
+})();
+</script>
+</body>
+</html>

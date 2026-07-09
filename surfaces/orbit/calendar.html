@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Orbit · Schedule</title>
+<link rel="stylesheet" href="orbit.css" />
+<style>
+  .cal-day { margin-top: 22px; }
+  .cal-day-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-2); margin: 0 0 10px 2px; font-weight: 600; }
+  .slot { display: flex; align-items: center; gap: 16px; padding: 14px 16px;
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    margin-bottom: 10px; cursor: pointer; transition: border-color .16s, transform .16s,
+    background .16s; text-decoration: none; color: var(--text); }
+  .slot:hover { border-color: var(--accent-border); background: var(--card-hover);
+    transform: translateX(2px); }
+  .slot-time { font: 600 15px/1 Consolas, monospace; color: var(--accent);
+    width: 52px; flex: none; }
+  .slot-avatar { width: 40px; height: 40px; border-radius: 50%; flex: none;
+    display: flex; align-items: center; justify-content: center; font-weight: 700;
+    font-size: 13px; background: var(--surface); border: 1px solid var(--border-bright); }
+  .slot-main { min-width: 0; flex: 1; }
+  .slot-name { font-weight: 600; font-size: 15px; }
+  .slot-sub { color: var(--text-2); font-size: 13px; margin-top: 1px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .slot-right { display: flex; align-items: center; gap: 12px; flex: none; }
+  .warm-chip { font: 600 12px Consolas, monospace; padding: 3px 8px; border-radius: 8px;
+    background: var(--accent-tint-bg); color: var(--accent); border: 1px solid var(--accent-border); }
+  .slot-cta { color: var(--text-2); font-size: 13px; font-weight: 600; }
+  .slot:hover .slot-cta { color: var(--accent); }
+  .empty { color: var(--text-2); padding: 24px; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <header class="header">
+      <div class="header-top">
+        <div class="brand">
+          <div class="orbit-dot"></div>
+          <div>
+            <div class="brand-name">Orbit</div>
+            <div class="brand-sub" id="brandSub">Today's schedule</div>
+          </div>
+        </div>
+        <div class="header-tools">
+          <div class="status-line" id="statusLine">
+            <span class="pulse"></span>
+            <span id="statusText">Loading your calls…</span>
+          </div>
+          <button class="icon-btn" id="themeToggle" title="Toggle theme">
+            <span id="themeIcon">☾</span><span id="themeLabel">Light</span>
+          </button>
+        </div>
+      </div>
+      <nav class="tabs">
+        <a class="tab active" href="/orbit"><span class="tab-dot"></span>Schedule</a>
+        <a class="tab" href="/orbit/book-of-business.html"><span class="tab-dot"></span>Book of Business</a>
+        <a class="tab" href="/orbit/fortress-plan.html"><span class="tab-dot"></span>Fortress Plan</a>
+      </nav>
+      <div class="header-main">
+        <div class="account-block">
+          <div class="account-name">Your upcoming calls</div>
+          <div class="account-sub">Click a slot to open the pre-call brief for that person</div>
+        </div>
+      </div>
+    </header>
+
+    <div id="agenda"></div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+  function esc(s){ return String(s==null?"":s).replace(/[&<>]/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }); }
+  function initials(n){ return (n||"··").split(/\s+/).map(function(w){return w[0];})
+    .join("").slice(0,2).toUpperCase(); }
+
+  fetch("/api/calendar").then(function(r){return r.json();}).then(function(d){
+    var status = document.getElementById("statusText");
+    if (d.error){ status.textContent = "Error: "+d.error; return; }
+    var slots = d.slots || [];
+    status.textContent = slots.length + " calls scheduled";
+    var byDay = {};
+    var order = [];
+    slots.forEach(function(s){
+      var day = s.when.day;
+      if(!byDay[day]){ byDay[day]=[]; order.push(day); }
+      byDay[day].push(s);
+    });
+    var agenda = document.getElementById("agenda");
+    if(!slots.length){ agenda.innerHTML = '<div class="empty">No upcoming calls.</div>'; return; }
+    order.forEach(function(day){
+      var wrap = document.createElement("div");
+      wrap.className = "cal-day";
+      wrap.innerHTML = '<div class="cal-day-label">'+esc(day)+'</div>';
+      byDay[day].forEach(function(s){
+        var a = document.createElement("a");
+        a.className = "slot";
+        a.href = "/orbit/brief?person="+encodeURIComponent(s.person.email);
+        var warm = s.warmth!=null ? '<span class="warm-chip">warmth '+s.warmth.toFixed(2)+'</span>' : '';
+        a.innerHTML =
+          '<div class="slot-time">'+esc(s.when.time)+'</div>'+
+          '<div class="slot-avatar">'+initials(s.person.name)+'</div>'+
+          '<div class="slot-main">'+
+            '<div class="slot-name">'+esc(s.person.name)+
+              ' <span style="color:var(--text-2);font-weight:400">· '+esc(s.person.title)+'</span></div>'+
+            '<div class="slot-sub">'+esc(s.company.name)+' — '+esc(s.purpose)+'</div>'+
+          '</div>'+
+          '<div class="slot-right">'+warm+'<span class="slot-cta">Prep brief →</span></div>';
+        wrap.appendChild(a);
+      });
+      agenda.appendChild(wrap);
+    });
+  }).catch(function(e){ document.getElementById("statusText").textContent = "Backend unreachable"; });
+
+  document.getElementById("themeToggle").addEventListener("click", function(){
+    var light = document.body.classList.toggle("light");
+    document.getElementById("themeIcon").textContent = light ? "☀" : "☾";
+    document.getElementById("themeLabel").textContent = light ? "Dark" : "Light";
+  });
+})();
+</script>
+</body>
+</html>

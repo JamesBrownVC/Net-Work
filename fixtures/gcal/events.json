@@ -2500,13 +2500,73 @@
   "company_domain": "paynordic.example"
  },
  {
-  "id": "gcal:tomorrow",
-  "title": "NovaPay discovery call",
-  "offset_days": 1,
+  "id": "gcal:call-0",
+  "title": "Discovery: payment reconciliation pain",
+  "offset_days": 0,
+  "hour": 14,
+  "purpose": "Discovery: payment reconciliation pain",
   "attendees": [
    "lena@atlasrev.io",
    "elsa.jansen@novapay.io"
   ],
-  "company_domain": "novapay.io"
+  "person_email": "elsa.jansen@novapay.io",
+  "company_domain": "novapay.io",
+  "is_call_slot": true
+ },
+ {
+  "id": "gcal:call-1",
+  "title": "Champion sync (former Finexa champion, now inside NovaPay)",
+  "offset_days": 0,
+  "hour": 16,
+  "purpose": "Champion sync (former Finexa champion, now inside NovaPay)",
+  "attendees": [
+   "lena@atlasrev.io",
+   "max.bauer@novapay.io"
+  ],
+  "person_email": "max.bauer@novapay.io",
+  "company_domain": "novapay.io",
+  "is_call_slot": true
+ },
+ {
+  "id": "gcal:call-2",
+  "title": "Scope the Sales-Ops expansion off the hiring spike",
+  "offset_days": 1,
+  "hour": 10,
+  "purpose": "Scope the Sales-Ops expansion off the hiring spike",
+  "attendees": [
+   "lena@atlasrev.io",
+   "oscar.eriksen@novapay.io"
+  ],
+  "person_email": "oscar.eriksen@novapay.io",
+  "company_domain": "novapay.io",
+  "is_call_slot": true
+ },
+ {
+  "id": "gcal:call-3",
+  "title": "Save call: address the support escalation before renewal",
+  "offset_days": 1,
+  "hour": 15,
+  "purpose": "Save call: address the support escalation before renewal",
+  "attendees": [
+   "lena@atlasrev.io",
+   "nora.eriksen@cargoluxdigita.example"
+  ],
+  "person_email": "nora.eriksen@cargoluxdigita.example",
+  "company_domain": "cargoluxdigita.example",
+  "is_call_slot": true
+ },
+ {
+  "id": "gcal:call-4",
+  "title": "Technical evaluation and security review",
+  "offset_days": 2,
+  "hour": 11,
+  "purpose": "Technical evaluation and security review",
+  "attendees": [
+   "lena@atlasrev.io",
+   "alma.berg@novapay.io"
+  ],
+  "person_email": "alma.berg@novapay.io",
+  "company_domain": "novapay.io",
+  "is_call_slot": true
  }
 ]

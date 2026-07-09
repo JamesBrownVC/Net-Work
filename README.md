@@ -118,30 +118,41 @@ warmth drops from `0.909` (metadata only) to `0.815` (with content), and the
 Relationship agent flags it as a churn risk that the old ARR/silence rules
 missed entirely. See `tests/test_content.py`.
 
-## Orbit pre-call brief (web)
+## Orbit (web): schedule → pre-call brief → onward intros
 
-`surfaces/orbit/` is the Orbit pre-call brief UI, wired to real backend data
-and served by the web surface. Start it and open a brief per account:
+`surfaces/orbit/` is the Orbit UI, wired to real backend data and served by the
+web surface. The flow mirrors a rep's day:
 
 ```
 python -m surfaces.web
-# http://localhost:8787/orbit?account=novapay.io   (healthy, warm)
-# http://localhost:8787/orbit?account=cargoluxdigita.example   (at risk, cooled)
-# http://localhost:8787/orbit?account=axa.fr        (insurer, Sillage signals)
+# http://localhost:8787/orbit                     the SCHEDULE (calendar of calls)
+# click a slot -> http://localhost:8787/orbit/brief?person=<email>
+# http://localhost:8787/orbit/book-of-business.html   portfolio, at-risk first
+# http://localhost:8787/orbit/fortress-plan.html      the conquest map (castle)
 ```
 
-`GET /api/brief?account=<domain>` (in `agents/brief.py`) assembles the
-MeetingBrief from real data: warmth + the Part A content signal (sentiment,
-champion signals, risk flags, each with its evidence interaction id), the
-allocator's recommended action and euro value, references, and account signals.
-Account signals come from Sillage for the 13 tracked insurers (AXA, MAIF,
-MACIF, …) via `fabric/sillage_provider.py`, which prefers the live Sillage API
-(`SILLAGE_API_KEY`, `MOCK_MODE=false`) and falls back to cached data otherwise;
-customer accounts use the store's own signals. The "Export one-pager" button
-generates a Gamma deck (`GET /api/deck`). The "Plan of attack — the castle"
-section is a deliberately empty, labeled slot for the fortress conquest map;
-its data contract (the `fortress.solve()` path JSON) is documented in the
-markup so wiring it in later is a drop-in. See `tests/test_brief.py`.
+**Schedule** (`calendar.html`, `GET /api/calendar`): your upcoming calls,
+grouped by day, each resolved to the person you're meeting with their warmth.
+Built from the gcal call slots in `scripts/seed.py`.
+
+**Pre-call brief** (`brief.html`, `GET /api/brief?person=<email>` in
+`agents/brief.py`): a person one-pager. Top - who you're meeting (title,
+company, contactability) and our relationship: warmth + the Part A content
+signal (sentiment, champion signals, risk flags, each with its evidence
+interaction id). Bottom - **who to ask them to introduce you to**: their
+org-graph neighbours ranked by value × reachability, each with a reason (e.g.
+"Their manager Aya Rossi (CRO) - the fastest line to a decision"). "Export
+one-pager" generates a Gamma deck (`GET /api/deck?person=`). The "Plan of
+attack - the castle" is a deliberately empty, labeled slot for the fortress
+conquest map; its `fortress.solve()` data contract is documented in the markup
+so wiring it later is a drop-in.
+
+**Book of Business** (`GET /api/book`): every customer account with ARR,
+cadence and content health, at-risk (sentiment-anchored) first.
+
+The account-centric brief (`build_brief`, insurers via `fabric/sillage_provider.py`
+with live-Sillage-preferred cached fallback) is still available at
+`/orbit/index.html?account=<domain>`. See `tests/test_brief.py`.
 
 ## Demo
 

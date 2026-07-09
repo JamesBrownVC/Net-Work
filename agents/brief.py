@@ -12,7 +12,7 @@ Mock-first: works on fixtures with zero credentials.
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any
 
 from sqlalchemy.orm import Session
@@ -26,6 +26,66 @@ from fabric.store import CompanyRow, ReferenceRow, SignalRow, get_engine
 
 def _account_row(session: Session, domain: str) -> CompanyRow | None:
     return session.query(CompanyRow).filter(CompanyRow.domain == domain.lower()).first()
+
+
+# ---- calendar of upcoming call slots -----------------------------------------
+def _person_by_email(session: Session, email: str):
+    from fabric.store import PersonRow
+
+    return session.query(PersonRow).filter(PersonRow.email == email.lower()).first()
+
+
+def _day_label(ts: datetime, now: datetime) -> str:
+    delta = (ts.date() - now.date()).days
+    return {0: "Today", 1: "Tomorrow"}.get(delta, ts.strftime("%A %d %b"))
+
+
+def calendar(days: int = 7) -> list[dict[str, Any]]:
+    """Upcoming call slots for the schedule view: one entry per scheduled call,
+    resolved to the person you're meeting. Includes all of today's agenda."""
+    from fabric import registry
+
+    now = datetime.now()
+    today = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    horizon = now + timedelta(days=days)
+    gcal = registry.get("gcal")
+    slots = []
+    with Session(get_engine()) as session:
+        for ev in gcal.pull(since=None):
+            p = ev.payload
+            if not p.get("is_call_slot"):
+                continue
+            ts = datetime.fromisoformat(p["ts"])
+            if not (today <= ts <= horizon):
+                continue
+            email = p.get("person_email", "")
+            person = _person_by_email(session, email)
+            company = _account_row(session, p["company_domain"])
+            warmth = warmth_engine.get(session, f"person:{email.lower()}")
+            slots.append(
+                {
+                    "event_id": p["id"],
+                    "when": {
+                        "iso": ts.isoformat(timespec="minutes"),
+                        "day": _day_label(ts, now),
+                        "time": ts.strftime("%H:%M"),
+                        "sort": ts.isoformat(),
+                    },
+                    "purpose": p.get("purpose", p.get("title", "")),
+                    "person": {
+                        "email": email,
+                        "name": person.full_name if person else email.split("@")[0].title(),
+                        "title": person.title if person else "",
+                    },
+                    "company": {
+                        "domain": p["company_domain"],
+                        "name": company.name if company else p["company_domain"],
+                    },
+                    "warmth": round(warmth["score"], 2) if warmth else None,
+                }
+            )
+    slots.sort(key=lambda s: s["when"]["sort"])
+    return slots
 
 
 def _health_label(warmth: float, recent_sentiment: float, has_risk: bool) -> str:
@@ -186,6 +246,202 @@ def build_brief(domain: str) -> dict[str, Any]:
             "talking_points": talking_points,
             "social_proof": references,
             # THE FINAL CASTLE: intentionally-empty slot. See web.py / Orbit.
+            "fortress_slot": {
+                "label": "Conquest map renders here",
+                "data_contract": "engines.fortress.solve(domain, target) -> "
+                "{target, v_deal, paths:[{steps:[{from,to,p,p_components}], R, effort, EV}]}",
+                "populated": False,
+            },
+        }
+
+
+def book_of_business() -> list[dict[str, Any]]:
+    """Portfolio view: every customer account with ARR, renewal, cadence, and
+    the Part A content health (sentiment + risk), ranked at-risk first."""
+    from agents.tools import portfolio_summary
+
+    accounts = portfolio_summary()
+    rows = []
+    with Session(get_engine()) as session:
+        for a in accounts:
+            content = content_engine.account_content_summary(session, a["domain"])
+            if content["analyzed"] == 0:
+                import asyncio
+
+                asyncio.run(content_engine.analyze_account(session, a["domain"], limit=8))
+                content = content_engine.account_content_summary(session, a["domain"])
+            sent = content["recent_sentiment"]
+            # anchor to sentiment: a lone risk keyword in an otherwise-positive
+            # account is not "at risk". Genuine cooling (or risk flags while
+            # sentiment is not clearly positive) is.
+            at_risk = sent <= -0.1 or (content["risk_flags"] and sent <= 0.1)
+            health = (
+                "At risk" if at_risk
+                else "Healthy" if sent >= 0.35 and not content["risk_flags"]
+                else "Active"
+            )
+            why = content["risk_flags"][0]["text"] if content["risk_flags"] else (
+                f"{a['days_silent']}d since last touch" if a["days_silent"] > 45 else
+                "sentiment " + f"{content['recent_sentiment']:+.2f}"
+            )
+            rows.append(
+                {
+                    "account": a["account"],
+                    "domain": a["domain"],
+                    "arr_eur": a["arr_eur"],
+                    "renewal_date": a["renewal_date"],
+                    "days_silent": a["days_silent"],
+                    "interactions_90d": a["interactions_90d"],
+                    "recent_sentiment": content["recent_sentiment"],
+                    "health": health,
+                    "why": why,
+                }
+            )
+    rank = {"At risk": 0, "Active": 1, "Healthy": 2}
+    rows.sort(key=lambda r: (rank[r["health"]], -r["arr_eur"]))
+    return rows
+
+
+_SENIORITY_RANK = {"IC": 0, "MGR": 1, "DIR": 2, "VP": 3, "C": 4}
+
+
+def _onward_intros(session: Session, person_id: str, domain: str) -> list[dict[str, Any]]:
+    """Who this person can introduce you to: their org-graph neighbours, ranked
+    by the value of the target (seniority) times how reachable the intro is."""
+    from engines import fortress
+    from fabric.store import OrgEdgeRow, PersonRow
+
+    # ensure org edges are materialized for this company (idempotent)
+    if (
+        session.query(OrgEdgeRow)
+        .join(PersonRow, PersonRow.id == OrgEdgeRow.src_person)
+        .filter(PersonRow.company_id == f"company:{domain.lower()}")
+        .count()
+        == 0
+    ):
+        fortress.build_org_edges(session, domain)
+
+    import json as _json
+
+    out = []
+    for edge in session.query(OrgEdgeRow).filter(OrgEdgeRow.src_person == person_id).all():
+        dst = session.get(PersonRow, edge.dst_person)
+        if not dst:
+            continue
+        rank = _SENIORITY_RANK.get(dst.seniority_level, 0)
+        score = rank * edge.p_uv
+        out.append(
+            {
+                "name": dst.full_name,
+                "title": dst.title,
+                "seniority": dst.seniority_level,
+                "rel_type": edge.rel_type,
+                "reachability": round(edge.p_uv, 3),
+                "reason": _intro_reason(edge.rel_type, dst),
+                "score": round(score, 3),
+                "p_components": _json.loads(edge.p_components_json),
+            }
+        )
+    out.sort(key=lambda x: x["score"], reverse=True)
+    # prefer higher-value targets (VP/C), drop peers/ICs unless nothing else
+    strong = [o for o in out if o["seniority"] in ("DIR", "VP", "C")]
+    return (strong or out)[:4]
+
+
+def _intro_reason(rel_type: str, dst) -> str:
+    who = f"{dst.full_name} ({dst.title})"
+    return {
+        "manages": f"Their manager {who} - the fastest line to a decision.",
+        "skip": f"{who} sits two levels up - a warm skip-level intro.",
+        "peer": f"{who} is a peer they trust - lateral expansion.",
+        "cross_dept": f"{who} leads another function - widen the footprint.",
+        "external_mutual": f"{who} - a mutual connection.",
+    }.get(rel_type, who)
+
+
+def build_person_brief(email: str) -> dict[str, Any]:
+    """One-pager for a specific person you're about to call: who they are, our
+    relationship with them, and who to ask them to introduce you to."""
+    email = email.lower()
+    with Session(get_engine()) as session:
+        person = _person_by_email(session, email)
+        if person is None:
+            return {"error": f"no person {email}"}
+        domain = (person.company_id or "company:").split(":", 1)[-1]
+        company = _account_row(session, domain)
+        warmth = warmth_engine.get(session, person.id)
+
+        # relationship substance (Part A), account-level, cited
+        content = content_engine.account_content_summary(session, domain)
+        if content["analyzed"] == 0:
+            import asyncio
+
+            asyncio.run(content_engine.analyze_account(session, domain, limit=12))
+            content = content_engine.account_content_summary(session, domain)
+
+        # this person's own thread sentiment, if we have analyzed content for them
+        from fabric.store import InteractionContextRow
+
+        pctx = (
+            session.query(InteractionContextRow)
+            .filter(InteractionContextRow.person_id == person.id)
+            .all()
+        )
+        smap = {"positive": 1.0, "neutral": 0.0, "negative": -1.0, "tense": -0.7}
+        person_sentiment = (
+            round(sum(smap[c.sentiment] for c in pctx) / len(pctx), 2) if pctx else None
+        )
+
+        # the scheduled purpose for this person, if a call slot exists
+        purpose = ""
+        for slot in calendar(days=14):
+            if slot["person"]["email"] == email:
+                purpose = slot["purpose"]
+                break
+
+        onward = _onward_intros(session, person.id, domain)
+
+        champions = [
+            {"text": c["text"], "evidence": c["interaction_id"]}
+            for c in content["champion_signals"]
+        ]
+        risks = [
+            {"text": c["text"], "evidence": c["interaction_id"]}
+            for c in content["risk_flags"]
+        ]
+        health = _health_label(
+            warmth["score"] if warmth else 0.0, content["recent_sentiment"], bool(risks)
+        )
+        return {
+            "person": {
+                "name": person.full_name,
+                "title": person.title,
+                "dept": person.dept,
+                "seniority": person.seniority_level,
+                "email": person.email,
+                "phone": person.phone or "",
+                "company": company.name if company else domain,
+                "domain": domain,
+            },
+            "purpose": purpose,
+            "health": health,
+            "relationship": {
+                "warmth": round(warmth["score"], 3) if warmth else 0.0,
+                "warmth_components": warmth["components"] if warmth else {},
+                "person_sentiment": person_sentiment,
+                "account_recent_sentiment": content["recent_sentiment"],
+                "sentiment_line": _sentiment_line(content),
+                "champion_signals": champions[:3],
+                "risk_flags": risks[:3],
+            },
+            # THE ASK: who to have this person introduce you to
+            "onward_intros": onward,
+            "context": (
+                f"{person.full_name} - {person.title} at "
+                f"{company.name if company else domain}. "
+                + (f"Purpose: {purpose}. " if purpose else "")
+                + _sentiment_line(content)
+            ),
             "fortress_slot": {
                 "label": "Conquest map renders here",
                 "data_contract": "engines.fortress.solve(domain, target) -> "

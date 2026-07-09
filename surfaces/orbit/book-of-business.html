@@ -422,9 +422,9 @@
       </div>
 
       <nav class="tabs">
-        <a class="tab" href="index.html"><span class="tab-dot"></span>Pre-Call Brief</a>
-        <a class="tab active" href="book-of-business.html"><span class="tab-dot"></span>Book of Business</a>
-        <a class="tab" href="fortress-plan.html"><span class="tab-dot"></span>Fortress Plan</a>
+        <a class="tab" href="/orbit"><span class="tab-dot"></span>Schedule</a>
+        <a class="tab active" href="/orbit/book-of-business.html"><span class="tab-dot"></span>Book of Business</a>
+        <a class="tab" href="/orbit/fortress-plan.html"><span class="tab-dot"></span>Fortress Plan</a>
       </nav>
 
       <div class="header-main">
@@ -565,38 +565,32 @@
   "use strict";
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var rows = [
-    { rank: 1, mono: "SP", name: "Spendesk", plan: "Enterprise", arr: "€120k", top: true,
-      touch: "41d", risk: "mid",
-      why: "Renewal in 58d, zero exec touch",
-      pills: [{cls:"sil",label:"Sillage",src:"Sillage"},{cls:"hub",label:"HubSpot",src:"HubSpot"}],
-      score: "96", action: "Book exec review", glyph: "▤", muted: false },
-    { rank: 2, mono: "LU", name: "Lucca", plan: "Scale", arr: "€72k",
-      touch: "68d", risk: "hi",
-      why: "Usage +31% but silent → expansion window open",
-      pills: [{cls:"hub",label:"HubSpot",src:"HubSpot"}],
-      score: "92", action: "Send expansion offer", glyph: "✉", muted: false },
-    { rank: 3, mono: "SW", name: "Swile", plan: "Growth", arr: "€55k",
-      touch: "54d", risk: "mid",
-      why: "New VP Sales appointed · 2d",
-      pills: [{cls:"sil",label:"Sillage",src:"Sillage"}],
-      score: "88", action: "Warm re-intro", glyph: "↺", muted: false },
-    { rank: 4, mono: "AC", name: "Aircall", plan: "Pro", arr: "€33k",
-      touch: "73d", risk: "hi",
-      why: "Logins down 40% → early churn",
-      pills: [{cls:"hub",label:"HubSpot",src:"HubSpot"}],
-      score: "74", action: "Health check", glyph: "♥", muted: false },
-    { rank: 5, mono: "PF", name: "PayFit", plan: "Growth", arr: "€48k", dim: true,
-      touch: "9d", risk: "lo",
-      why: "Recently engaged, healthy",
-      pills: [{cls:"hub",label:"HubSpot",src:"HubSpot"}],
-      score: "38", action: "No action needed", glyph: "✓", muted: true }
-  ];
+  var rows = [];        // populated from /api/book
+  var focusSays = [];
 
-  var focusSays = [
-    "Lead with the <b>58-day renewal</b> — no exec has been engaged this cycle.",
-    "Anchor to the <b>€120k ARR</b> at risk and propose a joint QBR with the CFO."
-  ];
+  function initials(n){ return (n||"··").split(/\s+/).map(function(w){return w[0];})
+    .join("").slice(0,2).toUpperCase(); }
+  function eur(v){ return v ? "€" + Math.round(v/1000) + "k" : "—"; }
+
+  function mapAccount(a, i) {
+    var risk = a.health === "At risk" ? "hi" : a.health === "Active" ? "mid" : "lo";
+    var action = a.health === "At risk" ? "Save call"
+               : a.health === "Healthy" ? "No action needed" : "Re-engage";
+    var senCls = a.recent_sentiment <= -0.2 ? "sil" : "hub";
+    return {
+      rank: i + 1, mono: initials(a.account), name: a.account,
+      plan: a.health, arr: eur(a.arr_eur),
+      top: a.health === "At risk" && i === 0,
+      dim: a.health === "Healthy", muted: a.health === "Healthy",
+      touch: a.days_silent + "d", risk: risk,
+      why: a.why,
+      pills: [{cls: senCls, label: "sentiment " + (a.recent_sentiment>=0?"+":"") +
+        a.recent_sentiment.toFixed(2), src: "content"}],
+      score: String(Math.max(1, Math.round(
+        (risk === "hi" ? 90 : risk === "mid" ? 60 : 30) + Math.min(9, (a.arr_eur||0)/50000)))),
+      action: action, glyph: a.health === "At risk" ? "♥" : "→"
+    };
+  }
 
   function pillHtml(p) {
     return '<span class="pill ' + p.cls + '" data-src="' + p.src + '"><span class="dot"></span>' + p.label + '</span>';
@@ -687,24 +681,22 @@
     var statusLine = document.getElementById("statusLine");
     status.textContent = "Orbit is re-ranking your accounts…";
 
-    renderRows();
-    renderFocus();
-
-    var items = Array.prototype.slice.call(document.querySelectorAll("[data-stagger]"));
-    if (reduce) {
-      items.forEach(function (el) { el.classList.add("in"); });
-      status.textContent = "Brief ready · 3 sources cross-referenced";
-      return;
-    }
-    items.forEach(function (el) { el.classList.remove("in"); });
-    items.forEach(function (el, i) { setTimeout(function () { el.classList.add("in"); }, 120 + i * 60); });
-
-    var total = 120 + items.length * 60 + 250;
-    setTimeout(function () {
-      status.textContent = "Brief ready · 3 sources cross-referenced";
-      statusLine.querySelector(".pulse").style.animation = "none";
-      statusLine.querySelector(".pulse").style.opacity = "0.9";
-    }, Math.min(total, 2000));
+    fetch("/api/book").then(function(r){return r.json();}).then(function(d){
+      if (d.error) { status.textContent = "Error: " + d.error; return; }
+      var accts = d.accounts || [];
+      rows = accts.map(mapAccount);
+      var atRisk = accts.filter(function(a){return a.health==="At risk";});
+      focusSays = atRisk.slice(0,2).map(function(a){
+        return "Prioritise <b>" + a.account + "</b> — " + a.why + "."; });
+      renderRows();
+      renderFocus();
+      var items = Array.prototype.slice.call(document.querySelectorAll("[data-stagger]"));
+      items.forEach(function (el, i) { setTimeout(function () { el.classList.add("in"); },
+        reduce ? 0 : 80 + i * 40); });
+      status.textContent = accts.length + " accounts · " + atRisk.length + " at risk";
+      var pulse = statusLine.querySelector(".pulse");
+      if (pulse) { setTimeout(function(){ pulse.style.animation="none"; pulse.style.opacity="0.9"; }, 900); }
+    }).catch(function(){ status.textContent = "Backend unreachable"; });
   }
 
   generate();

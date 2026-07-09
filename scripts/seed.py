@@ -363,15 +363,42 @@ def main() -> None:
                     "company_domain": dom,
                 }
             )
-    events.append(
-        {
-            "id": "gcal:tomorrow",
-            "title": "NovaPay discovery call",
-            "offset_days": 1,
-            "attendees": [REPS[0][1], warm_nodes[0]],
-            "company_domain": "novapay.io",
-        }
+    # Upcoming CALL SLOTS: each is a scheduled pre-call the rep will take. The
+    # brief for a slot is person-centric (who you're meeting) plus who to ask
+    # them to introduce you to. offset_days>=0 so they show on the calendar.
+    cooled_contact = next(
+        c["email"] for c in contacts if c["company_domain"] == cooled["domain"]
     )
+    upcoming_calls = [
+        {"person": warm_nodes[0], "offset_days": 0, "hour": 14,
+         "purpose": "Discovery: payment reconciliation pain", "company_domain": "novapay.io"},
+        {"person": warm_nodes[1], "offset_days": 0, "hour": 16,
+         "purpose": "Champion sync (former Finexa champion, now inside NovaPay)",
+         "company_domain": "novapay.io"},
+        {"person": warm_nodes[2], "offset_days": 1, "hour": 10,
+         "purpose": "Scope the Sales-Ops expansion off the hiring spike",
+         "company_domain": "novapay.io"},
+        {"person": cooled_contact, "offset_days": 1, "hour": 15,
+         "purpose": "Save call: address the support escalation before renewal",
+         "company_domain": cooled["domain"]},
+        {"person": warm_nodes[3], "offset_days": 2, "hour": 11,
+         "purpose": "Technical evaluation and security review",
+         "company_domain": "novapay.io"},
+    ]
+    for i, call in enumerate(upcoming_calls):
+        events.append(
+            {
+                "id": f"gcal:call-{i}",
+                "title": call["purpose"],
+                "offset_days": call["offset_days"],
+                "hour": call["hour"],
+                "purpose": call["purpose"],
+                "attendees": [REPS[0][1], call["person"]],
+                "person_email": call["person"],
+                "company_domain": call["company_domain"],
+                "is_call_slot": True,
+            }
+        )
     write("gcal/events.json", events)
 
     # ---- slack: #acct-* channels + champion mentions -----------------------
