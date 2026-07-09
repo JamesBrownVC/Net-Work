@@ -32,6 +32,32 @@ def test_ingest_idempotent_and_acceptance_counts(tmp_path: Path) -> None:
     assert first["references"] == 6
 
 
+def test_reingest_single_connector_never_degrades_people(tmp_path: Path) -> None:
+    from fabric import registry
+
+    engine = store.get_engine(tmp_path / "acr_test.db")
+    with Session(engine) as session:
+        for connector in registry.all_connectors():
+            for raw in connector.pull(since=None):
+                store.upsert(session, connector.normalize(raw))
+        session.commit()
+        enriched = (
+            session.query(store.PersonRow)
+            .filter(store.PersonRow.company_id == "company:novapay.io")
+            .filter(store.PersonRow.title != "")
+            .all()
+        )
+        assert enriched
+        before = {p.id: (p.full_name, p.title, p.seniority_level, p.source) for p in enriched}
+        gmail = registry.get("gmail")
+        for raw in gmail.pull(since=None):
+            store.upsert(session, gmail.normalize(raw))
+        session.commit()
+        for pid, snapshot in before.items():
+            row = session.get(store.PersonRow, pid)
+            assert (row.full_name, row.title, row.seniority_level, row.source) == snapshot
+
+
 def test_mcp_server_lists_tools() -> None:
     import asyncio
 

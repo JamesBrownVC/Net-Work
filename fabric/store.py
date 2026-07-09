@@ -181,9 +181,28 @@ def to_row(entity: S.Entity) -> Base:
     raise TypeError(f"unknown entity type: {type(entity)!r}")
 
 
+# People arrive from several sources at different fidelity. A participant stub
+# created from an email address must never clobber an enriched or CRM record,
+# even when a single connector is re-ingested on its own.
+PERSON_SOURCE_PRIORITY: dict[str, int] = {
+    "mockcrm": 3,
+    "fullenrich": 3,
+    "notion": 2,
+    "slack": 2,
+    "gmail": 1,
+    "gcal": 1,
+}
+
+
 def upsert(session: Session, entities: list[S.Entity]) -> int:
     """Idempotent upsert keyed on primary keys. Re-running never duplicates."""
     for entity in entities:
+        if isinstance(entity, S.Person):
+            existing = session.get(PersonRow, entity.id)
+            if existing is not None and PERSON_SOURCE_PRIORITY.get(
+                existing.source, 0
+            ) > PERSON_SOURCE_PRIORITY.get(entity.source, 0):
+                continue
         session.merge(to_row(entity))
     return len(entities)
 
