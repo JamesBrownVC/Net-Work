@@ -1,8 +1,15 @@
 # ACR: Account Conquest Room
 
-Phase 1: the Connection Fabric. Eight sources feed one unified SQLite store,
-and every connector is exposed to Claude as an MCP server over identical code
-paths. Mock-first: a fresh clone with an empty `.env` goes fully green.
+AI-native revenue intelligence platform. Product spec: [ACR_PRD.md](./ACR_PRD.md).
+The retired Next.js prototype lives at [archive/nextjs-old-start/](./archive/nextjs-old-start/);
+all backend work is Python. Layer map: [ARCHITECTURE_MAPPING.md](./ARCHITECTURE_MAPPING.md).
+
+Layer 0/1 is the Connection Fabric: eight sources feed one unified SQLite
+store, and every connector is exposed to Claude as an MCP server over
+identical code paths. Mock-first: a fresh clone with an empty `.env` goes
+fully green. On top of it sit the engines (warmth, allocator, fortress), the
+Claude agents + orchestrator, and the surfaces (CLI, web view, Slack bot,
+Gamma decks).
 
 ## Setup
 
