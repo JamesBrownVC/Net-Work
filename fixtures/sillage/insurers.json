@@ -1,0 +1,18 @@
+{
+  "_source": "feature/sillage-signals top_accounts_insurers (2026-07-09). Cached fallback for the Sillage live API.",
+  "accounts": [
+    {"name": "AXA en France", "domain": "axa.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "MAIF", "domain": "entreprise.maif.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "MACIF", "domain": "macif.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "Allianz France", "domain": "allianz.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "Generali France", "domain": "generali.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "Groupama Paris Val de Loire", "domain": "groupama.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "MMA Assurances", "domain": "mma.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "GMF Assurances", "domain": "gmf.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "Matmut", "domain": "matmut.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "CNP Assurances", "domain": "cnp.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "Swiss Life France", "domain": "swisslife.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "Abeille Assurances", "domain": "abeille-assurances.fr", "industry": "insurance", "arr": 0, "is_customer": false},
+    {"name": "Box", "domain": "box.com", "industry": "software", "arr": 0, "is_customer": false}
+  ]
+}

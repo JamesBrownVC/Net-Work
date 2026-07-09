@@ -17,6 +17,41 @@ from urllib.parse import parse_qs, urlparse
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 PORT = 8787
+ORBIT_DIR = Path(__file__).resolve().parent / "orbit"
+
+
+def _orbit_html() -> bytes:
+    return (ORBIT_DIR / "index.html").read_bytes()
+
+
+def _brief_markdown(brief: dict) -> str:
+    """Battle-plan-style markdown for the Gamma one-pager export."""
+    a = brief.get("account", {})
+    h = brief.get("relationship_health", {})
+    lines = [
+        f"# Pre-Call Brief — {a.get('name', '')}",
+        "",
+        f"## Context\n{brief.get('context', '')}",
+        "",
+        "## Relationship Health",
+        f"Warmth {h.get('warmth', 0)} · sentiment {h.get('recent_sentiment', 0)} · "
+        f"{h.get('sentiment_line', '')}",
+    ]
+    for c in h.get("champion_signals", []):
+        lines.append(f"- Champion: {c['text']} [{c['evidence']}]")
+    for r in h.get("risk_flags", []):
+        lines.append(f"- Risk: {r['text']} [{r['evidence']}]")
+    lines += ["", "## Recommended Plays"]
+    for u in brief.get("upsells", []):
+        val = f" (€{u['u_eur']:,.0f})" if u.get("u_eur") else ""
+        lines.append(f"- {u['name']} ({u.get('title', '')}) — {u.get('action', 'stay warm')}{val}")
+    lines += ["", "## Account Signals"]
+    for s in brief.get("signals", []):
+        lines.append(f"- {s['title']} — {s['talk']}")
+    lines += ["", "## Say This On The Call"]
+    for t in brief.get("talking_points", []):
+        lines.append(f"- {t}")
+    return "\n".join(lines)
 
 PAGE = """<!doctype html>
 <html><head><meta charset="utf-8"><title>Account Conquest Room</title>
@@ -55,7 +90,8 @@ button { background:var(--accent); border:0; color:#0d1117; font-weight:600;
 .muted { color:var(--dim); }
 </style></head><body>
 <h1>Account <span>Conquest</span> Room</h1>
-<div id="sub">target: novapay.io &middot; objective: CRO &middot; mode: fixtures</div>
+<div id="sub">target: novapay.io &middot; objective: CRO &middot; mode: fixtures &middot;
+  <a href="/orbit?account=novapay.io" style="color:var(--accent)">Orbit pre-call brief &rarr;</a></div>
 <button id="go" onclick="run()">Run conquest</button>
 <div class="grid" style="margin-top:16px">
   <div class="panel"><h2>Agent choreography</h2><div id="events" class="muted">
@@ -145,6 +181,35 @@ class Handler(BaseHTTPRequestHandler):
                 default=str,
             ).encode("utf-8")
             self._send(body, "application/json")
+            return
+        if parsed.path in ("/orbit", "/orbit/", "/orbit/index.html"):
+            self._send(_orbit_html(), "text/html; charset=utf-8")
+            return
+        if parsed.path in ("/orbit/fortress-plan.html", "/orbit/book-of-business.html"):
+            name = parsed.path.rsplit("/", 1)[-1]
+            self._send((ORBIT_DIR / name).read_bytes(), "text/html; charset=utf-8")
+            return
+        if parsed.path == "/api/brief":
+            from agents.brief import build_brief
+
+            domain = parse_qs(parsed.query).get("account", ["novapay.io"])[0]
+            try:
+                brief = build_brief(domain)
+            except Exception as exc:  # surface, don't 500 silently
+                brief = {"error": str(exc)}
+            self._send(json.dumps(brief, default=str).encode("utf-8"), "application/json")
+            return
+        if parsed.path == "/api/deck":
+            import asyncio
+
+            from agents.brief import build_brief
+            from surfaces.gamma import generate_deck
+
+            domain = parse_qs(parsed.query).get("account", ["novapay.io"])[0]
+            brief = build_brief(domain)
+            md = _brief_markdown(brief)
+            result = asyncio.run(generate_deck(md))
+            self._send(json.dumps(result, default=str).encode("utf-8"), "application/json")
             return
         self.send_response(404)
         self.end_headers()

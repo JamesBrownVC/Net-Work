@@ -1,0 +1,47 @@
+{
+  "_note": "Cached Sillage signals for the top insurer accounts. Used when the live Sillage API is unavailable (mock-first). Shape mirrors the live V2 signals response.",
+  "axa.fr": [
+    {"id": "sillage:axa:1", "kind": "buying_intent", "strength": 0.82, "days_ago": 3, "note": "AXA France researching AI-native revenue tooling; three pages viewed on GTM automation."},
+    {"id": "sillage:axa:2", "kind": "hiring_spike", "strength": 0.71, "days_ago": 9, "note": "8 new revenue-ops and data roles posted in the last three weeks."},
+    {"id": "sillage:axa:3", "kind": "champion_move", "strength": 0.9, "days_ago": 14, "note": "Ex-Generali growth lead joined AXA as VP Revenue Operations."}
+  ],
+  "entreprise.maif.fr": [
+    {"id": "sillage:maif:1", "kind": "buying_intent", "strength": 0.68, "days_ago": 5, "note": "MAIF evaluating pipeline-intelligence platforms; RFP language detected."},
+    {"id": "sillage:maif:2", "kind": "competitor_engagement", "strength": 0.74, "days_ago": 6, "note": "MAIF attended a competitor webinar series on account-based GTM."}
+  ],
+  "macif.fr": [
+    {"id": "sillage:macif:1", "kind": "hiring_spike", "strength": 0.63, "days_ago": 11, "note": "MACIF scaling its inside-sales team, 6 SDR roles open."},
+    {"id": "sillage:macif:2", "kind": "buying_intent", "strength": 0.7, "days_ago": 2, "note": "Renewed research on data-enrichment vendors."}
+  ],
+  "allianz.fr": [
+    {"id": "sillage:allianz:1", "kind": "champion_move", "strength": 0.85, "days_ago": 8, "note": "New Chief Revenue Officer appointed at Allianz France."},
+    {"id": "sillage:allianz:2", "kind": "buying_intent", "strength": 0.66, "days_ago": 4, "note": "Allianz teams comparing GTM intelligence tools."}
+  ],
+  "generali.fr": [
+    {"id": "sillage:generali:1", "kind": "competitor_engagement", "strength": 0.8, "days_ago": 5, "note": "Generali engaged with a competitor's ROI calculator twice this week."}
+  ],
+  "groupama.fr": [
+    {"id": "sillage:groupama:1", "kind": "hiring_spike", "strength": 0.6, "days_ago": 13, "note": "Groupama Paris Val de Loire expanding its digital-marketing function."}
+  ],
+  "mma.fr": [
+    {"id": "sillage:mma:1", "kind": "buying_intent", "strength": 0.64, "days_ago": 7, "note": "MMA evaluating account-prioritisation tooling."}
+  ],
+  "gmf.fr": [
+    {"id": "sillage:gmf:1", "kind": "buying_intent", "strength": 0.58, "days_ago": 10, "note": "GMF researching sales-intelligence platforms."}
+  ],
+  "matmut.fr": [
+    {"id": "sillage:matmut:1", "kind": "champion_move", "strength": 0.72, "days_ago": 12, "note": "Matmut hired a Head of Revenue Operations from a SaaS scale-up."}
+  ],
+  "cnp.fr": [
+    {"id": "sillage:cnp:1", "kind": "buying_intent", "strength": 0.61, "days_ago": 6, "note": "CNP Assurances exploring GTM data platforms."}
+  ],
+  "swisslife.fr": [
+    {"id": "sillage:swisslife:1", "kind": "hiring_spike", "strength": 0.59, "days_ago": 15, "note": "Swiss Life France growing its data team."}
+  ],
+  "abeille-assurances.fr": [
+    {"id": "sillage:abeille:1", "kind": "buying_intent", "strength": 0.57, "days_ago": 9, "note": "Abeille Assurances (ex-Aviva France) modernising its GTM stack."}
+  ],
+  "box.com": [
+    {"id": "sillage:box:1", "kind": "buying_intent", "strength": 0.69, "days_ago": 4, "note": "Box evaluating revenue-intelligence add-ons for its sales org."}
+  ]
+}

@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Orbit · Pre-Call Brief</title>
+<style>
+  :root {
+    /* DARK (primary) */
+    --bg: #0B0B0C;
+    --surface: #111113;
+    --card: #1A1A1D;
+    --card-hover: #1F1F23;
+    --border: #2A2A2E;
+    --border-bright: #3A3A40;
+    --text: #F4F3F0;
+    --text-2: #9A9A96;
+    --accent: #F25C1F;
+    --accent-soft: rgba(242, 92, 31, 0.10);
+    --accent-tint-bg: rgba(242, 92, 31, 0.07);
+    --accent-border: rgba(242, 92, 31, 0.28);
+
+    /* source badge hues (dark) */
+    --hub-bg: rgba(242, 132, 31, 0.13);
+    --hub-fg: #F0A25E;
+    --sil-bg: rgba(66, 133, 244, 0.13);
+    --sil-fg: #7AA9F0;
+    --enr-bg: rgba(52, 168, 108, 0.13);
+    --enr-fg: #57C08A;
+    --li-bg: rgba(150, 150, 150, 0.12);
+    --li-fg: #C4C4C0;
+
+    --ok-bg: rgba(52, 168, 108, 0.13);
+    --ok-fg: #57C08A;
+
+    --glow: rgba(242, 92, 31, 0.16);
+
+    --radius: 14px;
+    --radius-sm: 10px;
+    --sp: 8px;
+  }
+
+  body.light {
+    --bg: #FBFAF8;
+    --surface: #F4F2EE;
+    --card: #FFFFFF;
+    --card-hover: #FFFFFF;
+    --border: #ECEAE5;
+    --border-bright: #DAD7D0;
+    --text: #141414;
+    --text-2: #6E6C66;
+    --accent: #F25C1F;
+    --accent-soft: rgba(242, 92, 31, 0.09);
+    --accent-tint-bg: rgba(242, 92, 31, 0.06);
+    --accent-border: rgba(242, 92, 31, 0.30);
+
+    --hub-bg: rgba(214, 96, 12, 0.10);
+    --hub-fg: #C25510;
+    --sil-bg: rgba(41, 98, 220, 0.09);
+    --sil-fg: #2A5FCC;
+    --enr-bg: rgba(31, 138, 91, 0.10);
+    --enr-fg: #1F8A5B;
+    --li-bg: rgba(60, 60, 60, 0.07);
+    --li-fg: #55524C;
+
+    --ok-bg: rgba(31, 138, 91, 0.11);
+    --ok-fg: #1F8A5B;
+
+    --glow: rgba(242, 92, 31, 0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+    transition: background 0.4s ease, color 0.4s ease;
+    min-height: 100vh;
+    position: relative;
+  }
+  /* ambient depth — fixed warm glow + faint grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(900px 420px at 78% -8%, var(--glow) 0%, transparent 60%),
+      radial-gradient(700px 500px at 8% 4%, rgba(120,120,130,0.05) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .shell { position: relative; z-index: 1; }
+
+  .num { font-variant-numeric: tabular-nums; }
+
+  .shell {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 22px 28px 26px;
+  }
+
+  /* ---------- animation base ---------- */
+  .anim {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .anim.in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anim { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+
+  /* ---------- header ---------- */
+  .header {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    top: -140px; right: -60px;
+    width: 460px; height: 460px;
+    background: radial-gradient(circle, var(--glow) 0%, transparent 62%);
+    pointer-events: none;
+  }
+  /* cinematic scan line during generation */
+  .scan {
+    position: absolute; left: 0; right: 0; top: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    box-shadow: 0 0 18px 2px var(--glow);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .header.scanning .scan { animation: scan 1.05s cubic-bezier(0.45,0,0.55,1) forwards; }
+  @keyframes scan {
+    0% { top: 0; opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .header.scanning .scan { animation: none; } }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .orbit-dot {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    position: relative;
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    flex: none;
+  }
+  .orbit-dot::after {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border-radius: 50%;
+    background: var(--bg);
+  }
+  .brand-name {
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+  }
+  .brand-sub {
+    color: var(--text-2);
+    font-size: 12px;
+    margin-top: 1px;
+  }
+  .header-tools { display: flex; align-items: center; gap: 10px; }
+
+  .status-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-2);
+    font-size: 12.5px;
+    height: 18px;
+    overflow: hidden;
+  }
+  .status-line .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.1s infinite ease-in-out;
+    flex: none;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    border-radius: 9px;
+    padding: 7px 11px;
+    font-size: 12.5px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.18s ease, color 0.18s ease, transform 0.12s ease;
+  }
+  .icon-btn:hover { border-color: var(--border-bright); color: var(--text); }
+  .icon-btn:active { transform: scale(0.97); }
+
+  .header-main {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-top: 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .monogram {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(150deg, var(--card) 0%, var(--surface) 100%);
+    border: 1px solid var(--border-bright);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 20px;
+    letter-spacing: 0.01em;
+    flex: none;
+  }
+  .account-block { min-width: 0; }
+  .account-name {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .account-sub {
+    color: var(--text-2);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .health {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--ok-bg); color: var(--ok-fg);
+    font-size: 11.5px; font-weight: 600;
+    padding: 3px 9px; border-radius: 999px;
+  }
+  .health .hd { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  .header-facts {
+    margin-left: auto;
+    display: flex;
+    gap: 30px;
+  }
+  .fact { min-width: 0; }
+  .fact-label {
+    color: var(--text-2);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-weight: 600;
+  }
+  .fact-value {
+    font-size: 14.5px;
+    margin-top: 4px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .fact-value .accent { color: var(--accent); }
+
+  /* ---------- grid ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .col { display: flex; flex-direction: column; gap: 18px; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .section-title .tick {
+    width: 3px; height: 15px; border-radius: 2px; background: var(--accent);
+  }
+  .section-meta { color: var(--text-2); font-size: 11.5px; }
+
+  /* ---------- source pill ---------- */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px 3px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.12s ease, filter 0.15s ease;
+    user-select: none;
+  }
+  .pill:hover { transform: scale(1.05); filter: brightness(1.12); }
+  .pill:active { transform: scale(0.98); }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
+  .pill .mark {
+    width: 13px; height: 13px; border-radius: 4px; flex: none;
+    background: currentColor; color: var(--card);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: 600; line-height: 1;
+  }
+  .pill.hub { background: var(--hub-bg); color: var(--hub-fg); }
+  .pill.sil { background: var(--sil-bg); color: var(--sil-fg); }
+  .pill.enr { background: var(--enr-bg); color: var(--enr-fg); }
+  .pill.li  { background: var(--li-bg);  color: var(--li-fg); }
+
+  /* ---------- upsell cards ---------- */
+  .upsell-cards { display: flex; flex-direction: column; gap: 12px; }
+  .ucard {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 15px 16px 14px;
+    transition: transform 0.16s ease, border-color 0.18s ease, background 0.18s ease;
+  }
+  .ucard:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-bright);
+    background: var(--card-hover);
+  }
+  .ucard-top { display: flex; align-items: center; gap: 12px; }
+  .ucard-mono {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 13px;
+    flex: none;
+  }
+  .ucard-name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+  .ucard-detect { color: var(--text-2); font-size: 12px; margin-top: 2px; line-height: 1.35; }
+  .match {
+    margin-left: auto;
+    flex: none;
+    position: relative;
+    width: 48px; height: 48px;
+  }
+  .match svg { width: 48px; height: 48px; transform: rotate(-90deg); }
+  .match .track { stroke: var(--border); }
+  .match .prog { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .match-inner {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .match-score {
+    font-size: 14px; font-weight: 600; color: var(--accent);
+    letter-spacing: -0.02em; line-height: 1;
+  }
+  .match-label {
+    font-size: 7px; color: var(--text-2); text-transform: uppercase;
+    letter-spacing: 0.1em; font-weight: 600; margin-top: 2px;
+  }
+
+  .ucard-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .contact {
+    display: flex; align-items: center; gap: 10px;
+    min-width: 0; flex: 1;
+  }
+  .contact-info { min-width: 0; }
+  .contact-name {
+    font-size: 12.5px; font-weight: 600;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .contact-role { color: var(--text-2); font-size: 11px; margin-top: 1px; }
+  .contact-meta {
+    color: var(--text-2); font-size: 11px; margin-top: 3px;
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .contact-meta b { color: var(--text); font-weight: 600; }
+
+  .play {
+    margin-top: 11px;
+    background: var(--accent-tint-bg);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-sm);
+    padding: 9px 11px;
+    display: flex; gap: 9px; align-items: flex-start;
+  }
+  .play-icon { color: var(--accent); font-size: 12px; font-weight: 600; flex: none; margin-top: 1px; }
+  .play-label {
+    font-size: 9px; color: var(--accent); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.09em;
+  }
+  .play-text { font-size: 12px; line-height: 1.4; margin-top: 2px; }
+
+  /* ---------- CRM context ---------- */
+  .crm {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .crm-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600;
+    padding: 3px 9px; border-radius: 999px;
+  }
+  .crm-badge .hd { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .crm-badge.ok { background: var(--ok-bg); color: var(--ok-fg); }
+  .crm-badge.new { background: var(--li-bg); color: var(--li-fg); }
+  .crm-log {
+    list-style: none; margin: 9px 0 0; padding: 0;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .crm-log li {
+    position: relative; padding-left: 14px;
+    font-size: 11.5px; line-height: 1.4; color: var(--text-2);
+  }
+  .crm-log li b { color: var(--text); font-weight: 600; }
+  .crm-log li::before {
+    content: ""; position: absolute; left: 3px; top: 6px;
+    width: 4px; height: 4px; border-radius: 50%; background: var(--border-bright);
+  }
+  .crm-empty { margin-top: 9px; font-size: 11.5px; line-height: 1.4; color: var(--text-2); }
+  .crm-empty b { color: var(--text); font-weight: 600; }
+
+  /* ---------- per-contact CTAs ---------- */
+  .cta-row { display: flex; gap: 8px; margin-top: 11px; }
+  .cta-btn {
+    font-family: inherit; font-size: 11.5px; font-weight: 600;
+    padding: 7px 11px; border-radius: 9px; cursor: pointer;
+    background: var(--card); border: 1px solid var(--border); color: var(--text-2);
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: border-color 0.16s ease, color 0.16s ease, transform 0.12s ease, filter 0.16s ease;
+  }
+  .cta-btn:hover { border-color: var(--border-bright); color: var(--text); }
+  .cta-btn:active { transform: scale(0.97); }
+  .cta-btn.primary { background: var(--accent-tint-bg); border-color: var(--accent-border); color: var(--accent); }
+  .cta-btn.primary:hover { filter: brightness(1.08); }
+
+  /* ---------- signals ---------- */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 6px 16px;
+  }
+  .signal {
+    display: flex; gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    transition: transform 0.14s ease;
+  }
+  .signal:last-child { border-bottom: none; }
+  .signal:hover { transform: translateX(2px); }
+  .signal-icon {
+    width: 30px; height: 30px; border-radius: 9px; flex: none;
+    background: var(--sil-bg); color: var(--sil-fg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+  }
+  .signal-icon.sig-blue { background: var(--sil-bg); color: var(--sil-fg); }
+  .signal-icon.sig-green { background: var(--enr-bg); color: var(--enr-fg); }
+  .signal-icon.sig-orange { background: var(--accent-soft); color: var(--accent); }
+  .signal-body { min-width: 0; flex: 1; }
+  .signal-head { display: flex; align-items: center; gap: 8px; }
+  .signal-title { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+  .signal-talk { color: var(--text-2); font-size: 11.5px; line-height: 1.4; margin-top: 4px; }
+  .signal-talk b { color: var(--text); font-weight: 600; }
+
+  /* ---------- say this ---------- */
+  .say { display: flex; flex-direction: column; }
+  .say-item {
+    display: flex; gap: 11px; align-items: flex-start;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .say-item:last-child { border-bottom: none; }
+  .cbox {
+    width: 18px; height: 18px; border-radius: 6px; flex: none;
+    border: 1.5px solid var(--border-bright);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.16s ease, border-color 0.16s ease;
+    margin-top: 1px;
+  }
+  .cbox svg { width: 11px; height: 11px; opacity: 0; transform: scale(0.5); transition: opacity 0.16s ease, transform 0.16s ease; }
+  .say-item.done .cbox { background: var(--accent); border-color: var(--accent); }
+  .say-item.done .cbox svg { opacity: 1; transform: scale(1); }
+  .say-text { font-size: 12.5px; line-height: 1.4; transition: color 0.16s ease; }
+  .say-item.done .say-text { color: var(--text-2); text-decoration: line-through; text-decoration-color: var(--border-bright); }
+  .say-text b { font-weight: 600; }
+
+  /* ---------- footer ---------- */
+  .footer {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .footer-meta { color: var(--text-2); font-size: 12px; display: flex; align-items: center; gap: 8px; }
+  .footer-actions { margin-left: auto; display: flex; gap: 10px; }
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    padding: 9px 16px; border-radius: 10px; cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.12s ease, filter 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 0 4px var(--accent-soft); }
+  .btn-primary:hover { filter: brightness(1.07); }
+  .btn-ghost { background: var(--card); color: var(--text); border-color: var(--border); }
+  .btn-ghost:hover { border-color: var(--border-bright); }
+  .btn-regen { background: transparent; color: var(--text-2); border-color: var(--border); display: inline-flex; align-items: center; gap: 7px; }
+  .btn-regen:hover { color: var(--text); border-color: var(--border-bright); }
+  .btn-regen svg { width: 13px; height: 13px; }
+
+  /* ---------- toast ---------- */
+  .toast-wrap {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; gap: 8px; align-items: center;
+    z-index: 100; pointer-events: none;
+  }
+  .toast {
+    background: var(--card);
+    border: 1px solid var(--border-bright);
+    color: var(--text);
+    font-size: 12.5px; font-weight: 600;
+    padding: 10px 15px; border-radius: 10px;
+    display: flex; align-items: center; gap: 9px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+  body.light .toast { box-shadow: 0 8px 26px rgba(0,0,0,0.12); }
+  .toast.show { opacity: 1; transform: none; }
+  .toast .spark { color: var(--accent); }
+
+  /* ---------- agent tabs ---------- */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-top: 16px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-2);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.16s ease;
+  }
+  .tab .tab-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border-bright);
+    transition: background 0.16s ease, transform 0.16s ease;
+    flex: none;
+  }
+  .tab:hover { color: var(--text); }
+  .tab:hover .tab-dot { background: var(--text-2); }
+  .tab.active { color: var(--text); }
+  .tab.active .tab-dot { background: var(--accent); transform: scale(1.15); }
+  .tab.active::after {
+    content: "";
+    position: absolute; left: 12px; right: 12px; bottom: -1px;
+    height: 2px; border-radius: 2px; background: var(--accent);
+  }
+
+  @media (max-width: 1180px) {
+    .grid { grid-template-columns: 1fr; }
+    .header-main { flex-wrap: wrap; }
+    .header-facts { margin-left: 0; flex-wrap: wrap; gap: 20px; width: 100%; }
+    .tabs { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+  <div class="shell">
+
+    <!-- HEADER -->
+    <header class="header anim" data-stagger>
+      <div class="scan"></div>
+      <div class="header-top">
+        <div class="brand">
+          <div class="orbit-dot"></div>
+          <div>
+            <div class="brand-name">Orbit</div>
+            <div class="brand-sub">Prepared for Thomas Beaumont</div>
+          </div>
+        </div>
+        <div class="header-tools">
+          <div class="status-line" id="statusLine">
+            <span class="pulse"></span>
+            <span id="statusText">Orbit is scanning HubSpot, Sillage &amp; FullEnrich…</span>
+          </div>
+          <button class="icon-btn" id="themeToggle" title="Toggle theme">
+            <span id="themeIcon">☾</span><span id="themeLabel">Light</span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="tabs">
+        <a class="tab active" href="index.html"><span class="tab-dot"></span>Pre-Call Brief</a>
+        <a class="tab" href="book-of-business.html"><span class="tab-dot"></span>Book of Business</a>
+        <a class="tab" href="fortress-plan.html"><span class="tab-dot"></span>Fortress Plan</a>
+      </nav>
+
+      <div class="header-main">
+        <div class="monogram" id="monogram">··</div>
+        <div class="account-block">
+          <div class="account-name">
+            <span id="accountName">Loading…</span>
+            <span class="health" id="accountHealth"><span class="hd"></span>—</span>
+          </div>
+          <div class="account-sub" id="accountSub">—</div>
+        </div>
+        <div class="header-facts">
+          <div class="fact">
+            <div class="fact-label">Signals</div>
+            <div class="fact-value"><span class="num" id="signalSource">—</span></div>
+          </div>
+          <div class="fact">
+            <div class="fact-label">Current plan</div>
+            <div class="fact-value"><span class="accent num" id="accountArr">—</span> ARR</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- GRID -->
+    <div class="grid">
+
+      <!-- LEFT: Upsell references -->
+      <div class="col">
+        <section>
+          <div class="section-head anim" data-stagger>
+            <div class="section-title"><span class="tick"></span>Upsell recommendations</div>
+            <div class="section-meta">3 warm intro paths · CRM cross-checked</div>
+          </div>
+          <div class="upsell-cards" id="upsellCards"></div>
+        </section>
+      </div>
+
+      <!-- RIGHT: relationship health + signals + say this -->
+      <div class="col">
+        <section>
+          <div class="section-head anim" data-stagger>
+            <div class="section-title"><span class="tick"></span>Relationship health</div>
+            <div class="section-meta">Warmth + content analysis · evidence-backed</div>
+          </div>
+          <div class="card" id="healthCard"></div>
+        </section>
+
+        <section>
+          <div class="section-head anim" data-stagger>
+            <div class="section-title"><span class="tick"></span>Account signals</div>
+            <div class="section-meta">Live · <span class="pill sil" data-src="Sillage"><span class="mark">S</span>Sillage</span></div>
+          </div>
+          <div class="card" id="signalsCard"></div>
+        </section>
+
+        <section>
+          <div class="section-head anim" data-stagger>
+            <div class="section-title"><span class="tick"></span>Say this on the call</div>
+            <div class="section-meta">Tap to check off</div>
+          </div>
+          <div class="card" id="sayCard"></div>
+        </section>
+      </div>
+
+    </div>
+
+    <!-- THE FINAL CASTLE: intentionally-empty slot for the fortress/conquest
+         visualization. Do NOT put a chart/stub here; it gets replaced by the
+         real conquest map. The data contract (fortress engine output) is:
+           engines.fortress.solve(domain, target) -> {
+             target, v_deal,
+             paths: [ { steps: [ {from, to, p, p_components} ], R, effort, EV } ]
+           }
+         Wiring the castle later is a drop-in: fetch that JSON and render into
+         #castleSlot. -->
+    <section class="anim" data-stagger>
+      <div class="section-head">
+        <div class="section-title"><span class="tick"></span>Plan of attack — the castle</div>
+        <div class="section-meta">Fortress conquest map</div>
+      </div>
+      <div class="card" id="castleSlot" style="
+           min-height:180px; display:flex; align-items:center; justify-content:center;
+           border:1.5px dashed var(--border-bright); text-align:center;">
+        <div style="color:var(--text-2); font-size:13px; line-height:1.6;">
+          <div style="font-size:22px; opacity:0.5; margin-bottom:8px;">♜</div>
+          Conquest map renders here<br>
+          <span style="font-size:11px; opacity:0.7;">
+            fed by <code>fortress.solve()</code> path JSON — independent dataflow
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer anim" data-stagger>
+      <div class="footer-meta">
+        Generated by <b style="color:var(--text);font-weight:600">Orbit</b> · sources:
+        <span class="pill hub" data-src="HubSpot"><span class="mark">H</span>HubSpot</span>
+        <span class="pill sil" data-src="Sillage"><span class="mark">S</span>Sillage</span>
+        <span class="pill enr" data-src="FullEnrich"><span class="mark">F</span>FullEnrich</span>
+      </div>
+      <div class="footer-actions">
+        <button class="btn btn-regen" id="regenBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+          Regenerate
+        </button>
+        <button class="btn btn-ghost" data-toast="Sending to Slack…">Send to Slack</button>
+        <button class="btn btn-primary" id="exportBtn">Export one-pager</button>
+      </div>
+    </footer>
+
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- data (populated from the backend /api/brief) ---------- */
+  // Which account to brief. ?account=<domain> overrides the default.
+  var ACCOUNT = new URLSearchParams(location.search).get("account") || "novapay.io";
+  var upsell = [], signals = [], says = [], health = null, brief = null;
+
+  function initials(name) {
+    return (name || "··").split(/\s+/).map(function (w) { return w[0]; })
+      .join("").slice(0, 2).toUpperCase();
+  }
+  function esc2(s) {
+    return String(s == null ? "" : s).replace(/[&<>]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c];
+    });
+  }
+  var PILL = { store: { cls: "hub", src: "HubSpot" }, cached: { cls: "sil", src: "Sillage" },
+               live: { cls: "sil", src: "Sillage" } };
+
+  function mapBrief(b) {
+    brief = b;
+    var src = b.account.signal_source;
+    // upsell cards <- warm contacts + the allocator's recommended action
+    upsell = (b.upsells || []).map(function (u) {
+      var pct = Math.round((u.warmth || 0) * 100) + "%";
+      return {
+        name: u.name, mono: initials(u.name), score: pct,
+        detect: u.detect,
+        pill: { cls: (PILL[src] || PILL.store).cls,
+                label: (PILL[src] || PILL.store).src, src: (PILL[src] || PILL.store).src },
+        inCrm: u.in_crm,
+        crmHistory: [ "Evidence — <b>" + esc2(u.evidence) + "</b>" ],
+        contact: { mono: initials(u.name), name: u.name, role: u.title || "—",
+          email: "", phone: "" },
+        play: u.action
+          ? ("Recommended play: <b>" + esc2(u.action) + "</b>"
+             + (u.u_eur ? " · worth €" + Math.round(u.u_eur).toLocaleString() : ""))
+          : "Warm relationship — keep it live ahead of the call."
+      };
+    });
+    // account signals <- Sillage (insurers) / store signals (customers)
+    var ICON = { buying_intent: "▲", hiring_spike: "＋", champion_move: "◆",
+                 competitor_engagement: "◆", job_change: "▲", champion_mention: "★" };
+    signals = (b.signals || []).map(function (s) {
+      return { icon: ICON[s.kind] || "•", title: esc2(s.title) + " · " + s.days,
+               time: s.days, talk: esc2(s.talk) };
+    });
+    // say-this <- talking points
+    says = (b.talking_points || []).map(esc2);
+    health = b.relationship_health;
+  }
+
+  function renderHeader(b) {
+    var a = b.account;
+    document.getElementById("accountName").textContent = a.name;
+    document.getElementById("accountSub").textContent =
+      a.primary_contact ? (a.primary_contact.name + " — " + a.primary_contact.title)
+                        : (a.industry || "—");
+    document.getElementById("monogram").textContent = initials(a.name);
+    document.getElementById("accountArr").textContent =
+      a.arr_eur ? "€" + Math.round(a.arr_eur).toLocaleString() : "—";
+    var srcLabel = { store: "HubSpot", cached: "Sillage (cached)", live: "Sillage (live)",
+                     none: "—" }[a.signal_source] || a.signal_source;
+    document.getElementById("signalSource").textContent = srcLabel;
+    var hd = document.getElementById("accountHealth");
+    hd.innerHTML = '<span class="hd"></span>' + esc2(a.health);
+    hd.style.color = a.health === "At risk" ? "var(--warm)"
+                   : a.health === "Healthy" ? "var(--ok-fg)" : "";
+    document.querySelector(".brand-sub").textContent = "Pre-call brief · " + a.domain;
+  }
+
+  function renderHealth() {
+    var wrap = document.getElementById("healthCard");
+    if (!wrap) return;
+    if (!health || health.analyzed === 0) {
+      wrap.innerHTML = '<div class="say-text" style="padding:14px">'
+        + 'No interaction content analyzed for this account yet '
+        + '(no email/Slack history on file). Signals are shown from Sillage.</div>';
+      return;
+    }
+    var pct = Math.round((health.warmth || 0) * 100);
+    var scol = health.recent_sentiment <= -0.2 ? "var(--warm)"
+             : health.recent_sentiment >= 0.3 ? "var(--ok-fg)" : "var(--text-2)";
+    var html = ''
+      + '<div style="display:flex;gap:18px;align-items:baseline;padding:14px 14px 6px">'
+      +   '<div><div class="match-score num" style="font-size:26px">' + pct + '%</div>'
+      +   '<div class="match-label">Warmth</div></div>'
+      +   '<div><div class="match-score num" style="font-size:26px;color:' + scol + '">'
+      +   (health.recent_sentiment >= 0 ? "+" : "") + health.recent_sentiment.toFixed(2) + '</div>'
+      +   '<div class="match-label">Sentiment · ' + health.analyzed + ' msgs</div></div>'
+      + '</div>'
+      + '<div class="signal-talk" style="padding:2px 14px 12px">' + esc2(health.sentiment_line) + '</div>';
+    (health.champion_signals || []).forEach(function (c) {
+      html += '<div class="say-item"><div class="cbox" style="background:var(--ok-bg)">★</div>'
+        + '<div class="say-text">' + esc2(c.text)
+        + ' <span class="pill enr"><span class="dot"></span>' + esc2(c.evidence) + '</span></div></div>';
+    });
+    (health.risk_flags || []).forEach(function (c) {
+      html += '<div class="say-item"><div class="cbox" style="background:var(--accent-soft)">!</div>'
+        + '<div class="say-text">' + esc2(c.text)
+        + ' <span class="pill sil"><span class="dot"></span>' + esc2(c.evidence) + '</span></div></div>';
+    });
+    wrap.innerHTML = html;
+  }
+
+  /* ---------- render ---------- */
+  function esc(s){ return s; }
+
+  function renderUpsell() {
+    var wrap = document.getElementById("upsellCards");
+    wrap.innerHTML = "";
+    upsell.forEach(function (c) {
+      var el = document.createElement("div");
+      el.className = "ucard anim";
+      el.setAttribute("data-stagger", "");
+      el.innerHTML =
+        '<div class="ucard-top">' +
+          '<div class="ucard-mono">' + c.mono + '</div>' +
+          '<div style="min-width:0;flex:1">' +
+            '<div class="ucard-name">' + c.name + '</div>' +
+            '<div class="ucard-detect">' + c.detect + '</div>' +
+          '</div>' +
+          '<div class="match"><div class="match-score num">' + c.score + '</div><div class="match-label">Match</div></div>' +
+        '</div>' +
+        '<div style="margin-top:10px">' +
+          '<span class="pill ' + c.pill.cls + '" data-src="' + c.pill.src + '"><span class="dot"></span>' + c.pill.label + '</span>' +
+        '</div>' +
+        '<div class="ucard-row">' +
+          '<div class="contact">' +
+            '<div class="ucard-mono" style="width:32px;height:32px;font-size:11px">' + c.contact.mono + '</div>' +
+            '<div class="contact-info">' +
+              '<div class="contact-name">' + c.contact.name +
+                '<span class="pill enr" data-src="FullEnrich"><span class="dot"></span>FullEnrich</span></div>' +
+              '<div class="contact-role">' + c.contact.role + '</div>' +
+              '<div class="contact-meta"><span><b>' + c.contact.email + '</b></span><span class="num"><b>' + c.contact.phone + '</b></span></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="play">' +
+          '<span class="play-icon">◇</span>' +
+          '<div><div class="play-label">Recommended play</div><div class="play-text">' + c.play + '</div></div>' +
+        '</div>' +
+        '<div class="crm">' +
+          (c.inCrm
+            ? '<span class="crm-badge ok"><span class="hd"></span>In CRM · HubSpot</span>'
+            : '<span class="crm-badge new"><span class="hd"></span>Not in CRM · net-new</span>') +
+          (c.crmHistory.length
+            ? '<ul class="crm-log">' + c.crmHistory.map(function (h) { return '<li>' + h + '</li>'; }).join('') + '</ul>'
+            : '<div class="crm-empty">No prior activity logged — <b>enrich via FullEnrich</b> before outreach.</div>') +
+        '</div>' +
+        '<div class="cta-row">' +
+          '<button class="cta-btn" data-gen="ice" data-contact="' + c.contact.name + '">◇ Ice-breaker script</button>' +
+          '<button class="cta-btn primary" data-gen="email" data-contact="' + c.contact.name + '">✎ Personalized email</button>' +
+        '</div>';
+      wrap.appendChild(el);
+    });
+  }
+
+  function renderSignals() {
+    var wrap = document.getElementById("signalsCard");
+    wrap.innerHTML = "";
+    signals.forEach(function (s) {
+      var el = document.createElement("div");
+      el.className = "signal anim";
+      el.setAttribute("data-stagger", "");
+      el.innerHTML =
+        '<div class="signal-icon">' + s.icon + '</div>' +
+        '<div class="signal-body">' +
+          '<div class="signal-head">' +
+            '<div class="signal-title">' + s.title + '</div>' +
+            '<span class="pill sil" data-src="Sillage" style="margin-left:auto"><span class="dot"></span>Sillage · ' + s.time + '</span>' +
+          '</div>' +
+          '<div class="signal-talk">' + s.talk + '</div>' +
+        '</div>';
+      wrap.appendChild(el);
+    });
+  }
+
+  function renderSay() {
+    var wrap = document.getElementById("sayCard");
+    wrap.innerHTML = "";
+    says.forEach(function (t) {
+      var el = document.createElement("div");
+      el.className = "say-item anim";
+      el.setAttribute("data-stagger", "");
+      el.innerHTML =
+        '<div class="cbox"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>' +
+        '<div class="say-text">' + t + '</div>';
+      el.addEventListener("click", function () { el.classList.toggle("done"); });
+      wrap.appendChild(el);
+    });
+  }
+
+  /* ---------- toast ---------- */
+  function toast(msg) {
+    var wrap = document.getElementById("toastWrap");
+    var t = document.createElement("div");
+    t.className = "toast";
+    t.innerHTML = '<span class="spark">✦</span>' + msg;
+    wrap.appendChild(t);
+    requestAnimationFrame(function () { t.classList.add("show"); });
+    setTimeout(function () {
+      t.classList.remove("show");
+      setTimeout(function () { t.remove(); }, 260);
+    }, 1600);
+  }
+
+  /* ---------- source pills ---------- */
+  document.addEventListener("click", function (e) {
+    var gen = e.target.closest("[data-gen]");
+    if (gen) {
+      var kind = gen.getAttribute("data-gen") === "ice" ? "ice-breaker call script" : "personalized email";
+      toast("Drafting " + kind + " for " + gen.getAttribute("data-contact") + "…");
+      return;
+    }
+    var pill = e.target.closest(".pill");
+    if (pill && pill.getAttribute("data-src")) {
+      toast("Opening source · " + pill.getAttribute("data-src") + "…");
+      return;
+    }
+    var btn = e.target.closest("[data-toast]");
+    if (btn) { toast(btn.getAttribute("data-toast")); }
+  });
+
+  /* ---------- generate: fetch real brief, then animate ---------- */
+  function animateIn() {
+    var items = Array.prototype.slice.call(document.querySelectorAll("[data-stagger]"));
+    if (reduce) { items.forEach(function (el) { el.classList.add("in"); }); return; }
+    items.forEach(function (el) { el.classList.remove("in"); });
+    items.forEach(function (el, i) {
+      setTimeout(function () { el.classList.add("in"); }, 120 + i * 60);
+    });
+  }
+
+  function generate() {
+    var status = document.getElementById("statusText");
+    var statusLine = document.getElementById("statusLine");
+    statusLine.style.opacity = "1";
+    status.textContent = "Orbit is briefing " + ACCOUNT + " · warmth, content, Sillage…";
+
+    fetch("/api/brief?account=" + encodeURIComponent(ACCOUNT))
+      .then(function (r) { return r.json(); })
+      .then(function (b) {
+        if (b.error) { status.textContent = "Error: " + b.error; return; }
+        mapBrief(b);
+        renderHeader(b);
+        renderHealth();
+        renderUpsell();
+        renderSignals();
+        renderSay();
+        animateIn();
+        var src = { store: "HubSpot + content analysis", cached: "Sillage (cached)",
+                    live: "Sillage (live)", none: "" }[b.account.signal_source] || "";
+        setTimeout(function () {
+          status.textContent = "Brief ready · " + b.account.name + " · " + src;
+          var pulse = statusLine.querySelector(".pulse");
+          if (pulse) { pulse.style.animation = "none"; pulse.style.opacity = "0.9"; }
+        }, 900);
+      })
+      .catch(function (err) { status.textContent = "Backend unreachable: " + err; });
+  }
+
+  /* ---------- theme ---------- */
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    var light = document.body.classList.toggle("light");
+    document.getElementById("themeIcon").textContent = light ? "☀" : "☾";
+    document.getElementById("themeLabel").textContent = light ? "Dark" : "Light";
+  });
+
+  /* ---------- export one-pager via Gamma ---------- */
+  document.getElementById("exportBtn").addEventListener("click", function () {
+    toast("Generating one-pager via Gamma…");
+    fetch("/api/deck?account=" + encodeURIComponent(ACCOUNT))
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        toast("Gamma deck [" + d.status + "] · " + (d.gammaUrl || "ready"));
+      })
+      .catch(function () { toast("Gamma export failed"); });
+  });
+
+  /* ---------- regenerate ---------- */
+  document.getElementById("regenBtn").addEventListener("click", function () {
+    var pulse = document.querySelector("#statusLine .pulse");
+    if (pulse) { pulse.style.animation = "pulse 1.1s infinite ease-in-out"; pulse.style.opacity = ""; }
+    generate();
+  });
+
+  generate();
+})();
+</script>
+</body>
+</html>

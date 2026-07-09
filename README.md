@@ -118,6 +118,31 @@ warmth drops from `0.909` (metadata only) to `0.815` (with content), and the
 Relationship agent flags it as a churn risk that the old ARR/silence rules
 missed entirely. See `tests/test_content.py`.
 
+## Orbit pre-call brief (web)
+
+`surfaces/orbit/` is the Orbit pre-call brief UI, wired to real backend data
+and served by the web surface. Start it and open a brief per account:
+
+```
+python -m surfaces.web
+# http://localhost:8787/orbit?account=novapay.io   (healthy, warm)
+# http://localhost:8787/orbit?account=cargoluxdigita.example   (at risk, cooled)
+# http://localhost:8787/orbit?account=axa.fr        (insurer, Sillage signals)
+```
+
+`GET /api/brief?account=<domain>` (in `agents/brief.py`) assembles the
+MeetingBrief from real data: warmth + the Part A content signal (sentiment,
+champion signals, risk flags, each with its evidence interaction id), the
+allocator's recommended action and euro value, references, and account signals.
+Account signals come from Sillage for the 13 tracked insurers (AXA, MAIF,
+MACIF, …) via `fabric/sillage_provider.py`, which prefers the live Sillage API
+(`SILLAGE_API_KEY`, `MOCK_MODE=false`) and falls back to cached data otherwise;
+customer accounts use the store's own signals. The "Export one-pager" button
+generates a Gamma deck (`GET /api/deck`). The "Plan of attack — the castle"
+section is a deliberately empty, labeled slot for the fortress conquest map;
+its data contract (the `fortress.solve()` path JSON) is documented in the
+markup so wiring it in later is a drop-in. See `tests/test_brief.py`.
+
 ## Demo
 
 ```
