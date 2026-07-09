@@ -418,7 +418,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
         <canvas id="orbCanvas" width="300" height="300"></canvas>
       </div>
       <div class="voice-prompt" id="voicePrompt">"I want to sell to Alan"</div>
-      <div class="voice-status" id="voiceStatus">Click the orb and say where you want to sell</div>
+      <div class="voice-status" id="voiceStatus">Hold Orb or SPACEBAR to speak</div>
       <button class="skip-btn" id="btnSkipVoice">Skip Voice Mode</button>
     </div>
 
@@ -1203,10 +1203,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
     var isRecording = false;
 
     function startVoiceRecording() {
-      if (isRecording) {
-        stopVoiceRecording();
-        return;
-      }
+      if (isRecording) return;
 
       recordedChunks = [];
       
@@ -1237,7 +1234,11 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
 
         mediaRecorder.start();
         isRecording = true;
-        voiceStatus.textContent = "Recording... Tap orb to finish";
+        if (voiceStatus.textContent.indexOf("SPACE") !== -1) {
+          voiceStatus.textContent = "Recording... Release SPACE to submit";
+        } else {
+          voiceStatus.textContent = "Recording... Release orb to submit";
+        }
         voiceStatus.className = "voice-status listening";
         voicePrompt.textContent = "Listening to your voice...";
       };
@@ -1253,6 +1254,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
     }
 
     function stopVoiceRecording() {
+      if (!isRecording) return;
       if (mediaRecorder && mediaRecorder.state !== "inactive") {
         mediaRecorder.stop();
       }
@@ -1272,7 +1274,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
         if (data.error) throw new Error(data.error);
         var text = data.text || "";
         if (!text.trim()) {
-          voiceStatus.textContent = "No speech detected. Tap to try again.";
+          voiceStatus.textContent = "No speech detected. Hold to try again.";
           voicePrompt.textContent = '"..."';
           return;
         }
@@ -1309,7 +1311,7 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
       };
 
       recognition.onerror = function() {
-        voiceStatus.textContent = "Tap to retry";
+        voiceStatus.textContent = "Hold to retry";
         voiceStatus.className = "voice-status";
       };
 
@@ -1320,7 +1322,44 @@ body.light .edge-line { stroke: rgba(0,0,0,0.15); }
       recognition.start();
     }
     
-    document.getElementById("orbContainer").addEventListener("click", startVoiceRecording);
+    var activePress = false;
+
+    function handlePressStart(e) {
+      if (e) e.preventDefault();
+      if (activePress) return;
+      activePress = true;
+      startVoiceRecording();
+    }
+
+    function handlePressEnd(e) {
+      if (e) e.preventDefault();
+      if (!activePress) return;
+      activePress = false;
+      stopVoiceRecording();
+    }
+
+    var orb = document.getElementById("orbContainer");
+    orb.addEventListener("mousedown", handlePressStart);
+    orb.addEventListener("touchstart", handlePressStart);
+    
+    window.addEventListener("mouseup", handlePressEnd);
+    window.addEventListener("touchend", handlePressEnd);
+
+    window.addEventListener("keydown", function(e) {
+      if (e.code === "Space" || e.keyCode === 32) {
+        e.preventDefault();
+        if (e.repeat) return;
+        voiceStatus.textContent = "Recording... Release SPACE to submit";
+        handlePressStart();
+      }
+    });
+
+    window.addEventListener("keyup", function(e) {
+      if (e.code === "Space" || e.keyCode === 32) {
+        e.preventDefault();
+        handlePressEnd();
+      }
+    });
     
     btnSkip.addEventListener("click", function() {
       exitVoiceMode("novapay.io", "CRO");
