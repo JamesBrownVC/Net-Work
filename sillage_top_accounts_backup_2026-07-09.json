@@ -1,0 +1,18 @@
+{
+  "_note": "Backup de la liste Top Accounts Sillage AVANT ajout des comptes CRM (2026-07-09). Liste d'origine = 13 assureurs. Restaurable via add_top_accounts.",
+  "top_accounts_insurers": [
+    {"name": "Box", "domain": "box.com"},
+    {"name": "Abeille Assurances", "domain": "abeille-assurances.fr"},
+    {"name": "Swiss Life France", "domain": "swisslife.fr"},
+    {"name": "MAIF", "domain": "entreprise.maif.fr"},
+    {"name": "Allianz France", "domain": "allianz.fr"},
+    {"name": "GMF Assurances", "domain": "gmf.fr"},
+    {"name": "Matmut", "domain": "matmut.fr"},
+    {"name": "CNP Assurances", "domain": "cnp.fr"},
+    {"name": "MACIF", "domain": "macif.fr"},
+    {"name": "Generali France", "domain": "generali.fr"},
+    {"name": "Groupama Paris Val de Loire", "domain": "groupama.fr"},
+    {"name": "MMA Assurances", "domain": "mma.fr"},
+    {"name": "AXA en France", "domain": "axa.fr"}
+  ]
+}

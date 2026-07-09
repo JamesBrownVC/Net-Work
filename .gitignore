@@ -24,3 +24,9 @@ venv/
 Thumbs.db
 .idea/
 .vscode/
+
+# Personal data (GDPR) — never commit enriched contacts / org charts / comment targets
+leads_enrichis.csv
+*_enrichis.csv
+organigramme_comptes.md
+poc_power_user_commentaires.md

@@ -1,0 +1,11 @@
+{
+  "_note": "Backup du persona Sillage AVANT écrasement le 2026-07-09 (workspace ciblé assurance/finance). Restaurable via upsert_persona.",
+  "persona_id": 26,
+  "job_title": ["Directeur marketing","Responsable marketing","Responsable marketing digital","Responsable communication interne","Responsable communication investisseur","Responsable social media","Responsable RSE","DRH","Responsable marque employeur","Responsable achats marketing et communication","Responsable RP et affaires publiques","Responsable événementiel","Directeur commercial"],
+  "exclude_job_title": [],
+  "location": ["France"],
+  "headcount": [],
+  "industry": ["Insurance","Financial Services"],
+  "seniority": ["c_suite","vp","head","director","manager"],
+  "additional_info": "Cible : décideurs marketing, communication, marque employeur, RSE et RH dans les grandes compagnies d'assurance et de services financiers. [NB: fin du texte perdue lors d'un écrasement accidentel — à recompléter manuellement]"
+}
