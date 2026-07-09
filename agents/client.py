@@ -1,9 +1,10 @@
 """Claude tool-use loop for agents, with a deterministic mock fallback so the
 whole choreography runs on fixtures without an API key.
 
-Live mode: claude-sonnet-4-6 agent loops, claude-haiku-4-5 extraction
+Live mode: claude-sonnet-5 agent loops, claude-haiku-4-5 extraction
 subcalls, prompt caching on charters, structured output forced through a
-strict tool schema (assistant prefills are not supported on Sonnet 4.6).
+strict tool schema (assistant prefills are not supported on Sonnet 5; note
+Sonnet 5 runs adaptive thinking by default when `thinking` is omitted).
 """
 
 from __future__ import annotations
@@ -18,7 +19,7 @@ from pydantic import BaseModel
 
 from agents.bus import EventBus
 
-AGENT_MODEL = "claude-sonnet-4-6"
+AGENT_MODEL = "claude-sonnet-5"
 EXTRACT_MODEL = "claude-haiku-4-5"
 CHARTERS = Path(__file__).parent / "charters"
 MAX_TURNS = 12
