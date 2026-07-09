@@ -1,168 +1,834 @@
-Read PRD.md carefully.
+\# Account Conquest Room
 
+\### AI-Native Revenue Intelligence Platform
 
 
-This file is the source of truth for the project.
 
+\## Vision
 
 
-Now create the project architecture for Account Conquest Room.
 
+Account Conquest Room is an AI-native GTM platform composed of multiple specialized AI agents working together to help sales teams prepare, expand, and conquer strategic accounts.
 
 
-Use:
 
-\- Next.js App Router
+Instead of acting as a chatbot, the system behaves like an autonomous revenue team. Each agent owns a specific responsibility and collaborates with the others to produce actionable sales intelligence before, during, and after customer interactions.
 
-\- TypeScript
 
-\- TailwindCSS
 
-\- Framer Motion
+The platform is built around three core agents:
 
-\- shadcn/ui
 
-\- clean modular architecture
 
+1\. Network Intelligence Agent
 
+2\. Relationship Manager Agent
 
-Create this folder structure:
+3\. Account Conquest Agent
 
 
 
-src/
+These agents collaborate through an orchestration layer and generate a unified Action Plan for the sales representative.
 
-&#x20; app/
 
-&#x20;   page.tsx
 
-&#x20;   layout.tsx
+\---
 
-&#x20;   api/
 
-&#x20;     run-agents/
 
-&#x20;       route.ts
+\# High-Level Workflow
 
-&#x20;     generate-plan/
 
-&#x20;       route.ts
 
+```
 
+User selects customer or target company
 
-&#x20; agents/
+&#x20;               │
 
-&#x20;   NetworkAgent.ts
+&#x20;               ▼
 
-&#x20;   RelationshipAgent.ts
+&#x20;      Agent Orchestrator
 
-&#x20;   ConquestAgent.ts
+&#x20;               │
 
-&#x20;   ClaudeStrategyAgent.ts
+&#x20;┌──────────────┼──────────────┐
 
-&#x20;   index.ts
+&#x20;▼              ▼              ▼
 
 
 
-&#x20; orchestrator/
+Network     Relationship    Conquest
 
-&#x20;   AgentOrchestrator.ts
+&#x20;Agent         Agent          Agent
 
-&#x20;   ExecutionLog.ts
 
 
+&#x20;└──────────────┼──────────────┘
 
-&#x20; data/
+&#x20;               ▼
 
-&#x20;   mockAccounts.ts
+&#x20;       Claude Reasoning
 
-&#x20;   mockCustomers.ts
+&#x20;               ▼
 
-&#x20;   mockCRM.ts
+&#x20;     Unified Action Plan
 
-&#x20;   mockSignals.ts
+```
 
-&#x20;   mockContacts.ts
 
-&#x20;   mockScenario.ts
 
+\---
 
 
-&#x20; types/
 
-&#x20;   account.ts
+\# Agent 1 — Network Intelligence Agent
 
-&#x20;   customer.ts
 
-&#x20;   meeting.ts
 
-&#x20;   crm.ts
+\## Goal
 
-&#x20;   agents.ts
 
-&#x20;   actionPlan.ts
 
-&#x20;   index.ts
+Prepare the sales representative before an upcoming meeting by extracting every relevant relationship and reference inside the company's network.
 
 
 
-&#x20; lib/
+This agent focuses on:
 
-&#x20;   anthropic.ts
 
-&#x20;   fullenrich.ts
 
-&#x20;   sillage.ts
+\- Customer references
 
-&#x20;   utils.ts
+\- Internal relationships
 
+\- Previous successful deployments
 
+\- Upsell opportunities
 
-&#x20; components/
+\- Similar customers
 
-&#x20;   layout/
+\- Mutual connections
 
-&#x20;   agents/
+\- Historical CRM interactions
 
-&#x20;   action-plan/
 
-&#x20;   timeline/
 
-&#x20;   ui/
+\## Responsibilities
 
 
 
-Do not implement UI animations yet.
+Before every meeting, generate a one-page briefing containing:
 
-Do not build the final dashboard yet.
 
-Focus only on the foundation, types, clean architecture, and placeholder files.
 
+\### Customer Context
 
 
-Each file should include comments explaining its responsibility so that multiple team members can work in parallel.
 
+\- Company information
 
+\- Current contract
 
-Also create:
+\- Existing products
 
-\- .env.example
+\- Revenue generated
 
-\- .gitignore
 
-\- README.md
 
+\### Relevant References
 
 
-Make sure .gitignore excludes:
 
-\- node\_modules
+Identify previous customers that successfully adopted similar products.
 
-\- .next
 
-\- .env
 
-\- .env.local
+Example:
 
-\- .env.\*.local
+
+
+\- Customer A successfully implemented Product X
+
+\- Customer B expanded after 6 months
+
+\- Customer C belongs to the same industry
+
+
+
+\### Upsell Opportunities
+
+
+
+Detect products or services that could naturally be proposed during the meeting.
+
+
+
+Example:
+
+
+
+Current customer uses:
+
+
+
+\- Product A
+
+
+
+Potential expansion:
+
+
+
+\- Product B
+
+\- Product C
+
+
+
+\### Social Proof
+
+
+
+Provide references the sales representative can naturally mention during the conversation.
+
+
+
+Example:
+
+
+
+> "Another fintech customer reduced onboarding time by 45% using this solution."
+
+
+
+\### Evidence
+
+
+
+Every recommendation should include its source.
+
+
+
+Possible sources:
+
+
+
+\- CRM history
+
+\- Previous meetings
+
+\- Similar customers
+
+\- Internal documentation
+
+\- Case studies
+
+
+
+\---
+
+
+
+\# Agent 2 — Relationship Manager
+
+
+
+\## Goal
+
+
+
+Continuously monitor customer relationships and ensure that high-value accounts receive appropriate attention.
+
+
+
+The objective is to avoid losing strategic customers because of inactivity.
+
+
+
+\## Responsibilities
+
+
+
+Analyze:
+
+
+
+\- Last interaction date
+
+\- Revenue generated
+
+\- Customer lifetime value
+
+\- Renewal date
+
+\- Support activity
+
+\- Engagement frequency
+
+\- Executive interactions
+
+
+
+Identify:
+
+
+
+\- Neglected customers
+
+\- Accounts at risk
+
+\- Expansion opportunities
+
+\- Relationship gaps
+
+
+
+\## Example
+
+
+
+Customer
+
+
+
+Acme Inc.
+
+
+
+Annual Revenue:
+
+
+
+$180,000
+
+
+
+Last contact:
+
+
+
+72 days ago
+
+
+
+Risk:
+
+
+
+High
+
+
+
+Recommendation:
+
+
+
+\- Schedule Executive Business Review
+
+\- Call customer this week
+
+\- Delay upsell conversation until relationship improves
+
+
+
+\---
+
+
+
+\# Agent 3 — Account Conquest Agent
+
+
+
+\## Goal
+
+
+
+Build the optimal strategy for winning a new strategic account.
+
+
+
+Instead of simply listing contacts, the agent generates the best sequence of people to approach.
+
+
+
+This is inspired by enterprise account-based selling.
+
+
+
+\## Responsibilities
+
+
+
+Analyze:
+
+
+
+\- Organization structure
+
+\- Buying committee
+
+\- Decision makers
+
+\- Influence hierarchy
+
+\- Warm introductions
+
+\- Hiring signals
+
+\- Buying intent
+
+\- Internal champions
+
+
+
+Produce:
+
+
+
+A complete conquest strategy.
+
+
+
+Example:
+
+
+
+```
+
+Target Company
+
+
+
+Stripe
+
+
+
+Recommended path
+
+
+
+Sales Analyst
+
+&#x20;     ↓
+
+Sales Manager
+
+&#x20;     ↓
+
+Director
+
+&#x20;     ↓
+
+VP Sales
+
+&#x20;     ↓
+
+Chief Revenue Officer
+
+```
+
+
+
+Each step should explain:
+
+
+
+\- Why this person
+
+\- Expected objective
+
+\- Suggested message
+
+\- Next transition
+
+
+
+\---
+
+
+
+\# Agent Collaboration
+
+
+
+The system is not composed of isolated agents.
+
+
+
+Agents continuously exchange information.
+
+
+
+Example workflow:
+
+
+
+```
+
+Network Agent
+
+
+
+↓
+
+
+
+"I found a strong customer reference."
+
+
+
+↓
+
+
+
+Relationship Agent
+
+
+
+"This customer relationship is currently weak."
+
+
+
+↓
+
+
+
+Conquest Agent
+
+
+
+"Then we should rebuild trust before proposing expansion."
+
+
+
+↓
+
+
+
+Claude
+
+
+
+Generate final recommendation.
+
+```
+
+
+
+\---
+
+
+
+\# Final Deliverable
+
+
+
+The user receives one unified report.
+
+
+
+Sections:
+
+
+
+\## Executive Summary
+
+
+
+Short overview of the account.
+
+
+
+\---
+
+
+
+\## Meeting Brief
+
+
+
+Everything needed before the call.
+
+
+
+\---
+
+
+
+\## Relevant References
+
+
+
+Customers to mention.
+
+
+
+Success stories.
+
+
+
+Case studies.
+
+
+
+\---
+
+
+
+\## Relationship Health
+
+
+
+Risk analysis.
+
+
+
+Recommendations.
+
+
+
+\---
+
+
+
+\## Upsell Opportunities
+
+
+
+Products
+
+
+
+Timing
+
+
+
+Reasoning
+
+
+
+\---
+
+
+
+\## Account Conquest Strategy
+
+
+
+Buying committee
+
+
+
+Influence path
+
+
+
+Attack strategy
+
+
+
+Warm introductions
+
+
+
+\---
+
+
+
+\## Talking Points
+
+
+
+Key messages
+
+
+
+Potential objections
+
+
+
+Recommended answers
+
+
+
+\---
+
+
+
+\## Next Actions
+
+
+
+Immediate actions for the sales representative.
+
+
+
+Priority ranking.
+
+
+
+\---
+
+
+
+\# External Integrations
+
+
+
+\## Anthropic Claude
+
+
+
+Used for:
+
+
+
+\- reasoning
+
+\- synthesis
+
+\- strategy generation
+
+\- recommendation generation
+
+
+
+\---
+
+
+
+\## FullEnrich
+
+
+
+Used for:
+
+
+
+\- people enrichment
+
+\- verified emails
+
+\- phone numbers
+
+\- company information
+
+\- organization structure
+
+
+
+\---
+
+
+
+\## Sillage
+
+
+
+Used for:
+
+
+
+\- buying intent
+
+\- hiring signals
+
+\- champion tracking
+
+\- job changes
+
+\- competitor engagement
+
+\- market signals
+
+
+
+\---
+
+
+
+\# Frontend Experience
+
+
+
+The application should not look like a traditional dashboard.
+
+
+
+Instead, it should visualize an autonomous AI team working together.
+
+
+
+The interface is an "Agent Theater."
+
+
+
+Agents physically move between different workstations:
+
+
+
+\- CRM
+
+\- Claude
+
+\- Sillage
+
+\- FullEnrich
+
+\- Final Action Plan
+
+
+
+Each agent:
+
+
+
+\- moves to a workstation
+
+\- asks a question
+
+\- receives a response
+
+\- returns
+
+\- shares information with another agent
+
+
+
+The user watches the reasoning process unfold in real time.
+
+
+
+The final output appears only after all agents complete their work.
+
+
+
+\---
+
+
+
+\# Design Principles
+
+
+
+\- AI-first experience
+
+\- Premium enterprise design
+
+\- Minimal interface
+
+\- Dark mode
+
+\- Explainable reasoning
+
+\- Evidence-based recommendations
+
+\- Agent collaboration
+
+\- Human-in-the-loop
+
+\- Production-ready architecture
+
+\- Modular agent system
 
