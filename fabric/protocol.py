@@ -8,12 +8,17 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Protocol, runtime_checkable
 
+from dotenv import load_dotenv
 from pydantic import BaseModel
 
 from fabric.schema import Entity
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FIXTURES_DIR = REPO_ROOT / "fixtures"
+
+# Local secrets, gitignored. A real exported env var always wins (override=False).
+load_dotenv(REPO_ROOT / ".env.local")
+load_dotenv(REPO_ROOT / ".env")
 
 
 class Status(enum.StrEnum):

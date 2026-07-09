@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Net-Work · Graph Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #0B0B0C;
+  --surface: #111113;
+  --card: #1A1A1D;
+  --card-hover: #1F1F23;
+  --border: #2A2A2E;
+  --border-bright: #3A3A40;
+  --text: #F4F3F0;
+  --text-2: #9A9A96;
+  --accent: #F25C1F;
+  --accent-soft: rgba(242, 92, 31, 0.10);
+  --accent-tint-bg: rgba(242, 92, 31, 0.07);
+  --accent-border: rgba(242, 92, 31, 0.28);
+  --ok-bg: rgba(52, 168, 108, 0.13);
+  --ok-fg: #57C08A;
+  --blue: #4285F4;
+  --blue-soft: rgba(66, 133, 244, 0.13);
+  --glow: rgba(242, 92, 31, 0.16);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --glass: rgba(26, 26, 29, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.06);
+}
+body.light {
+  --bg: #FBFAF8; --surface: #F4F2EE; --card: #FFFFFF; --card-hover: #FFFFFF;
+  --border: #ECEAE5; --border-bright: #DAD7D0; --text: #141414; --text-2: #6E6C66;
+  --accent: #F25C1F; --accent-soft: rgba(242,92,31,0.09); --accent-tint-bg: rgba(242,92,31,0.06);
+  --accent-border: rgba(242,92,31,0.30); --ok-bg: rgba(31,138,91,0.11); --ok-fg: #1F8A5B;
+  --glow: rgba(242,92,31,0.10); --glass: rgba(255,255,255,0.78); --glass-border: rgba(0,0,0,0.06);
+  --blue: #2962DC; --blue-soft: rgba(41,98,220,0.09);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 400; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+  transition: background 0.4s ease, color 0.4s ease;
+  display: flex; flex-direction: column;
+}
+body::before {
+  content: ""; position: fixed; inset: 0;
+  background: radial-gradient(900px 420px at 78% -8%, var(--glow) 0%, transparent 60%),
+              radial-gradient(700px 500px at 8% 4%, rgba(120,120,130,0.05) 0%, transparent 55%);
+  pointer-events: none; z-index: 0;
+}
+body::after {
+  content: ""; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.025; mix-blend-mode: overlay; pointer-events: none; z-index: 0;
+}
+
+/* Header */
+.header {
+  position: relative; z-index: 10; background: var(--surface);
+  border-bottom: 1px solid var(--border); padding: 14px 24px 0; flex: none;
+}
+.header-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.orbit-dot {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--accent);
+  position: relative; box-shadow: 0 0 0 3px var(--accent-soft); flex: none;
+}
+.orbit-dot::after {
+  content: ""; position: absolute; inset: 6px; border-radius: 50%; background: var(--bg);
+}
+.brand-name { font-weight: 600; font-size: 15px; letter-spacing: -0.02em; }
+.brand-sub { color: var(--text-2); font-size: 11.5px; margin-top: 1px; }
+.header-tools { display: flex; align-items: center; gap: 10px; }
+.status-line {
+  display: flex; align-items: center; gap: 8px; color: var(--text-2);
+  font-size: 12px; height: 18px; overflow: hidden;
+}
+.status-line .pulse {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+  animation: pulse 1.1s infinite ease-in-out; flex: none;
+}
+@keyframes pulse { 0%,100% { opacity: 0.35; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.15); } }
+.icon-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--card); border: 1px solid var(--border); color: var(--text-2);
+  border-radius: 9px; padding: 6px 10px; font-size: 12px; font-family: inherit;
+  cursor: pointer; transition: border-color 0.18s, color 0.18s, transform 0.12s;
+}
+.icon-btn:hover { border-color: var(--border-bright); color: var(--text); }
+.icon-btn:active { transform: scale(0.97); }
+
+/* Tabs */
+.tabs {
+  display: flex; gap: 2px; margin-top: 12px;
+  border-bottom: none; position: relative; z-index: 1;
+}
+.tab {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 13px 11px; font-size: 12.5px; font-weight: 600;
+  letter-spacing: -0.01em; color: var(--text-2); text-decoration: none;
+  position: relative; transition: color 0.16s;
+}
+.tab .tab-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--border-bright); transition: background 0.16s; flex: none;
+}
+.tab:hover { color: var(--text); }
+.tab:hover .tab-dot { background: var(--text-2); }
+.tab.active { color: var(--text); }
+.tab.active .tab-dot { background: var(--accent); }
+.tab.active::after {
+  content: ""; position: absolute; left: 11px; right: 11px; bottom: -1px;
+  height: 2px; border-radius: 2px; background: var(--accent);
+}
+
+/* Canvas area */
+.canvas-wrap {
+  flex: 1; position: relative; z-index: 1; overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+.canvas-wrap svg { width: 100%; height: 100%; display: block; }
+
+/* Loading */
+.loading-state {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px; z-index: 50;
+  transition: opacity 0.5s ease;
+}
+.loading-state.hidden { opacity: 0; pointer-events: none; }
+.loading-spinner {
+  width: 36px; height: 36px; border: 3px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { color: var(--text-2); font-size: 13px; font-weight: 500; }
+
+/* Error state */
+.error-state {
+  position: absolute; inset: 0; display: none; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px; z-index: 50;
+}
+.error-state.show { display: flex; }
+.error-icon { font-size: 32px; opacity: 0.5; }
+.error-msg { color: var(--text-2); font-size: 13px; max-width: 400px; text-align: center; line-height: 1.5; }
+
+/* Stats panel (glassmorphism) */
+.stats-panel {
+  position: absolute; top: 18px; right: 18px; z-index: 20;
+  width: 280px; background: var(--glass); backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid var(--glass-border); border-radius: var(--radius);
+  padding: 18px; opacity: 0; transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.stats-panel.show { opacity: 1; transform: none; }
+body.light .stats-panel { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+.stats-title {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+  font-weight: 600; color: var(--text-2); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.stats-title .tick { width: 3px; height: 12px; border-radius: 2px; background: var(--accent); }
+
+.stat-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-label { color: var(--text-2); font-size: 12px; font-weight: 500; }
+.stat-value { font-size: 14px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); }
+.stat-value.accent { color: var(--accent); }
+
+.conf-bar {
+  height: 6px; border-radius: 999px; background: var(--border);
+  margin-top: 12px; overflow: hidden;
+}
+.conf-fill {
+  height: 100%; width: 0; background: var(--accent); border-radius: 999px;
+  transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+}
+
+.path-steps {
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);
+}
+.path-steps-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; color: var(--text-2); margin-bottom: 8px; }
+.path-step {
+  display: flex; align-items: center; gap: 6px; padding: 4px 0;
+  font-size: 11.5px; color: var(--text);
+}
+.path-step .arrow { color: var(--accent); font-size: 10px; }
+.path-step .p-val { color: var(--text-2); font-size: 10px; margin-left: auto; font-variant-numeric: tabular-nums; }
+
+/* Tooltip */
+.tooltip {
+  position: fixed; z-index: 100; pointer-events: none;
+  background: var(--glass); backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
+  padding: 12px 14px; min-width: 180px; max-width: 260px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.tooltip.show { opacity: 1; transform: none; }
+body.light .tooltip { box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+.tooltip-name { font-size: 13px; font-weight: 600; letter-spacing: -0.02em; }
+.tooltip-role { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+.tooltip-divider { height: 1px; background: var(--border); margin: 8px 0; }
+.tooltip-row { display: flex; justify-content: space-between; align-items: center; padding: 2px 0; }
+.tooltip-row-label { font-size: 11px; color: var(--text-2); }
+.tooltip-row-value { font-size: 11px; font-weight: 600; }
+.tooltip-row-value.warm { color: var(--ok-fg); }
+.tooltip-row-value.accent { color: var(--accent); }
+.seniority-badge {
+  display: inline-flex; align-items: center; font-size: 9px; font-weight: 700;
+  padding: 2px 6px; border-radius: 4px; letter-spacing: 0.05em;
+  background: var(--accent-soft); color: var(--accent);
+}
+
+/* Controls bar */
+.controls-bar {
+  position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 20;
+  display: flex; align-items: center; gap: 6px;
+  background: var(--glass); backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border: 1px solid var(--glass-border); border-radius: 12px;
+  padding: 6px 8px; box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(10px) translateX(-50%);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.controls-bar.show { opacity: 1; transform: translateY(0) translateX(-50%); }
+body.light .controls-bar { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.ctrl-btn {
+  font-family: inherit; font-size: 11.5px; font-weight: 600; color: var(--text-2);
+  background: transparent; border: 1px solid transparent; border-radius: 8px;
+  padding: 7px 12px; cursor: pointer; transition: all 0.16s ease;
+  white-space: nowrap; display: inline-flex; align-items: center; gap: 5px;
+}
+.ctrl-btn:hover { color: var(--text); background: var(--card); border-color: var(--border); }
+.ctrl-btn:active { transform: scale(0.96); }
+.ctrl-btn.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-border); }
+.ctrl-sep { width: 1px; height: 20px; background: var(--border); flex: none; }
+.path-tab {
+  font-family: inherit; font-size: 11px; font-weight: 600; color: var(--text-2);
+  background: transparent; border: 1px solid transparent; border-radius: 7px;
+  padding: 5px 10px; cursor: pointer; transition: all 0.16s ease;
+}
+.path-tab:hover { color: var(--text); }
+.path-tab.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-border); }
+
+/* Legend */
+.legend {
+  position: absolute; bottom: 18px; left: 18px; z-index: 20;
+  display: flex; flex-direction: column; gap: 6px;
+  background: var(--glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
+  padding: 12px 14px; font-size: 11px; color: var(--text-2);
+  opacity: 0; transition: opacity 0.5s ease 0.3s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.legend.show { opacity: 1; }
+.legend-row { display: flex; align-items: center; gap: 8px; }
+.legend-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex: none; border: 1.5px solid;
+}
+
+/* SVG styles */
+.edge-line {
+  fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 1;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease;
+}
+body.light .edge-line { stroke: rgba(0,0,0,0.06); }
+.edge-line.explored { stroke: var(--blue); stroke-width: 1.5; opacity: 0.7; }
+.edge-line.path-edge { stroke: var(--accent); stroke-width: 2.5; opacity: 1; }
+.edge-line.path-alt { stroke: var(--accent); stroke-width: 1.5; opacity: 0.25; }
+.edge-line.path-edge.animated {
+  stroke-dasharray: 8 6;
+  animation: dash-flow 0.8s linear infinite;
+}
+@keyframes dash-flow { to { stroke-dashoffset: -14; } }
+
+.node-group { cursor: pointer; }
+.node-circle {
+  fill: var(--card); stroke: var(--border-bright); stroke-width: 1.5;
+  transition: fill 0.3s ease, stroke 0.3s ease, stroke-width 0.3s ease, r 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.node-circle.source { fill: var(--accent); stroke: var(--accent); stroke-width: 2; }
+.node-circle.target { stroke: var(--accent); stroke-width: 2.5; }
+.node-circle.warm { stroke: var(--ok-fg); stroke-width: 2; }
+.node-circle.on-path { stroke: var(--accent); stroke-width: 2.5; fill: var(--card-hover); }
+
+.node-label {
+  fill: var(--text); font-size: 11px; font-weight: 600; font-family: "Inter", sans-serif;
+  text-anchor: middle; pointer-events: none; letter-spacing: -0.02em;
+}
+.node-sublabel {
+  fill: var(--text-2); font-size: 9px; font-weight: 500; font-family: "Inter", sans-serif;
+  text-anchor: middle; pointer-events: none;
+}
+
+/* Glow filters are in the SVG defs */
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+.node-group.idle { animation: breathe 4s ease-in-out infinite; }
+.node-group.idle:nth-child(even) { animation-delay: -2s; }
+
+@media (max-width: 768px) {
+  .stats-panel { width: 220px; padding: 14px; }
+  .legend { display: none; }
+}
+</style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="orbit-dot"></div>
+        <div>
+          <div class="brand-name">Net-Work</div>
+          <div class="brand-sub">Graph Explorer</div>
+        </div>
+      </div>
+      <div class="header-tools">
+        <div class="status-line" id="statusLine">
+          <span class="pulse"></span>
+          <span id="statusText">Initializing graph…</span>
+        </div>
+        <button class="icon-btn" id="themeToggle" title="Toggle theme">
+          <span id="themeIcon">☾</span><span id="themeLabel">Light</span>
+        </button>
+      </div>
+    </div>
+    <nav class="tabs">
+      <a class="tab" href="/orbit"><span class="tab-dot"></span>Schedule</a>
+      <a class="tab" href="/orbit/book-of-business.html"><span class="tab-dot"></span>Book of Business</a>
+      <a class="tab" href="/orbit/fortress-plan.html"><span class="tab-dot"></span>Fortress Plan</a>
+      <a class="tab active" href="/orbit/fortress-viz.html"><span class="tab-dot"></span>Graph Explorer</a>
+    </nav>
+  </header>
+
+  <!-- CANVAS -->
+  <div class="canvas-wrap" id="canvasWrap">
+    <!-- Loading -->
+    <div class="loading-state" id="loadingState">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Building fortress graph…</div>
+    </div>
+
+    <!-- Error -->
+    <div class="error-state" id="errorState">
+      <div class="error-icon">⚠</div>
+      <div class="error-msg" id="errorMsg">Could not load fortress graph.</div>
+      <button class="icon-btn" onclick="location.reload()">Retry</button>
+    </div>
+
+    <!-- SVG Graph -->
+    <svg id="graphSvg">
+      <defs>
+        <!-- Source glow -->
+        <filter id="glowSource" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feFlood flood-color="#F25C1F" flood-opacity="0.4" result="color" />
+          <feComposite in="color" in2="blur" operator="in" result="glow" />
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Target glow -->
+        <filter id="glowTarget" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="5" result="blur" />
+          <feFlood flood-color="#F25C1F" flood-opacity="0.3" result="color" />
+          <feComposite in="color" in2="blur" operator="in" result="glow" />
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Warm glow -->
+        <filter id="glowWarm" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feFlood flood-color="#57C08A" flood-opacity="0.3" result="color" />
+          <feComposite in="color" in2="blur" operator="in" result="glow" />
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Path glow -->
+        <filter id="glowPath" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feFlood flood-color="#F25C1F" flood-opacity="0.35" result="color" />
+          <feComposite in="color" in2="blur" operator="in" result="glow" />
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Explore flash -->
+        <filter id="glowExplore" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feFlood flood-color="#4285F4" flood-opacity="0.5" result="color" />
+          <feComposite in="color" in2="blur" operator="in" result="glow" />
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <marker id="arrowhead" viewBox="0 0 10 10" refX="10" refY="5"
+                markerWidth="6" markerHeight="6" orient="auto-start-reverse"
+                fill="var(--border-bright)" opacity="0.3">
+          <path d="M 0 0 L 10 5 L 0 10 z" />
+        </marker>
+      </defs>
+      <g id="graphGroup">
+        <g id="edgesGroup"></g>
+        <g id="nodesGroup"></g>
+      </g>
+    </svg>
+
+    <!-- Stats panel -->
+    <div class="stats-panel" id="statsPanel">
+      <div class="stats-title"><span class="tick"></span>Brightest path</div>
+      <div class="stat-row">
+        <span class="stat-label">Rank</span>
+        <span class="stat-value accent" id="statRank">#1</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Reliability (R)</span>
+        <span class="stat-value accent" id="statR">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Expected value</span>
+        <span class="stat-value" id="statEV">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Steps</span>
+        <span class="stat-value" id="statSteps">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Effort</span>
+        <span class="stat-value" id="statEffort">—</span>
+      </div>
+      <div class="conf-bar"><div class="conf-fill" id="confFill"></div></div>
+      <div class="path-steps" id="pathSteps">
+        <div class="path-steps-title">Path sequence</div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend" id="legend">
+      <div class="legend-row"><div class="legend-dot" style="background:#F25C1F;border-color:#F25C1F;"></div>Source (Us)</div>
+      <div class="legend-row"><div class="legend-dot" style="background:transparent;border-color:#57C08A;"></div>Warm contact</div>
+      <div class="legend-row"><div class="legend-dot" style="background:transparent;border-color:#F25C1F;"></div>Target</div>
+      <div class="legend-row"><div class="legend-dot" style="background:var(--card);border-color:var(--border-bright);"></div>Org node</div>
+      <div style="margin-top:4px;border-top:1px solid var(--border);padding-top:6px;">
+        <div class="legend-row" style="margin-bottom:4px;"><div style="width:20px;height:2px;background:#F25C1F;border-radius:2px;flex:none;"></div>Best path</div>
+        <div class="legend-row"><div style="width:20px;height:1px;background:rgba(255,255,255,0.12);border-radius:1px;flex:none;"></div>Org edge</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-bar" id="controlsBar">
+      <button class="ctrl-btn" id="btnReplay" title="Replay animation">↻ Replay</button>
+      <div class="ctrl-sep"></div>
+      <div id="pathTabs"></div>
+      <div class="ctrl-sep"></div>
+      <button class="ctrl-btn" id="btnShowAll">Show all paths</button>
+      <div class="ctrl-sep"></div>
+      <button class="ctrl-btn" id="btnZoomIn" title="Zoom in">+</button>
+      <button class="ctrl-btn" id="btnZoomOut" title="Zoom out">−</button>
+      <button class="ctrl-btn" id="btnFit" title="Fit to view">⊞</button>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tooltip"></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var SENIORITY = { SOURCE: 5, C: 4, VP: 3, DIR: 2, MGR: 1, IC: 0 };
+  var LINK_DIST = { manages: 90, peer: 70, skip: 130, cross_dept: 150, external_mutual: 170 };
+  var params = new URLSearchParams(location.search);
+  var company = params.get("company") || "novapay.io";
+  var target = params.get("target") || "CRO";
+
+  // State
+  var graphData = null;
+  var simulation = null;
+  var selectedPath = 0;
+  var showAllPaths = false;
+  var animating = false;
+
+  // DOM refs
+  var svg = d3.select("#graphSvg");
+  var graphGroup = d3.select("#graphGroup");
+  var edgesGroup = d3.select("#edgesGroup");
+  var nodesGroup = d3.select("#nodesGroup");
+  var tooltip = document.getElementById("tooltip");
+  var statusText = document.getElementById("statusText");
+  var statsPanel = document.getElementById("statsPanel");
+  var loadingState = document.getElementById("loadingState");
+  var errorState = document.getElementById("errorState");
+  var controlsBar = document.getElementById("controlsBar");
+  var legend = document.getElementById("legend");
+
+  // Theme toggle
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    var light = document.body.classList.toggle("light");
+    document.getElementById("themeIcon").textContent = light ? "☀" : "☾";
+    document.getElementById("themeLabel").textContent = light ? "Dark" : "Light";
+  });
+
+  // Zoom
+  var zoomBehavior = d3.zoom()
+    .scaleExtent([0.2, 4])
+    .on("zoom", function (e) { graphGroup.attr("transform", e.transform); });
+  svg.call(zoomBehavior);
+
+  document.getElementById("btnZoomIn").addEventListener("click", function () {
+    svg.transition().duration(300).call(zoomBehavior.scaleBy, 1.4);
+  });
+  document.getElementById("btnZoomOut").addEventListener("click", function () {
+    svg.transition().duration(300).call(zoomBehavior.scaleBy, 0.7);
+  });
+  document.getElementById("btnFit").addEventListener("click", fitToView);
+  document.getElementById("btnReplay").addEventListener("click", function () {
+    if (!animating && graphData) runAnimation();
+  });
+  document.getElementById("btnShowAll").addEventListener("click", function () {
+    showAllPaths = !showAllPaths;
+    this.classList.toggle("active", showAllPaths);
+    updatePathHighlight();
+  });
+
+  function fitToView() {
+    if (!graphData) return;
+    var wrap = document.getElementById("canvasWrap");
+    var w = wrap.clientWidth, h = wrap.clientHeight;
+    var xs = graphData.nodes.map(function (n) { return n.x || 0; });
+    var ys = graphData.nodes.map(function (n) { return n.y || 0; });
+    var x0 = Math.min.apply(null, xs) - 60, x1 = Math.max.apply(null, xs) + 60;
+    var y0 = Math.min.apply(null, ys) - 60, y1 = Math.max.apply(null, ys) + 60;
+    var scale = Math.min(w / (x1 - x0), h / (y1 - y0), 1.5);
+    var tx = w / 2 - scale * (x0 + x1) / 2;
+    var ty = h / 2 - scale * (y0 + y1) / 2;
+    svg.transition().duration(600).ease(d3.easeCubicOut)
+      .call(zoomBehavior.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+  }
+
+  // Fetch data
+  statusText.textContent = "Loading fortress graph for " + company + "…";
+  fetch("/api/fortress-graph?company=" + encodeURIComponent(company) + "&target=" + encodeURIComponent(target))
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.error) throw new Error(data.error);
+      graphData = data;
+      loadingState.classList.add("hidden");
+      statusText.textContent = "Building force layout…";
+      buildGraph();
+    })
+    .catch(function (err) {
+      loadingState.classList.add("hidden");
+      errorState.classList.add("show");
+      document.getElementById("errorMsg").textContent = err.message || "Failed to load graph.";
+      statusText.textContent = "Error loading graph";
+    });
+
+  function buildGraph() {
+    var wrap = document.getElementById("canvasWrap");
+    var w = wrap.clientWidth, h = wrap.clientHeight;
+    var nodes = graphData.nodes;
+    var edges = graphData.edges.map(function (e) {
+      return { source: e.source, target: e.target, p: e.p, rel_type: e.rel_type, components: e.components };
+    });
+
+    // Build node lookup and set initial positions
+    var nodeMap = {};
+    nodes.forEach(function (n, i) {
+      nodeMap[n.id] = n;
+      var rank = SENIORITY[n.seniority] || 0;
+      // Horizontal: source on left, target on right, others in middle
+      if (n.is_source) { n.x = w * 0.1; n.y = h * 0.5; }
+      else if (n.is_target) { n.x = w * 0.85; n.y = h * 0.3; }
+      else {
+        n.x = w * (0.25 + Math.random() * 0.45);
+        n.y = h * (0.15 + (1 - rank / 4) * 0.6 + (Math.random() - 0.5) * 0.15);
+      }
+    });
+
+    // Build path node/edge sets for highlighting
+    graphData._pathNodeSets = [];
+    graphData._pathEdgeSets = [];
+    (graphData.paths || []).forEach(function (path) {
+      var nodeSet = new Set();
+      var edgeSet = new Set();
+      (path.steps || []).forEach(function (step) {
+        // Find node ids by name
+        nodes.forEach(function (n) {
+          if (n.name === step.from) nodeSet.add(n.id);
+          if (n.name === step.to) nodeSet.add(n.id);
+        });
+        // Find edge key
+        edges.forEach(function (e) {
+          var sId = typeof e.source === "object" ? e.source.id : e.source;
+          var tId = typeof e.target === "object" ? e.target.id : e.target;
+          var sNode = nodeMap[sId], tNode = nodeMap[tId];
+          if (sNode && tNode && sNode.name === step.from && tNode.name === step.to) {
+            edgeSet.add(sId + "|" + tId);
+          }
+        });
+      });
+      graphData._pathNodeSets.push(nodeSet);
+      graphData._pathEdgeSets.push(edgeSet);
+    });
+
+    // Force simulation
+    simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(edges).id(function (d) { return d.id; })
+        .distance(function (d) { return LINK_DIST[d.rel_type] || 100; })
+        .strength(0.4))
+      .force("charge", d3.forceManyBody().strength(-350).distanceMax(500))
+      .force("x", d3.forceX().x(function (d) {
+        if (d.is_source) return w * 0.1;
+        if (d.is_target) return w * 0.88;
+        return w * 0.48;
+      }).strength(function (d) {
+        if (d.is_source || d.is_target) return 0.15;
+        return 0.03;
+      }))
+      .force("y", d3.forceY().y(function (d) {
+        var rank = SENIORITY[d.seniority] || 0;
+        return h * (0.2 + (1 - rank / 4) * 0.55);
+      }).strength(0.06))
+      .force("collide", d3.forceCollide(38))
+      .alphaDecay(0.025)
+      .on("tick", ticked);
+
+    // Draw edges
+    var edgeSel = edgesGroup.selectAll(".edge-line")
+      .data(edges).enter().append("path")
+      .attr("class", "edge-line")
+      .attr("marker-end", "url(#arrowhead)")
+      .attr("data-source", function (d) { return typeof d.source === "object" ? d.source.id : d.source; })
+      .attr("data-target", function (d) { return typeof d.target === "object" ? d.target.id : d.target; })
+      .style("opacity", 0);
+
+    // Edge hover
+    edgeSel.on("mouseenter", function (ev, d) {
+      var sName = typeof d.source === "object" ? d.source.name || d.source.id : d.source;
+      var tName = typeof d.target === "object" ? d.target.name || d.target.id : d.target;
+      var html = '<div class="tooltip-name">' + sName + ' → ' + tName + '</div>';
+      html += '<div class="tooltip-divider"></div>';
+      html += '<div class="tooltip-row"><span class="tooltip-row-label">Type</span><span class="tooltip-row-value">' + (d.rel_type || "—") + '</span></div>';
+      html += '<div class="tooltip-row"><span class="tooltip-row-label">Probability</span><span class="tooltip-row-value accent">' + (d.p * 100).toFixed(1) + '%</span></div>';
+      if (d.components) {
+        if (d.components.seniority_gap !== undefined)
+          html += '<div class="tooltip-row"><span class="tooltip-row-label">Seniority gap</span><span class="tooltip-row-value">' + d.components.seniority_gap + '</span></div>';
+        if (d.components.dept_term !== undefined)
+          html += '<div class="tooltip-row"><span class="tooltip-row-label">Dept factor</span><span class="tooltip-row-value">' + d.components.dept_term + '</span></div>';
+      }
+      showTooltip(ev, html);
+    }).on("mouseleave", hideTooltip).on("mousemove", moveTooltip);
+
+    // Draw nodes
+    var nodeSel = nodesGroup.selectAll(".node-group")
+      .data(nodes).enter().append("g")
+      .attr("class", "node-group")
+      .style("opacity", 0)
+      .call(d3.drag()
+        .on("start", function (ev, d) { if (!ev.active) simulation.alphaTarget(0.2).restart(); d.fx = d.x; d.fy = d.y; })
+        .on("drag", function (ev, d) { d.fx = ev.x; d.fy = ev.y; })
+        .on("end", function (ev, d) { if (!ev.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
+      );
+
+    // Node circles
+    nodeSel.append("circle")
+      .attr("class", function (d) {
+        var c = "node-circle";
+        if (d.is_source) c += " source";
+        else if (d.is_target) c += " target";
+        else if (d.is_warm) c += " warm";
+        return c;
+      })
+      .attr("r", function (d) { return d.is_source ? 26 : d.is_target ? 22 : 18; })
+      .attr("filter", function (d) {
+        if (d.is_source) return "url(#glowSource)";
+        if (d.is_target) return "url(#glowTarget)";
+        if (d.is_warm) return "url(#glowWarm)";
+        return null;
+      });
+
+    // Node initials
+    nodeSel.append("text")
+      .attr("dy", 1)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "central")
+      .attr("fill", function (d) { return d.is_source ? "#fff" : "var(--text-2)"; })
+      .attr("font-size", function (d) { return d.is_source ? "12px" : "10px"; })
+      .attr("font-weight", "700")
+      .attr("font-family", "Inter, sans-serif")
+      .attr("pointer-events", "none")
+      .text(function (d) {
+        if (d.is_source) return "Us";
+        var parts = d.name.split(" ");
+        return parts.map(function (p) { return p[0] || ""; }).join("").substring(0, 2).toUpperCase();
+      });
+
+    // Node name label (below)
+    nodeSel.append("text")
+      .attr("class", "node-label")
+      .attr("dy", function (d) { return (d.is_source ? 26 : d.is_target ? 22 : 18) + 14; })
+      .text(function (d) {
+        if (d.is_source) return "";
+        return d.name.length > 16 ? d.name.substring(0, 14) + "…" : d.name;
+      });
+
+    // Node title label
+    nodeSel.append("text")
+      .attr("class", "node-sublabel")
+      .attr("dy", function (d) { return (d.is_source ? 26 : d.is_target ? 22 : 18) + 26; })
+      .text(function (d) {
+        if (d.is_source) return "";
+        return d.title.length > 20 ? d.title.substring(0, 18) + "…" : d.title;
+      });
+
+    // Node hover
+    nodeSel.on("mouseenter", function (ev, d) {
+      var html = '<div class="tooltip-name">' + d.name + '</div>';
+      html += '<div class="tooltip-role">' + d.title + '</div>';
+      html += '<div class="tooltip-divider"></div>';
+      if (d.seniority && d.seniority !== "SOURCE")
+        html += '<div class="tooltip-row"><span class="tooltip-row-label">Seniority</span><span class="seniority-badge">' + d.seniority + '</span></div>';
+      html += '<div class="tooltip-row"><span class="tooltip-row-label">Department</span><span class="tooltip-row-value">' + (d.dept || "—") + '</span></div>';
+      if (!d.is_source)
+        html += '<div class="tooltip-row"><span class="tooltip-row-label">Warmth</span><span class="tooltip-row-value warm">' + (d.warmth * 100).toFixed(0) + '%</span></div>';
+      if (d.is_warm)
+        html += '<div class="tooltip-row"><span class="tooltip-row-label">Entry point</span><span class="tooltip-row-value" style="color:var(--ok-fg)">✓ Warm</span></div>';
+      showTooltip(ev, html);
+    }).on("mouseleave", hideTooltip).on("mousemove", moveTooltip);
+
+    function ticked() {
+      edgeSel.attr("d", function (d) {
+        var dx = d.target.x - d.source.x;
+        var dy = d.target.y - d.source.y;
+        var dr = Math.sqrt(dx * dx + dy * dy) * 1.5;
+        return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+      });
+      nodeSel.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
+    }
+
+    // Build path tabs
+    var tabsEl = document.getElementById("pathTabs");
+    tabsEl.innerHTML = "";
+    (graphData.paths || []).forEach(function (p, i) {
+      var btn = document.createElement("button");
+      btn.className = "path-tab" + (i === 0 ? " active" : "");
+      btn.textContent = "Path " + (i + 1);
+      btn.addEventListener("click", function () {
+        selectedPath = i;
+        tabsEl.querySelectorAll(".path-tab").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        updatePathHighlight();
+        updateStatsPanel();
+      });
+      tabsEl.appendChild(btn);
+    });
+
+    // Wait for simulation to settle, then animate
+    setTimeout(function () {
+      simulation.alphaTarget(0).alpha(0.05);
+      setTimeout(function () {
+        fitToView();
+        setTimeout(function () { runAnimation(); }, 400);
+      }, 300);
+    }, 1800);
+  }
+
+  function runAnimation() {
+    if (animating) return;
+    animating = true;
+
+    var nodes = graphData.nodes;
+    var allEdges = edgesGroup.selectAll(".edge-line");
+    var allNodes = nodesGroup.selectAll(".node-group");
+
+    // Reset
+    allEdges.attr("class", "edge-line").style("opacity", 0).style("filter", null);
+    allNodes.style("opacity", 0).classed("idle", false);
+    allNodes.selectAll(".node-circle").classed("on-path", false);
+    statsPanel.classList.remove("show");
+    controlsBar.classList.remove("show");
+    legend.classList.remove("show");
+    statusText.textContent = "Mapping entry paths into " + (graphData.target ? graphData.target.name : "target") + "…";
+    document.querySelector(".pulse").style.animation = "pulse 1.1s infinite ease-in-out";
+
+    // PHASE 1: Node emergence (0 – 800ms)
+    var sourceNode = nodes.find(function (n) { return n.is_source; });
+    var warmNodes = nodes.filter(function (n) { return n.is_warm && !n.is_source; });
+    var otherNodes = nodes.filter(function (n) { return !n.is_source && !n.is_warm; });
+    var ordered = [sourceNode].concat(warmNodes).concat(otherNodes).filter(Boolean);
+
+    ordered.forEach(function (d, i) {
+      var sel = allNodes.filter(function (n) { return n.id === d.id; });
+      sel.transition().delay(i * 25).duration(350)
+        .ease(d3.easeCubicOut)
+        .style("opacity", 1);
+    });
+
+    // PHASE 2: Exploration wave (800ms – ~2200ms)
+    var bfsOrder = bfsEdges(graphData);
+    var exploreStart = 750;
+    var exploreInterval = 45;
+
+    bfsOrder.forEach(function (edge, i) {
+      var key = edge.source + "|" + edge.target;
+      setTimeout(function () {
+        var sel = allEdges.filter(function (d) {
+          var sId = typeof d.source === "object" ? d.source.id : d.source;
+          var tId = typeof d.target === "object" ? d.target.id : d.target;
+          return sId === edge.source && tId === edge.target;
+        });
+        // Flash on
+        sel.style("opacity", 1).style("filter", "url(#glowExplore)")
+          .attr("class", "edge-line explored");
+        // Dim back
+        setTimeout(function () {
+          sel.style("filter", null).attr("class", "edge-line")
+            .style("opacity", 0.25);
+        }, 180);
+      }, exploreStart + i * exploreInterval);
+    });
+
+    // PHASE 3: Path illumination
+    var pathStart = exploreStart + bfsOrder.length * exploreInterval + 300;
+    var path = graphData.paths[selectedPath];
+    if (path) {
+      var pathEdgeSet = graphData._pathEdgeSets[selectedPath];
+      var pathNodeSet = graphData._pathNodeSets[selectedPath];
+      var stepDelay = 280;
+
+      // Show all non-path edges dimly
+      setTimeout(function () {
+        allEdges.filter(function (d) {
+          var sId = typeof d.source === "object" ? d.source.id : d.source;
+          var tId = typeof d.target === "object" ? d.target.id : d.target;
+          return !pathEdgeSet.has(sId + "|" + tId);
+        }).style("opacity", 0.08);
+      }, pathStart - 100);
+
+      // Light up path edges sequentially
+      (path.steps || []).forEach(function (step, i) {
+        setTimeout(function () {
+          allEdges.filter(function (d) {
+            var sId = typeof d.source === "object" ? d.source.id : d.source;
+            var tId = typeof d.target === "object" ? d.target.id : d.target;
+            var sNode = graphData.nodes.find(function (n) { return n.id === sId; });
+            var tNode = graphData.nodes.find(function (n) { return n.id === tId; });
+            return sNode && tNode && sNode.name === step.from && tNode.name === step.to;
+          })
+          .attr("class", "edge-line path-edge animated")
+          .style("opacity", 1)
+          .style("filter", "url(#glowPath)");
+
+          // Scale up the target node of this step
+          allNodes.filter(function (n) { return n.name === step.to; })
+            .selectAll(".node-circle")
+            .classed("on-path", true)
+            .transition().duration(400).ease(d3.easeBackOut.overshoot(2))
+            .attr("r", function (d) { return (d.is_target ? 24 : 20) + 4; })
+            .attr("filter", "url(#glowPath)");
+        }, pathStart + i * stepDelay);
+      });
+    }
+
+    // PHASE 4: Stats reveal
+    var statsStart = pathStart + (path ? (path.steps || []).length * 280 : 0) + 400;
+    setTimeout(function () {
+      updateStatsPanel();
+      statsPanel.classList.add("show");
+      controlsBar.classList.add("show");
+      legend.classList.add("show");
+      statusText.textContent = "Path mapped · " + graphData.nodes.length + " nodes · " + graphData.edges.length + " edges";
+      document.querySelector(".pulse").style.animation = "none";
+      document.querySelector(".pulse").style.opacity = "0.9";
+
+      // Confidence bar
+      if (path) {
+        setTimeout(function () {
+          document.getElementById("confFill").style.width = (path.R * 100).toFixed(0) + "%";
+        }, 200);
+      }
+
+      // Add idle breathing to non-path nodes
+      setTimeout(function () {
+        allNodes.classed("idle", true);
+        animating = false;
+      }, 600);
+    }, statsStart);
+  }
+
+  function bfsEdges(data) {
+    var adj = {};
+    data.edges.forEach(function (e) {
+      if (!adj[e.source]) adj[e.source] = [];
+      adj[e.source].push({ source: e.source, target: e.target });
+    });
+    var visited = new Set();
+    var queue = [];
+    var result = [];
+    var sourceId = data.nodes.find(function (n) { return n.is_source; });
+    if (sourceId) {
+      queue.push(sourceId.id);
+      visited.add(sourceId.id);
+    }
+    while (queue.length > 0) {
+      var current = queue.shift();
+      (adj[current] || []).forEach(function (edge) {
+        result.push(edge);
+        if (!visited.has(edge.target)) {
+          visited.add(edge.target);
+          queue.push(edge.target);
+        }
+      });
+    }
+    // Add any remaining edges not reachable from source
+    data.edges.forEach(function (e) {
+      var found = result.some(function (r) { return r.source === e.source && r.target === e.target; });
+      if (!found) result.push({ source: e.source, target: e.target });
+    });
+    return result;
+  }
+
+  function updatePathHighlight() {
+    if (!graphData) return;
+    var allEdges = edgesGroup.selectAll(".edge-line");
+    var allNodes = nodesGroup.selectAll(".node-group");
+    var pathEdgeSet = graphData._pathEdgeSets[selectedPath] || new Set();
+    var pathNodeSet = graphData._pathNodeSets[selectedPath] || new Set();
+
+    // Reset all edges
+    allEdges.each(function (d) {
+      var sId = typeof d.source === "object" ? d.source.id : d.source;
+      var tId = typeof d.target === "object" ? d.target.id : d.target;
+      var key = sId + "|" + tId;
+      var el = d3.select(this);
+      if (pathEdgeSet.has(key)) {
+        el.attr("class", "edge-line path-edge animated").style("opacity", 1).style("filter", "url(#glowPath)");
+      } else if (showAllPaths && graphData._pathEdgeSets.some(function (s) { return s.has(key); })) {
+        el.attr("class", "edge-line path-alt").style("opacity", 0.25).style("filter", null);
+      } else {
+        el.attr("class", "edge-line").style("opacity", 0.08).style("filter", null);
+      }
+    });
+
+    // Reset node styling
+    allNodes.selectAll(".node-circle").each(function (d) {
+      var el = d3.select(this);
+      if (pathNodeSet.has(d.id) && !d.is_source) {
+        el.classed("on-path", true).attr("filter", "url(#glowPath)")
+          .attr("r", (d.is_target ? 24 : 18) + 4);
+      } else {
+        el.classed("on-path", false)
+          .attr("filter", d.is_source ? "url(#glowSource)" : d.is_target ? "url(#glowTarget)" : d.is_warm ? "url(#glowWarm)" : null)
+          .attr("r", d.is_source ? 26 : d.is_target ? 22 : 18);
+      }
+    });
+  }
+
+  function updateStatsPanel() {
+    var path = (graphData.paths || [])[selectedPath];
+    if (!path) return;
+    document.getElementById("statRank").textContent = "#" + (selectedPath + 1);
+    animateCounter("statR", 0, path.R * 100, "%", 800);
+    animateCounter("statEV", 0, path.EV, "", 800, true);
+    document.getElementById("statSteps").textContent = (path.steps || []).length + " hops";
+    document.getElementById("statEffort").textContent = path.effort.toFixed(1) + " rep-hours";
+
+    // Path sequence
+    var stepsEl = document.getElementById("pathSteps");
+    var html = '<div class="path-steps-title">Path sequence</div>';
+    (path.steps || []).forEach(function (step, i) {
+      if (i === 0) html += '<div class="path-step"><span>' + step.from + '</span></div>';
+      html += '<div class="path-step"><span class="arrow">→</span><span>' + step.to + '</span>';
+      html += '<span class="p-val">p=' + (step.p * 100).toFixed(0) + '%</span></div>';
+    });
+    stepsEl.innerHTML = html;
+
+    document.getElementById("confFill").style.width = (path.R * 100).toFixed(0) + "%";
+  }
+
+  function animateCounter(id, from, to, suffix, duration, isCurrency) {
+    var el = document.getElementById(id);
+    var start = performance.now();
+    function tick(now) {
+      var t = Math.min((now - start) / duration, 1);
+      t = 1 - Math.pow(1 - t, 3); // ease out cubic
+      var val = from + (to - from) * t;
+      if (isCurrency) {
+        el.textContent = "€" + Math.round(val).toLocaleString();
+      } else {
+        el.textContent = val.toFixed(1) + (suffix || "");
+      }
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function showTooltip(ev, html) {
+    tooltip.innerHTML = html;
+    tooltip.classList.add("show");
+    moveTooltip(ev);
+  }
+  function moveTooltip(ev) {
+    var x = ev.clientX + 14, y = ev.clientY + 14;
+    var w = tooltip.offsetWidth, h = tooltip.offsetHeight;
+    if (x + w > window.innerWidth - 10) x = ev.clientX - w - 10;
+    if (y + h > window.innerHeight - 10) y = ev.clientY - h - 10;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y + "px";
+  }
+  function hideTooltip() { tooltip.classList.remove("show"); }
+})();
+</script>
+</body>
+</html>

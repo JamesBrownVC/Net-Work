@@ -14,6 +14,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
+from sqlalchemy.orm import Session
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 PORT = 8787
@@ -219,7 +221,7 @@ class Handler(BaseHTTPRequestHandler):
         if parsed.path == "/orbit/orbit.css":
             self._send((ORBIT_DIR / "orbit.css").read_bytes(), "text/css; charset=utf-8")
             return
-        if parsed.path in ("/orbit/fortress-plan.html", "/orbit/book-of-business.html"):
+        if parsed.path in ("/orbit/fortress-plan.html", "/orbit/book-of-business.html", "/orbit/fortress-viz.html"):
             name = parsed.path.rsplit("/", 1)[-1]
             self._send((ORBIT_DIR / name).read_bytes(), "text/html; charset=utf-8")
             return
@@ -317,6 +319,59 @@ class Handler(BaseHTTPRequestHandler):
                 md = _brief_markdown(build_brief(query.get("account", ["novapay.io"])[0]))
             result = asyncio.run(generate_deck(md))
             self._send(json.dumps(result, default=str).encode("utf-8"), "application/json")
+            return
+        if parsed.path == "/api/fortress-graph":
+            import networkx as nx
+            from engines import fortress, warmth as warmth_engine
+            from fabric.store import get_engine as get_db_engine, WarmthRow, PersonRow
+
+            query = parse_qs(parsed.query)
+            company = query.get("company", ["novapay.io"])[0]
+            target_title = query.get("target", ["CRO"])[0]
+            v_deal = float(query.get("v_deal", ["50000"])[0])
+            try:
+                session = Session(get_db_engine())
+                g = fortress.build_graph(session, company)
+                result = fortress.solve(company, target_title, v_deal, session=session, graph=g)
+                nodes = []
+                target_id = None
+                for nid, data in g.nodes(data=True):
+                    w_row = session.get(WarmthRow, nid)
+                    warmth_val = w_row.score if w_row else 0.0
+                    is_source = nid == fortress.VIRTUAL_SOURCE
+                    is_target = (result["target"]["name"] == data.get("name", ""))
+                    is_warm = g.has_edge(fortress.VIRTUAL_SOURCE, nid)
+                    if is_target:
+                        target_id = nid
+                    nodes.append({
+                        "id": nid, "name": data.get("name", ""),
+                        "title": data.get("title", ""), "dept": data.get("dept", ""),
+                        "seniority": next((p.seniority_level for p in [session.get(PersonRow, nid)] if p), "IC") if not is_source else "SOURCE",
+                        "warmth": round(warmth_val, 4),
+                        "is_source": is_source, "is_target": is_target, "is_warm": is_warm,
+                    })
+                edges = []
+                for u, v, data in g.edges(data=True):
+                    edges.append({
+                        "source": u, "target": v,
+                        "p": round(data.get("p", 0), 4),
+                        "rel_type": data.get("components", {}).get("rel_type", "unknown"),
+                        "components": data.get("components", {}),
+                    })
+                paths = []
+                for i, path in enumerate(result.get("paths", [])):
+                    path["rank"] = i + 1
+                    paths.append(path)
+                payload = {
+                    "nodes": nodes, "edges": edges, "paths": paths,
+                    "target": result["target"], "v_deal": v_deal,
+                    "company": company,
+                    "config": {"warm_tau": 0.35, "effort_per_hop": 1.0},
+                }
+                session.close()
+                self._send(json.dumps(payload, default=str).encode("utf-8"), "application/json")
+            except Exception as exc:
+                self._send(json.dumps({"error": str(exc)}, default=str).encode("utf-8"), "application/json")
             return
         self.send_response(404)
         self.end_headers()

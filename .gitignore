@@ -3,6 +3,10 @@ __pycache__/
 *.pyc
 acr.db
 .env
+.env.local
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
+acr.db-journal
+acr.db-wal
+acr.db-shm

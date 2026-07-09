@@ -2,13 +2,13 @@
  {
   "id": "transcript:novapay-discovery",
   "company_domain": "novapay.io",
-  "call_ts": "2026-06-27T16:00:00",
+  "call_ts": "2026-06-27T17:00:00",
   "text": "Rep: Thanks for taking the time. Walk me through how reconciliation works today at NovaPay.\nProspect: Mostly spreadsheets plus a nightly batch job. It breaks monthly.\nRep: That matches what we hear. Atlas Core automates the matching layer.\nProspect: Honestly, the price point worries me. We are a 35 person company.\nRep: Fair. Pricing scales with volume, not seats.\nProspect: Second concern, we already committed to an internal build this year, so timing is difficult.\nRep: Understood. Many customers ran us alongside the internal tool first.\nProspect: And third, our CTO is skeptical about adding another vendor with access to payment data. Security review would be heavy.\nRep: We are SOC 2 Type II and can start with read-only sandbox data.\nProspect: Okay. Send the security pack and a pilot proposal."
  },
  {
   "id": "transcript:helios-renewal",
   "company_domain": "helioshealth.example",
-  "call_ts": "2026-06-09T16:00:00",
+  "call_ts": "2026-06-09T17:00:00",
   "text": "Rep: Renewal time. How has the year been with Atlas Insights?\nCustomer: Genuinely great. The finance team lives in the dashboards now.\nRep: Love to hear it. Any gaps?\nCustomer: Minor export quirks, nothing blocking. We want to add two more teams.\nRep: We can bundle that into the renewal with a multi-year discount.\nCustomer: Send the paperwork. Happy to be a reference too."
  }
 ]
