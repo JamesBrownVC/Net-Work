@@ -14,6 +14,9 @@ from scripts import seed  # noqa: E402
 @pytest.fixture(scope="session", autouse=True)
 def seeded_world() -> None:
     seed.main()
+    from scripts.ingest import ingest
+
+    ingest()
 
 
 def contract_check(name: str) -> None:

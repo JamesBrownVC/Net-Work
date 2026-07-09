@@ -78,12 +78,86 @@ def ingest(
         typer.echo(f"{cname:12s} upserted {n} entities")
 
 
+@app.command()
+def warmth(
+    company: str = typer.Option(..., "--company", help="Company domain, e.g. novapay.io"),
+) -> None:
+    """Heatmap-ready warmth table for a company."""
+    from sqlalchemy.orm import Session as _Session
+
+    from engines import warmth as warmth_engine
+
+    with _Session(store.get_engine()) as session:
+        rows = warmth_engine.company_heatmap(session, company)
+    if not rows:
+        typer.echo(f"no people found for {company}")
+        raise typer.Exit(1)
+    header = f"{'person':22s} {'title':20s} {'dept':12s} {'sen':4s} {'warmth':>7s}  components"
+    typer.echo(header)
+    typer.echo("-" * len(header))
+    for r in rows:
+        comp = ", ".join(f"{k}={v}" for k, v in r["components"].items())
+        typer.echo(
+            f"{r['person'][:22]:22s} {r['title'][:20]:20s} {r['dept'][:12]:12s} "
+            f"{r['seniority']:4s} {r['warmth']:7.3f}  {comp}"
+        )
+
+
+@app.command()
+def allocate(
+    hours: float = typer.Option(8.0, "--hours"),
+    budget: float = typer.Option(900.0, "--budget", help="Euro budget"),
+    greedy: bool = typer.Option(False, "--greedy", help="Greedy fallback instead of CP-SAT"),
+) -> None:
+    """MCKP plan: account | action | U_eur, plus budget usage and shadow price."""
+    from engines import allocator
+
+    result = allocator.solve(hours, budget, greedy=greedy)
+    typer.echo(f"{'account':22s} {'action':20s} {'U_eur':>10s}")
+    typer.echo("-" * 54)
+    for item in result["plan"]:
+        typer.echo(f"{item['account'][:22]:22s} {item['action']:20s} {item['U_eur']:>10.2f}")
+    b = result["budget"]
+    typer.echo(
+        f"\nbudget: {b['hours_used']}/{b['hours_budget']}h, "
+        f"EUR {b['eur_used']}/{b['eur_budget']}  solver={result['solver']}"
+    )
+    typer.echo(f"shadow_price_eur_per_hour: {result['shadow_price_eur_per_hour']}")
+
+
+@app.command()
+def conquer(
+    company: str = typer.Argument(..., help="Target company domain, e.g. novapay.io"),
+    target: str = typer.Option(..., "--target", help="Target person title, e.g. CRO"),
+    v_deal: float = typer.Option(50_000.0, "--v-deal"),
+    fail: str | None = typer.Option(
+        None, "--fail", help="'From Name->To Name' edge to fail before solving"
+    ),
+) -> None:
+    """Top-3 intro paths with R, effort, EV; --fail reroutes around a dead edge."""
+    from engines import fortress
+
+    if fail:
+        from_p, to_p = (s.strip() for s in fail.split("->", 1))
+        result = fortress.fail_edge(company, target, from_p, to_p, v_deal)
+        typer.echo(f"failed edge: {from_p} -> {to_p}\n")
+    else:
+        result = fortress.solve(company, target, v_deal)
+    typer.echo(f"target: {result['target']['name']} ({result['target']['title']})")
+    for i, path in enumerate(result["paths"], 1):
+        chain = " -> ".join(["us"] + [s["to"] for s in path["steps"]])
+        typer.echo(f"\npath {i}: {chain}")
+        typer.echo(f"  R={path['R']}  effort={path['effort']}  EV={path['EV']}")
+        for s in path["steps"]:
+            typer.echo(f"    {s['from']} -> {s['to']} ({s['to_title']}) p={s['p']}")
+
+
 @mcp_app.command("list-tools")
 def list_tools(name: str) -> None:
     """List MCP tools exposed by a connector's server."""
-    from fabric.mcp.serve import build_server
+    from fabric.mcp.serve import build_engines_server, build_server
 
-    server = build_server(registry.get(name))
+    server = build_engines_server() if name == "engines" else build_server(registry.get(name))
     tools = asyncio.run(server.list_tools())
     for tool in sorted(tools, key=lambda t: t.name):
         typer.echo(tool.name)
