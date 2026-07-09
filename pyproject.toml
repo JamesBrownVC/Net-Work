@@ -23,16 +23,14 @@ dev = ["pytest>=8.0", "ruff>=0.6"]
 fabric = "fabric.cli:app"
 
 [build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.setuptools]
-packages = ["fabric", "fabric.connectors", "fabric.mcp", "engines", "agents", "surfaces"]
-
-[tool.setuptools.package-data]
-agents = ["charters/*.md"]
+[tool.hatch.build.targets.wheel]
+packages = ["fabric", "engines", "agents", "surfaces"]
 
 [tool.ruff]
+extend-exclude = ["archive"]
 line-length = 100
 target-version = "py312"
 
@@ -40,4 +38,5 @@ target-version = "py312"
 select = ["E", "F", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
+pythonpath = ["."]
 testpaths = ["tests"]
