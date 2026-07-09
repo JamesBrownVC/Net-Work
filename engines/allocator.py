@@ -170,14 +170,59 @@ def solve_greedy(
     return chosen
 
 
+ADJUSTMENT_BOUND = 0.40  # Claude may shift delta_p by at most +/- 40 percent
+
+
+def apply_adjustments(
+    candidates: list[Candidate], adjustments: dict[str, dict[str, Any]]
+) -> list[Candidate]:
+    """Apply {domain: {factor, citations}} adjustments. Factors are clamped to
+    +/- ADJUSTMENT_BOUND and entries without citations are rejected."""
+    for c in candidates:
+        adj = adjustments.get(c.domain)
+        if not adj or not adj.get("citations"):
+            continue
+        factor = max(-ADJUSTMENT_BOUND, min(ADJUSTMENT_BOUND, float(adj["factor"])))
+        c.delta_p = round(c.delta_p * (1.0 + factor), 5)
+    return candidates
+
+
 def claude_adjustment(
     session: Session, candidates: list[Candidate]
 ) -> list[Candidate]:
-    """PHASE 3 STUB: Claude reads each account's recent interactions + signals
-    and returns bounded uplift adjustments (at most +/- 40 percent of delta_p)
-    with cited interaction/signal row ids. Responses without citations are
-    rejected. Until Phase 3 wires the model call, this is the identity."""
-    return candidates
+    """Claude (Sonnet) reads each account's last 5 interactions + signals and
+    returns bounded uplift adjustments with cited row ids. Without an API key
+    this is the identity so the allocator stays fully mock-runnable."""
+    import os
+
+    if not os.getenv("ANTHROPIC_API_KEY"):
+        return candidates
+    import asyncio
+
+    from agents import tools as agent_tools
+    from agents.client import extract
+    from engines.adjustment_schema import AccountAdjustment
+
+    domains = sorted({c.domain for c in candidates})
+    adjustments: dict[str, dict[str, Any]] = {}
+
+    async def one(domain: str) -> None:
+        context = agent_tools.recent_context(domain, n=5)
+        prompt = (
+            f"Account {domain}. Recent interactions and signals:\n{json.dumps(context)}\n"
+            "Return an uplift adjustment factor in [-0.4, 0.4] for this account's "
+            "action uplifts and cite the interaction/signal ids justifying it. "
+            "Return factor 0 with empty citations if nothing is noteworthy."
+        )
+        result = await extract(prompt, AccountAdjustment)
+        if result.citations:
+            adjustments[domain] = {"factor": result.factor, "citations": result.citations}
+
+    async def run() -> None:
+        await asyncio.gather(*(one(d) for d in domains))
+
+    asyncio.run(run())
+    return apply_adjustments(candidates, adjustments)
 
 
 def solve(
