@@ -1,0 +1,26 @@
+# Secrets & credentials — NEVER commit (public repo)
+.env
+.env.*
+*.env
+.mcp.json
+**/secrets*
+*.key
+*.pem
+credentials.json
+service-account*.json
+
+# Claude Code local settings (may contain local paths / tokens)
+.claude/settings.local.json
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
