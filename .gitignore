@@ -1,17 +1,8 @@
-node_modules
-.next
-.env
-.env.local
-.env.*.local
-npm-debug.log*
-.DS_Store
-
-# Python
+.venv/
 __pycache__/
 *.pyc
-.venv/
+acr.db
+.env
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
-acr.db
-

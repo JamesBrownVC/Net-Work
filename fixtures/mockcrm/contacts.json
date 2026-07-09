@@ -1,0 +1,542 @@
+[
+ {
+  "id": "person:theo.dubois@meridianbank.example",
+  "company_domain": "meridianbank.example",
+  "full_name": "Theo Dubois",
+  "title": "VP Operations",
+  "dept": "Ops",
+  "seniority_level": "MGR",
+  "email": "theo.dubois@meridianbank.example"
+ },
+ {
+  "id": "person:nadia.jansen@meridianbank.example",
+  "company_domain": "meridianbank.example",
+  "full_name": "Nadia Jansen",
+  "title": "Finance Director",
+  "dept": "Procurement",
+  "seniority_level": "MGR",
+  "email": "nadia.jansen@meridianbank.example"
+ },
+ {
+  "id": "person:nora.eriksen@cargoluxdigita.example",
+  "company_domain": "cargoluxdigita.example",
+  "full_name": "Nora Eriksen",
+  "title": "CTO",
+  "dept": "Engineering",
+  "seniority_level": "DIR",
+  "email": "nora.eriksen@cargoluxdigita.example"
+ },
+ {
+  "id": "person:hugo.costa@cargoluxdigita.example",
+  "company_domain": "cargoluxdigita.example",
+  "full_name": "Hugo Costa",
+  "title": "Head of Payments",
+  "dept": "Finance",
+  "seniority_level": "C",
+  "email": "hugo.costa@cargoluxdigita.example"
+ },
+ {
+  "id": "person:lina.fontaine@helioshealth.example",
+  "company_domain": "helioshealth.example",
+  "full_name": "Lina Fontaine",
+  "title": "CTO",
+  "dept": "Ops",
+  "seniority_level": "MGR",
+  "email": "lina.fontaine@helioshealth.example"
+ },
+ {
+  "id": "person:mia.dubois@helioshealth.example",
+  "company_domain": "helioshealth.example",
+  "full_name": "Mia Dubois",
+  "title": "CTO",
+  "dept": "Finance",
+  "seniority_level": "DIR",
+  "email": "mia.dubois@helioshealth.example"
+ },
+ {
+  "id": "person:nadia.dubois@northwindretai.example",
+  "company_domain": "northwindretai.example",
+  "full_name": "Nadia Dubois",
+  "title": "VP Operations",
+  "dept": "Procurement",
+  "seniority_level": "C",
+  "email": "nadia.dubois@northwindretai.example"
+ },
+ {
+  "id": "person:theo.lindgren@northwindretai.example",
+  "company_domain": "northwindretai.example",
+  "full_name": "Theo Lindgren",
+  "title": "VP Operations",
+  "dept": "Engineering",
+  "seniority_level": "MGR",
+  "email": "theo.lindgren@northwindretai.example"
+ },
+ {
+  "id": "person:jan.blanc@quantiqlabs.example",
+  "company_domain": "quantiqlabs.example",
+  "full_name": "Jan Blanc",
+  "title": "IT Manager",
+  "dept": "Procurement",
+  "seniority_level": "DIR",
+  "email": "jan.blanc@quantiqlabs.example"
+ },
+ {
+  "id": "person:ines.weber@quantiqlabs.example",
+  "company_domain": "quantiqlabs.example",
+  "full_name": "Ines Weber",
+  "title": "VP Operations",
+  "dept": "Engineering",
+  "seniority_level": "C",
+  "email": "ines.weber@quantiqlabs.example"
+ },
+ {
+  "id": "person:emma.berg@ferrostahlgrou.example",
+  "company_domain": "ferrostahlgrou.example",
+  "full_name": "Emma Berg",
+  "title": "IT Manager",
+  "dept": "Engineering",
+  "seniority_level": "VP",
+  "email": "emma.berg@ferrostahlgrou.example"
+ },
+ {
+  "id": "person:jonas.schmid@ferrostahlgrou.example",
+  "company_domain": "ferrostahlgrou.example",
+  "full_name": "Jonas Schmid",
+  "title": "Procurement Lead",
+  "dept": "Ops",
+  "seniority_level": "C",
+  "email": "jonas.schmid@ferrostahlgrou.example"
+ },
+ {
+  "id": "person:emma.andersen@ferrostahlgrou.example",
+  "company_domain": "ferrostahlgrou.example",
+  "full_name": "Emma Andersen",
+  "title": "Finance Director",
+  "dept": "Ops",
+  "seniority_level": "MGR",
+  "email": "emma.andersen@ferrostahlgrou.example"
+ },
+ {
+  "id": "person:finn.jansen@blueriverpayme.example",
+  "company_domain": "blueriverpayme.example",
+  "full_name": "Finn Jansen",
+  "title": "IT Manager",
+  "dept": "Procurement",
+  "seniority_level": "MGR",
+  "email": "finn.jansen@blueriverpayme.example"
+ },
+ {
+  "id": "person:nadia.weber@blueriverpayme.example",
+  "company_domain": "blueriverpayme.example",
+  "full_name": "Nadia Weber",
+  "title": "VP Operations",
+  "dept": "Procurement",
+  "seniority_level": "DIR",
+  "email": "nadia.weber@blueriverpayme.example"
+ },
+ {
+  "id": "person:emma.jansen@optimalogistic.example",
+  "company_domain": "optimalogistic.example",
+  "full_name": "Emma Jansen",
+  "title": "IT Manager",
+  "dept": "Finance",
+  "seniority_level": "DIR",
+  "email": "emma.jansen@optimalogistic.example"
+ },
+ {
+  "id": "person:lea.moreau@optimalogistic.example",
+  "company_domain": "optimalogistic.example",
+  "full_name": "Lea Moreau",
+  "title": "CTO",
+  "dept": "Finance",
+  "seniority_level": "DIR",
+  "email": "lea.moreau@optimalogistic.example"
+ },
+ {
+  "id": "person:anton.eriksen@cortexmedical.example",
+  "company_domain": "cortexmedical.example",
+  "full_name": "Anton Eriksen",
+  "title": "Procurement Lead",
+  "dept": "Finance",
+  "seniority_level": "MGR",
+  "email": "anton.eriksen@cortexmedical.example"
+ },
+ {
+  "id": "person:noah.blanc@cortexmedical.example",
+  "company_domain": "cortexmedical.example",
+  "full_name": "Noah Blanc",
+  "title": "IT Manager",
+  "dept": "Engineering",
+  "seniority_level": "MGR",
+  "email": "noah.blanc@cortexmedical.example"
+ },
+ {
+  "id": "person:oscar.novak@cortexmedical.example",
+  "company_domain": "cortexmedical.example",
+  "full_name": "Oscar Novak",
+  "title": "VP Operations",
+  "dept": "Procurement",
+  "seniority_level": "DIR",
+  "email": "oscar.novak@cortexmedical.example"
+ },
+ {
+  "id": "person:maja.keller@urbanbasket.example",
+  "company_domain": "urbanbasket.example",
+  "full_name": "Maja Keller",
+  "title": "Procurement Lead",
+  "dept": "Engineering",
+  "seniority_level": "C",
+  "email": "maja.keller@urbanbasket.example"
+ },
+ {
+  "id": "person:lina.eriksen@urbanbasket.example",
+  "company_domain": "urbanbasket.example",
+  "full_name": "Lina Eriksen",
+  "title": "IT Manager",
+  "dept": "Procurement",
+  "seniority_level": "DIR",
+  "email": "lina.eriksen@urbanbasket.example"
+ },
+ {
+  "id": "person:vera.kovacs@vektorsoftware.example",
+  "company_domain": "vektorsoftware.example",
+  "full_name": "Vera Kovacs",
+  "title": "VP Operations",
+  "dept": "Finance",
+  "seniority_level": "MGR",
+  "email": "vera.kovacs@vektorsoftware.example"
+ },
+ {
+  "id": "person:paul.jansen@vektorsoftware.example",
+  "company_domain": "vektorsoftware.example",
+  "full_name": "Paul Jansen",
+  "title": "Finance Director",
+  "dept": "Finance",
+  "seniority_level": "DIR",
+  "email": "paul.jansen@vektorsoftware.example"
+ },
+ {
+  "id": "person:karl.berg@vektorsoftware.example",
+  "company_domain": "vektorsoftware.example",
+  "full_name": "Karl Berg",
+  "title": "Finance Director",
+  "dept": "Ops",
+  "seniority_level": "MGR",
+  "email": "karl.berg@vektorsoftware.example"
+ },
+ {
+  "id": "person:aya.jansen@alpenstahlag.example",
+  "company_domain": "alpenstahlag.example",
+  "full_name": "Aya Jansen",
+  "title": "Head of Payments",
+  "dept": "Procurement",
+  "seniority_level": "MGR",
+  "email": "aya.jansen@alpenstahlag.example"
+ },
+ {
+  "id": "person:lea.lindgren@alpenstahlag.example",
+  "company_domain": "alpenstahlag.example",
+  "full_name": "Lea Lindgren",
+  "title": "VP Operations",
+  "dept": "Engineering",
+  "seniority_level": "DIR",
+  "email": "lea.lindgren@alpenstahlag.example"
+ },
+ {
+  "id": "person:zoe.jansen@alpenstahlag.example",
+  "company_domain": "alpenstahlag.example",
+  "full_name": "Zoe Jansen",
+  "title": "VP Operations",
+  "dept": "Engineering",
+  "seniority_level": "VP",
+  "email": "zoe.jansen@alpenstahlag.example"
+ },
+ {
+  "id": "person:ines.berg@finexacapital.example",
+  "company_domain": "finexacapital.example",
+  "full_name": "Ines Berg",
+  "title": "Head of Payments",
+  "dept": "Ops",
+  "seniority_level": "VP",
+  "email": "ines.berg@finexacapital.example"
+ },
+ {
+  "id": "person:hugo.andersen@finexacapital.example",
+  "company_domain": "finexacapital.example",
+  "full_name": "Hugo Andersen",
+  "title": "Finance Director",
+  "dept": "Procurement",
+  "seniority_level": "VP",
+  "email": "hugo.andersen@finexacapital.example"
+ },
+ {
+  "id": "person:anton.lindgren@transeurofreig.example",
+  "company_domain": "transeurofreig.example",
+  "full_name": "Anton Lindgren",
+  "title": "Head of Payments",
+  "dept": "Finance",
+  "seniority_level": "MGR",
+  "email": "anton.lindgren@transeurofreig.example"
+ },
+ {
+  "id": "person:elias.lindgren@transeurofreig.example",
+  "company_domain": "transeurofreig.example",
+  "full_name": "Elias Lindgren",
+  "title": "Head of Payments",
+  "dept": "Engineering",
+  "seniority_level": "DIR",
+  "email": "elias.lindgren@transeurofreig.example"
+ },
+ {
+  "id": "person:anton.weber@transeurofreig.example",
+  "company_domain": "transeurofreig.example",
+  "full_name": "Anton Weber",
+  "title": "Head of Payments",
+  "dept": "Engineering",
+  "seniority_level": "VP",
+  "email": "anton.weber@transeurofreig.example"
+ },
+ {
+  "id": "person:oscar.rossi@medisphere.example",
+  "company_domain": "medisphere.example",
+  "full_name": "Oscar Rossi",
+  "title": "VP Operations",
+  "dept": "Procurement",
+  "seniority_level": "MGR",
+  "email": "oscar.rossi@medisphere.example"
+ },
+ {
+  "id": "person:paul.costa@medisphere.example",
+  "company_domain": "medisphere.example",
+  "full_name": "Paul Costa",
+  "title": "Procurement Lead",
+  "dept": "Ops",
+  "seniority_level": "VP",
+  "email": "paul.costa@medisphere.example"
+ },
+ {
+  "id": "person:alma.keller@marchecentral.example",
+  "company_domain": "marchecentral.example",
+  "full_name": "Alma Keller",
+  "title": "IT Manager",
+  "dept": "Ops",
+  "seniority_level": "C",
+  "email": "alma.keller@marchecentral.example"
+ },
+ {
+  "id": "person:nils.andersen@marchecentral.example",
+  "company_domain": "marchecentral.example",
+  "full_name": "Nils Andersen",
+  "title": "Head of Payments",
+  "dept": "Engineering",
+  "seniority_level": "VP",
+  "email": "nils.andersen@marchecentral.example"
+ },
+ {
+  "id": "person:maja.bauer@nimbuscloudwor.example",
+  "company_domain": "nimbuscloudwor.example",
+  "full_name": "Maja Bauer",
+  "title": "VP Operations",
+  "dept": "Engineering",
+  "seniority_level": "MGR",
+  "email": "maja.bauer@nimbuscloudwor.example"
+ },
+ {
+  "id": "person:anton.keller@nimbuscloudwor.example",
+  "company_domain": "nimbuscloudwor.example",
+  "full_name": "Anton Keller",
+  "title": "Finance Director",
+  "dept": "Ops",
+  "seniority_level": "VP",
+  "email": "anton.keller@nimbuscloudwor.example"
+ },
+ {
+  "id": "person:max.blanc@rheinwerkindus.example",
+  "company_domain": "rheinwerkindus.example",
+  "full_name": "Max Blanc",
+  "title": "Finance Director",
+  "dept": "Finance",
+  "seniority_level": "VP",
+  "email": "max.blanc@rheinwerkindus.example"
+ },
+ {
+  "id": "person:lina.novak@rheinwerkindus.example",
+  "company_domain": "rheinwerkindus.example",
+  "full_name": "Lina Novak",
+  "title": "Procurement Lead",
+  "dept": "Engineering",
+  "seniority_level": "C",
+  "email": "lina.novak@rheinwerkindus.example"
+ },
+ {
+  "id": "person:lucas.moreau@ledgerline.example",
+  "company_domain": "ledgerline.example",
+  "full_name": "Lucas Moreau",
+  "title": "VP Operations",
+  "dept": "Procurement",
+  "seniority_level": "MGR",
+  "email": "lucas.moreau@ledgerline.example"
+ },
+ {
+  "id": "person:milan.eriksen@ledgerline.example",
+  "company_domain": "ledgerline.example",
+  "full_name": "Milan Eriksen",
+  "title": "IT Manager",
+  "dept": "Ops",
+  "seniority_level": "C",
+  "email": "milan.eriksen@ledgerline.example"
+ },
+ {
+  "id": "person:freja.fontaine@swifthaul.example",
+  "company_domain": "swifthaul.example",
+  "full_name": "Freja Fontaine",
+  "title": "IT Manager",
+  "dept": "Procurement",
+  "seniority_level": "C",
+  "email": "freja.fontaine@swifthaul.example"
+ },
+ {
+  "id": "person:nora.marchetti@swifthaul.example",
+  "company_domain": "swifthaul.example",
+  "full_name": "Nora Marchetti",
+  "title": "Procurement Lead",
+  "dept": "Engineering",
+  "seniority_level": "DIR",
+  "email": "nora.marchetti@swifthaul.example"
+ },
+ {
+  "id": "person:theo.kovacs@swifthaul.example",
+  "company_domain": "swifthaul.example",
+  "full_name": "Theo Kovacs",
+  "title": "Procurement Lead",
+  "dept": "Ops",
+  "seniority_level": "VP",
+  "email": "theo.kovacs@swifthaul.example"
+ },
+ {
+  "id": "person:hugo.jansen@vitalsignsyste.example",
+  "company_domain": "vitalsignsyste.example",
+  "full_name": "Hugo Jansen",
+  "title": "Procurement Lead",
+  "dept": "Procurement",
+  "seniority_level": "VP",
+  "email": "hugo.jansen@vitalsignsyste.example"
+ },
+ {
+  "id": "person:nadia.vogel@vitalsignsyste.example",
+  "company_domain": "vitalsignsyste.example",
+  "full_name": "Nadia Vogel",
+  "title": "Procurement Lead",
+  "dept": "Finance",
+  "seniority_level": "DIR",
+  "email": "nadia.vogel@vitalsignsyste.example"
+ },
+ {
+  "id": "person:alma.andersen@boutiquenord.example",
+  "company_domain": "boutiquenord.example",
+  "full_name": "Alma Andersen",
+  "title": "Procurement Lead",
+  "dept": "Procurement",
+  "seniority_level": "MGR",
+  "email": "alma.andersen@boutiquenord.example"
+ },
+ {
+  "id": "person:maja.costa@boutiquenord.example",
+  "company_domain": "boutiquenord.example",
+  "full_name": "Maja Costa",
+  "title": "IT Manager",
+  "dept": "Procurement",
+  "seniority_level": "DIR",
+  "email": "maja.costa@boutiquenord.example"
+ },
+ {
+  "id": "person:milan.weber@boutiquenord.example",
+  "company_domain": "boutiquenord.example",
+  "full_name": "Milan Weber",
+  "title": "Finance Director",
+  "dept": "Finance",
+  "seniority_level": "C",
+  "email": "milan.weber@boutiquenord.example"
+ },
+ {
+  "id": "person:aya.novak@datafjord.example",
+  "company_domain": "datafjord.example",
+  "full_name": "Aya Novak",
+  "title": "Procurement Lead",
+  "dept": "Engineering",
+  "seniority_level": "VP",
+  "email": "aya.novak@datafjord.example"
+ },
+ {
+  "id": "person:maja.andersen@datafjord.example",
+  "company_domain": "datafjord.example",
+  "full_name": "Maja Andersen",
+  "title": "Procurement Lead",
+  "dept": "Engineering",
+  "seniority_level": "MGR",
+  "email": "maja.andersen@datafjord.example"
+ },
+ {
+  "id": "person:selma.keller@datafjord.example",
+  "company_domain": "datafjord.example",
+  "full_name": "Selma Keller",
+  "title": "IT Manager",
+  "dept": "Finance",
+  "seniority_level": "VP",
+  "email": "selma.keller@datafjord.example"
+ },
+ {
+  "id": "person:jonas.bauer@eisenhofmetall.example",
+  "company_domain": "eisenhofmetall.example",
+  "full_name": "Jonas Bauer",
+  "title": "VP Operations",
+  "dept": "Procurement",
+  "seniority_level": "VP",
+  "email": "jonas.bauer@eisenhofmetall.example"
+ },
+ {
+  "id": "person:ruben.rossi@eisenhofmetall.example",
+  "company_domain": "eisenhofmetall.example",
+  "full_name": "Ruben Rossi",
+  "title": "Finance Director",
+  "dept": "Finance",
+  "seniority_level": "DIR",
+  "email": "ruben.rossi@eisenhofmetall.example"
+ },
+ {
+  "id": "person:max.berg@eisenhofmetall.example",
+  "company_domain": "eisenhofmetall.example",
+  "full_name": "Max Berg",
+  "title": "Finance Director",
+  "dept": "Finance",
+  "seniority_level": "VP",
+  "email": "max.berg@eisenhofmetall.example"
+ },
+ {
+  "id": "person:ruben.jansen@paynordic.example",
+  "company_domain": "paynordic.example",
+  "full_name": "Ruben Jansen",
+  "title": "Finance Director",
+  "dept": "Engineering",
+  "seniority_level": "MGR",
+  "email": "ruben.jansen@paynordic.example"
+ },
+ {
+  "id": "person:livia.marchetti@paynordic.example",
+  "company_domain": "paynordic.example",
+  "full_name": "Livia Marchetti",
+  "title": "Head of Payments",
+  "dept": "Procurement",
+  "seniority_level": "VP",
+  "email": "livia.marchetti@paynordic.example"
+ },
+ {
+  "id": "person:anton.rossi@paynordic.example",
+  "company_domain": "paynordic.example",
+  "full_name": "Anton Rossi",
+  "title": "IT Manager",
+  "dept": "Engineering",
+  "seniority_level": "C",
+  "email": "anton.rossi@paynordic.example"
+ }
+]

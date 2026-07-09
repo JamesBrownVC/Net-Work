@@ -1,0 +1,17 @@
+# Warmth coefficients. w = sigmoid(a1*recency + a2*ln(1+freq90) + a3*reciprocity
+#                                  + a4*seniority_touch + a5*channel_diversity + bias)
+# Recency uses exponential decay with a 30-day half-life.
+coefficients:
+  a1_recency: 2.2
+  a2_frequency: 0.9
+  a3_reciprocity: 1.4
+  a4_seniority_touch: 0.8
+  a5_channel_diversity: 0.7
+  bias: -2.5
+half_life_days: 30
+seniority_weights:
+  IC: 0.2
+  MGR: 0.4
+  DIR: 0.6
+  VP: 0.8
+  C: 1.0

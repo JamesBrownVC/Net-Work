@@ -1,83 +1,87 @@
 from __future__ import annotations
 
-from datetime import date
+from pathlib import Path
 
-from fabric.schema import Company, Deal
-from fabric.store import (
-    CompanyRow,
-    DealRow,
-    get_engine,
-    init_db,
-    session_scope,
-    upsert_company,
-    upsert_deal,
-    upsert_entity,
-)
+from sqlalchemy.orm import Session
+
+from fabric import store
 
 
-def _engine(tmp_path):
-    engine = get_engine(f"sqlite:///{tmp_path / 'test.db'}")
-    init_db(engine)
-    return engine
+def _ingest_into(tmp_db: Path) -> dict[str, int]:
+    from fabric import registry
+
+    engine = store.get_engine(tmp_db)
+    with Session(engine) as session:
+        for connector in registry.all_connectors():
+            for raw in connector.pull(since=None):
+                store.upsert(session, connector.normalize(raw))
+        session.commit()
+        return store.table_counts(session)
 
 
-def test_upsert_company_is_idempotent_and_updates_fields(tmp_path):
-    engine = _engine(tmp_path)
-    company = Company(
-        name="Acme",
-        domain="acme.io",
-        industry="Fintech",
-        is_customer=True,
-        arr=100_000,
-        renewal_date=date(2026, 6, 1),
-    )
-
-    with session_scope(engine) as session:
-        upsert_company(session, company)
-    with session_scope(engine) as session:
-        upsert_company(session, company.model_copy(update={"arr": 150_000, "name": "Acme Inc"}))
-
-    with session_scope(engine) as session:
-        rows = session.query(CompanyRow).all()
-        assert len(rows) == 1
-        assert rows[0].arr == 150_000
-        assert rows[0].name == "Acme Inc"
-        assert rows[0].domain == "acme.io"
+def test_ingest_idempotent_and_acceptance_counts(tmp_path: Path) -> None:
+    db = tmp_path / "acr_test.db"
+    first = _ingest_into(db)
+    second = _ingest_into(db)
+    assert first == second, "re-running ingest must never duplicate rows"
+    assert first["companies"] >= 25
+    assert first["people"] >= 60
+    assert first["interactions"] >= 1500
+    assert first["signals"] >= 6
+    assert first["transcripts"] == 2
+    assert first["references"] == 6
 
 
-def test_upsert_deal_is_idempotent_per_company(tmp_path):
-    engine = _engine(tmp_path)
-    company = Company(name="Acme", domain="acme.io", is_customer=True, arr=100_000)
-    deal = Deal(
-        company_id="acct-acme",
-        stage="closed_won",
-        amount=100_000,
-        products_json=["Expense Management"],
-        opened_at=date(2025, 1, 1),
-        closed_at=date(2025, 1, 20),
-    )
+def test_reingest_single_connector_never_degrades_people(tmp_path: Path) -> None:
+    from fabric import registry
 
-    with session_scope(engine) as session:
-        upsert_company(session, company.model_copy(update={"id": "acct-acme"}))
-        upsert_deal(session, deal)
-    with session_scope(engine) as session:
-        upsert_deal(session, deal.model_copy(update={"stage": "renewal_pending"}))
+    engine = store.get_engine(tmp_path / "acr_test.db")
+    with Session(engine) as session:
+        for connector in registry.all_connectors():
+            for raw in connector.pull(since=None):
+                store.upsert(session, connector.normalize(raw))
+        session.commit()
+        enriched = (
+            session.query(store.PersonRow)
+            .filter(store.PersonRow.company_id == "company:novapay.io")
+            .filter(store.PersonRow.title != "")
+            .all()
+        )
+        assert enriched
+        before = {p.id: (p.full_name, p.title, p.seniority_level, p.source) for p in enriched}
+        gmail = registry.get("gmail")
+        for raw in gmail.pull(since=None):
+            store.upsert(session, gmail.normalize(raw))
+        session.commit()
+        for pid, snapshot in before.items():
+            row = session.get(store.PersonRow, pid)
+            assert (row.full_name, row.title, row.seniority_level, row.source) == snapshot
 
-    with session_scope(engine) as session:
-        rows = session.query(DealRow).all()
-        assert len(rows) == 1
-        assert rows[0].stage == "renewal_pending"
-        assert rows[0].company_id == "acct-acme"
+
+def test_mcp_server_lists_tools() -> None:
+    import asyncio
+
+    from fabric import registry
+    from fabric.mcp.serve import build_server
+
+    server = build_server(registry.get("fullenrich"))
+    tools = asyncio.run(server.list_tools())
+    assert {"health", "pull", "enrich_company", "lookalikes"} <= {t.name for t in tools}
 
 
-def test_upsert_entity_dispatches_by_type(tmp_path):
-    engine = _engine(tmp_path)
-    company = Company(id="acct-acme", name="Acme", domain="acme.io", is_customer=True, arr=50_000)
+def test_mcp_enrich_company_returns_fixture_data() -> None:
+    import asyncio
 
-    with session_scope(engine) as session:
-        row = upsert_entity(session, company)
-        assert isinstance(row, CompanyRow)
+    from fastmcp import Client
 
-    with session_scope(engine) as session:
-        rows = session.query(CompanyRow).all()
-        assert len(rows) == 1
+    from fabric import registry
+    from fabric.mcp.serve import build_server
+
+    async def call() -> dict:
+        async with Client(build_server(registry.get("fullenrich"))) as client:
+            result = await client.call_tool("enrich_company", {"domain": "novapay.io"})
+            return result.data
+
+    block = asyncio.run(call())
+    assert block["company"]["domain"] == "novapay.io"
+    assert len(block["people"]) == 35

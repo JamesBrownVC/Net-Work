@@ -1,0 +1,2002 @@
+[
+ {
+  "id": "gcal:1",
+  "title": "Meridian Bank sync",
+  "offset_days": -251,
+  "attendees": [
+   "lena@atlasrev.io",
+   "theo.dubois@meridianbank.example"
+  ],
+  "company_domain": "meridianbank.example"
+ },
+ {
+  "id": "gcal:2",
+  "title": "Meridian Bank sync",
+  "offset_days": -176,
+  "attendees": [
+   "lena@atlasrev.io",
+   "theo.dubois@meridianbank.example"
+  ],
+  "company_domain": "meridianbank.example"
+ },
+ {
+  "id": "gcal:3",
+  "title": "Meridian Bank sync",
+  "offset_days": -304,
+  "attendees": [
+   "lena@atlasrev.io",
+   "nadia.jansen@meridianbank.example"
+  ],
+  "company_domain": "meridianbank.example"
+ },
+ {
+  "id": "gcal:4",
+  "title": "Meridian Bank sync",
+  "offset_days": -161,
+  "attendees": [
+   "lena@atlasrev.io",
+   "nadia.jansen@meridianbank.example"
+  ],
+  "company_domain": "meridianbank.example"
+ },
+ {
+  "id": "gcal:5",
+  "title": "Meridian Bank sync",
+  "offset_days": -337,
+  "attendees": [
+   "lena@atlasrev.io",
+   "theo.dubois@meridianbank.example"
+  ],
+  "company_domain": "meridianbank.example"
+ },
+ {
+  "id": "gcal:6",
+  "title": "Meridian Bank sync",
+  "offset_days": -260,
+  "attendees": [
+   "lena@atlasrev.io",
+   "theo.dubois@meridianbank.example"
+  ],
+  "company_domain": "meridianbank.example"
+ },
+ {
+  "id": "gcal:7",
+  "title": "Meridian Bank sync",
+  "offset_days": -68,
+  "attendees": [
+   "lena@atlasrev.io",
+   "theo.dubois@meridianbank.example"
+  ],
+  "company_domain": "meridianbank.example"
+ },
+ {
+  "id": "gcal:8",
+  "title": "Cargolux Digital sync",
+  "offset_days": -199,
+  "attendees": [
+   "marco@atlasrev.io",
+   "hugo.costa@cargoluxdigita.example"
+  ],
+  "company_domain": "cargoluxdigita.example"
+ },
+ {
+  "id": "gcal:9",
+  "title": "Cargolux Digital sync",
+  "offset_days": -319,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nora.eriksen@cargoluxdigita.example"
+  ],
+  "company_domain": "cargoluxdigita.example"
+ },
+ {
+  "id": "gcal:10",
+  "title": "Cargolux Digital sync",
+  "offset_days": -206,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nora.eriksen@cargoluxdigita.example"
+  ],
+  "company_domain": "cargoluxdigita.example"
+ },
+ {
+  "id": "gcal:11",
+  "title": "Cargolux Digital sync",
+  "offset_days": -37,
+  "attendees": [
+   "marco@atlasrev.io",
+   "hugo.costa@cargoluxdigita.example"
+  ],
+  "company_domain": "cargoluxdigita.example"
+ },
+ {
+  "id": "gcal:12",
+  "title": "Cargolux Digital sync",
+  "offset_days": -218,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nora.eriksen@cargoluxdigita.example"
+  ],
+  "company_domain": "cargoluxdigita.example"
+ },
+ {
+  "id": "gcal:13",
+  "title": "Cargolux Digital sync",
+  "offset_days": -159,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nora.eriksen@cargoluxdigita.example"
+  ],
+  "company_domain": "cargoluxdigita.example"
+ },
+ {
+  "id": "gcal:14",
+  "title": "Cargolux Digital sync",
+  "offset_days": -77,
+  "attendees": [
+   "marco@atlasrev.io",
+   "hugo.costa@cargoluxdigita.example"
+  ],
+  "company_domain": "cargoluxdigita.example"
+ },
+ {
+  "id": "gcal:15",
+  "title": "Cargolux Digital sync",
+  "offset_days": -56,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nora.eriksen@cargoluxdigita.example"
+  ],
+  "company_domain": "cargoluxdigita.example"
+ },
+ {
+  "id": "gcal:16",
+  "title": "Helios Health sync",
+  "offset_days": -10,
+  "attendees": [
+   "priya@atlasrev.io",
+   "mia.dubois@helioshealth.example"
+  ],
+  "company_domain": "helioshealth.example"
+ },
+ {
+  "id": "gcal:17",
+  "title": "Helios Health sync",
+  "offset_days": -97,
+  "attendees": [
+   "priya@atlasrev.io",
+   "mia.dubois@helioshealth.example"
+  ],
+  "company_domain": "helioshealth.example"
+ },
+ {
+  "id": "gcal:18",
+  "title": "Helios Health sync",
+  "offset_days": -16,
+  "attendees": [
+   "priya@atlasrev.io",
+   "mia.dubois@helioshealth.example"
+  ],
+  "company_domain": "helioshealth.example"
+ },
+ {
+  "id": "gcal:19",
+  "title": "Helios Health sync",
+  "offset_days": -340,
+  "attendees": [
+   "priya@atlasrev.io",
+   "mia.dubois@helioshealth.example"
+  ],
+  "company_domain": "helioshealth.example"
+ },
+ {
+  "id": "gcal:20",
+  "title": "Helios Health sync",
+  "offset_days": -182,
+  "attendees": [
+   "priya@atlasrev.io",
+   "mia.dubois@helioshealth.example"
+  ],
+  "company_domain": "helioshealth.example"
+ },
+ {
+  "id": "gcal:21",
+  "title": "Helios Health sync",
+  "offset_days": -62,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lina.fontaine@helioshealth.example"
+  ],
+  "company_domain": "helioshealth.example"
+ },
+ {
+  "id": "gcal:22",
+  "title": "Helios Health sync",
+  "offset_days": -183,
+  "attendees": [
+   "priya@atlasrev.io",
+   "mia.dubois@helioshealth.example"
+  ],
+  "company_domain": "helioshealth.example"
+ },
+ {
+  "id": "gcal:23",
+  "title": "Northwind Retail sync",
+  "offset_days": -79,
+  "attendees": [
+   "tom@atlasrev.io",
+   "theo.lindgren@northwindretai.example"
+  ],
+  "company_domain": "northwindretai.example"
+ },
+ {
+  "id": "gcal:24",
+  "title": "Northwind Retail sync",
+  "offset_days": -259,
+  "attendees": [
+   "tom@atlasrev.io",
+   "theo.lindgren@northwindretai.example"
+  ],
+  "company_domain": "northwindretai.example"
+ },
+ {
+  "id": "gcal:25",
+  "title": "Northwind Retail sync",
+  "offset_days": -262,
+  "attendees": [
+   "tom@atlasrev.io",
+   "theo.lindgren@northwindretai.example"
+  ],
+  "company_domain": "northwindretai.example"
+ },
+ {
+  "id": "gcal:26",
+  "title": "Northwind Retail sync",
+  "offset_days": -29,
+  "attendees": [
+   "tom@atlasrev.io",
+   "theo.lindgren@northwindretai.example"
+  ],
+  "company_domain": "northwindretai.example"
+ },
+ {
+  "id": "gcal:27",
+  "title": "Northwind Retail sync",
+  "offset_days": -141,
+  "attendees": [
+   "tom@atlasrev.io",
+   "theo.lindgren@northwindretai.example"
+  ],
+  "company_domain": "northwindretai.example"
+ },
+ {
+  "id": "gcal:28",
+  "title": "Northwind Retail sync",
+  "offset_days": -52,
+  "attendees": [
+   "tom@atlasrev.io",
+   "nadia.dubois@northwindretai.example"
+  ],
+  "company_domain": "northwindretai.example"
+ },
+ {
+  "id": "gcal:29",
+  "title": "Northwind Retail sync",
+  "offset_days": -334,
+  "attendees": [
+   "tom@atlasrev.io",
+   "theo.lindgren@northwindretai.example"
+  ],
+  "company_domain": "northwindretai.example"
+ },
+ {
+  "id": "gcal:30",
+  "title": "Quantiq Labs sync",
+  "offset_days": -218,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "jan.blanc@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:31",
+  "title": "Quantiq Labs sync",
+  "offset_days": -152,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "jan.blanc@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:32",
+  "title": "Quantiq Labs sync",
+  "offset_days": -208,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "jan.blanc@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:33",
+  "title": "Quantiq Labs sync",
+  "offset_days": -306,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "ines.weber@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:34",
+  "title": "Quantiq Labs sync",
+  "offset_days": -273,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "ines.weber@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:35",
+  "title": "Quantiq Labs sync",
+  "offset_days": -267,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "ines.weber@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:36",
+  "title": "Quantiq Labs sync",
+  "offset_days": -57,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "jan.blanc@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:37",
+  "title": "Quantiq Labs sync",
+  "offset_days": -332,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "jan.blanc@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:38",
+  "title": "Quantiq Labs sync",
+  "offset_days": -58,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "jan.blanc@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:39",
+  "title": "Quantiq Labs sync",
+  "offset_days": -60,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "jan.blanc@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:40",
+  "title": "Quantiq Labs sync",
+  "offset_days": -20,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "ines.weber@quantiqlabs.example"
+  ],
+  "company_domain": "quantiqlabs.example"
+ },
+ {
+  "id": "gcal:41",
+  "title": "Ferrostahl Group sync",
+  "offset_days": -35,
+  "attendees": [
+   "lena@atlasrev.io",
+   "emma.andersen@ferrostahlgrou.example"
+  ],
+  "company_domain": "ferrostahlgrou.example"
+ },
+ {
+  "id": "gcal:42",
+  "title": "Ferrostahl Group sync",
+  "offset_days": -53,
+  "attendees": [
+   "lena@atlasrev.io",
+   "jonas.schmid@ferrostahlgrou.example"
+  ],
+  "company_domain": "ferrostahlgrou.example"
+ },
+ {
+  "id": "gcal:43",
+  "title": "Ferrostahl Group sync",
+  "offset_days": -117,
+  "attendees": [
+   "lena@atlasrev.io",
+   "emma.andersen@ferrostahlgrou.example"
+  ],
+  "company_domain": "ferrostahlgrou.example"
+ },
+ {
+  "id": "gcal:44",
+  "title": "Ferrostahl Group sync",
+  "offset_days": -209,
+  "attendees": [
+   "lena@atlasrev.io",
+   "jonas.schmid@ferrostahlgrou.example"
+  ],
+  "company_domain": "ferrostahlgrou.example"
+ },
+ {
+  "id": "gcal:45",
+  "title": "Ferrostahl Group sync",
+  "offset_days": -203,
+  "attendees": [
+   "lena@atlasrev.io",
+   "emma.berg@ferrostahlgrou.example"
+  ],
+  "company_domain": "ferrostahlgrou.example"
+ },
+ {
+  "id": "gcal:46",
+  "title": "Ferrostahl Group sync",
+  "offset_days": -114,
+  "attendees": [
+   "lena@atlasrev.io",
+   "emma.andersen@ferrostahlgrou.example"
+  ],
+  "company_domain": "ferrostahlgrou.example"
+ },
+ {
+  "id": "gcal:47",
+  "title": "Ferrostahl Group sync",
+  "offset_days": -139,
+  "attendees": [
+   "lena@atlasrev.io",
+   "jonas.schmid@ferrostahlgrou.example"
+  ],
+  "company_domain": "ferrostahlgrou.example"
+ },
+ {
+  "id": "gcal:48",
+  "title": "BlueRiver Payments sync",
+  "offset_days": -89,
+  "attendees": [
+   "marco@atlasrev.io",
+   "finn.jansen@blueriverpayme.example"
+  ],
+  "company_domain": "blueriverpayme.example"
+ },
+ {
+  "id": "gcal:49",
+  "title": "BlueRiver Payments sync",
+  "offset_days": -179,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nadia.weber@blueriverpayme.example"
+  ],
+  "company_domain": "blueriverpayme.example"
+ },
+ {
+  "id": "gcal:50",
+  "title": "BlueRiver Payments sync",
+  "offset_days": -307,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nadia.weber@blueriverpayme.example"
+  ],
+  "company_domain": "blueriverpayme.example"
+ },
+ {
+  "id": "gcal:51",
+  "title": "BlueRiver Payments sync",
+  "offset_days": -3,
+  "attendees": [
+   "marco@atlasrev.io",
+   "finn.jansen@blueriverpayme.example"
+  ],
+  "company_domain": "blueriverpayme.example"
+ },
+ {
+  "id": "gcal:52",
+  "title": "BlueRiver Payments sync",
+  "offset_days": -96,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nadia.weber@blueriverpayme.example"
+  ],
+  "company_domain": "blueriverpayme.example"
+ },
+ {
+  "id": "gcal:53",
+  "title": "BlueRiver Payments sync",
+  "offset_days": -158,
+  "attendees": [
+   "marco@atlasrev.io",
+   "finn.jansen@blueriverpayme.example"
+  ],
+  "company_domain": "blueriverpayme.example"
+ },
+ {
+  "id": "gcal:54",
+  "title": "BlueRiver Payments sync",
+  "offset_days": -89,
+  "attendees": [
+   "marco@atlasrev.io",
+   "nadia.weber@blueriverpayme.example"
+  ],
+  "company_domain": "blueriverpayme.example"
+ },
+ {
+  "id": "gcal:55",
+  "title": "Optima Logistics sync",
+  "offset_days": -37,
+  "attendees": [
+   "priya@atlasrev.io",
+   "emma.jansen@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:56",
+  "title": "Optima Logistics sync",
+  "offset_days": -97,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lea.moreau@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:57",
+  "title": "Optima Logistics sync",
+  "offset_days": -235,
+  "attendees": [
+   "priya@atlasrev.io",
+   "emma.jansen@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:58",
+  "title": "Optima Logistics sync",
+  "offset_days": -8,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lea.moreau@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:59",
+  "title": "Optima Logistics sync",
+  "offset_days": -221,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lea.moreau@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:60",
+  "title": "Optima Logistics sync",
+  "offset_days": -12,
+  "attendees": [
+   "priya@atlasrev.io",
+   "emma.jansen@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:61",
+  "title": "Optima Logistics sync",
+  "offset_days": -137,
+  "attendees": [
+   "priya@atlasrev.io",
+   "emma.jansen@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:62",
+  "title": "Optima Logistics sync",
+  "offset_days": -89,
+  "attendees": [
+   "priya@atlasrev.io",
+   "emma.jansen@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:63",
+  "title": "Optima Logistics sync",
+  "offset_days": -306,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lea.moreau@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:64",
+  "title": "Optima Logistics sync",
+  "offset_days": -244,
+  "attendees": [
+   "priya@atlasrev.io",
+   "emma.jansen@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:65",
+  "title": "Optima Logistics sync",
+  "offset_days": -252,
+  "attendees": [
+   "priya@atlasrev.io",
+   "emma.jansen@optimalogistic.example"
+  ],
+  "company_domain": "optimalogistic.example"
+ },
+ {
+  "id": "gcal:66",
+  "title": "Cortex Medical sync",
+  "offset_days": -58,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.eriksen@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:67",
+  "title": "Cortex Medical sync",
+  "offset_days": -10,
+  "attendees": [
+   "tom@atlasrev.io",
+   "oscar.novak@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:68",
+  "title": "Cortex Medical sync",
+  "offset_days": -350,
+  "attendees": [
+   "tom@atlasrev.io",
+   "noah.blanc@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:69",
+  "title": "Cortex Medical sync",
+  "offset_days": -118,
+  "attendees": [
+   "tom@atlasrev.io",
+   "oscar.novak@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:70",
+  "title": "Cortex Medical sync",
+  "offset_days": -259,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.eriksen@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:71",
+  "title": "Cortex Medical sync",
+  "offset_days": -77,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.eriksen@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:72",
+  "title": "Cortex Medical sync",
+  "offset_days": -53,
+  "attendees": [
+   "tom@atlasrev.io",
+   "noah.blanc@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:73",
+  "title": "Cortex Medical sync",
+  "offset_days": -173,
+  "attendees": [
+   "tom@atlasrev.io",
+   "noah.blanc@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:74",
+  "title": "Cortex Medical sync",
+  "offset_days": -253,
+  "attendees": [
+   "tom@atlasrev.io",
+   "oscar.novak@cortexmedical.example"
+  ],
+  "company_domain": "cortexmedical.example"
+ },
+ {
+  "id": "gcal:75",
+  "title": "Urban Basket sync",
+  "offset_days": -281,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "lina.eriksen@urbanbasket.example"
+  ],
+  "company_domain": "urbanbasket.example"
+ },
+ {
+  "id": "gcal:76",
+  "title": "Urban Basket sync",
+  "offset_days": -341,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "lina.eriksen@urbanbasket.example"
+  ],
+  "company_domain": "urbanbasket.example"
+ },
+ {
+  "id": "gcal:77",
+  "title": "Urban Basket sync",
+  "offset_days": -131,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "lina.eriksen@urbanbasket.example"
+  ],
+  "company_domain": "urbanbasket.example"
+ },
+ {
+  "id": "gcal:78",
+  "title": "Urban Basket sync",
+  "offset_days": -236,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "maja.keller@urbanbasket.example"
+  ],
+  "company_domain": "urbanbasket.example"
+ },
+ {
+  "id": "gcal:79",
+  "title": "Urban Basket sync",
+  "offset_days": -182,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "lina.eriksen@urbanbasket.example"
+  ],
+  "company_domain": "urbanbasket.example"
+ },
+ {
+  "id": "gcal:80",
+  "title": "Urban Basket sync",
+  "offset_days": -172,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "lina.eriksen@urbanbasket.example"
+  ],
+  "company_domain": "urbanbasket.example"
+ },
+ {
+  "id": "gcal:81",
+  "title": "Urban Basket sync",
+  "offset_days": -59,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "lina.eriksen@urbanbasket.example"
+  ],
+  "company_domain": "urbanbasket.example"
+ },
+ {
+  "id": "gcal:82",
+  "title": "Urban Basket sync",
+  "offset_days": -267,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "maja.keller@urbanbasket.example"
+  ],
+  "company_domain": "urbanbasket.example"
+ },
+ {
+  "id": "gcal:83",
+  "title": "Vektor Software sync",
+  "offset_days": -212,
+  "attendees": [
+   "lena@atlasrev.io",
+   "vera.kovacs@vektorsoftware.example"
+  ],
+  "company_domain": "vektorsoftware.example"
+ },
+ {
+  "id": "gcal:84",
+  "title": "Vektor Software sync",
+  "offset_days": -339,
+  "attendees": [
+   "lena@atlasrev.io",
+   "vera.kovacs@vektorsoftware.example"
+  ],
+  "company_domain": "vektorsoftware.example"
+ },
+ {
+  "id": "gcal:85",
+  "title": "Vektor Software sync",
+  "offset_days": -184,
+  "attendees": [
+   "lena@atlasrev.io",
+   "paul.jansen@vektorsoftware.example"
+  ],
+  "company_domain": "vektorsoftware.example"
+ },
+ {
+  "id": "gcal:86",
+  "title": "Vektor Software sync",
+  "offset_days": -17,
+  "attendees": [
+   "lena@atlasrev.io",
+   "vera.kovacs@vektorsoftware.example"
+  ],
+  "company_domain": "vektorsoftware.example"
+ },
+ {
+  "id": "gcal:87",
+  "title": "Vektor Software sync",
+  "offset_days": -297,
+  "attendees": [
+   "lena@atlasrev.io",
+   "karl.berg@vektorsoftware.example"
+  ],
+  "company_domain": "vektorsoftware.example"
+ },
+ {
+  "id": "gcal:88",
+  "title": "Vektor Software sync",
+  "offset_days": -222,
+  "attendees": [
+   "lena@atlasrev.io",
+   "paul.jansen@vektorsoftware.example"
+  ],
+  "company_domain": "vektorsoftware.example"
+ },
+ {
+  "id": "gcal:89",
+  "title": "Vektor Software sync",
+  "offset_days": -107,
+  "attendees": [
+   "lena@atlasrev.io",
+   "karl.berg@vektorsoftware.example"
+  ],
+  "company_domain": "vektorsoftware.example"
+ },
+ {
+  "id": "gcal:90",
+  "title": "Alpenstahl AG sync",
+  "offset_days": -101,
+  "attendees": [
+   "marco@atlasrev.io",
+   "lea.lindgren@alpenstahlag.example"
+  ],
+  "company_domain": "alpenstahlag.example"
+ },
+ {
+  "id": "gcal:91",
+  "title": "Alpenstahl AG sync",
+  "offset_days": -329,
+  "attendees": [
+   "marco@atlasrev.io",
+   "aya.jansen@alpenstahlag.example"
+  ],
+  "company_domain": "alpenstahlag.example"
+ },
+ {
+  "id": "gcal:92",
+  "title": "Alpenstahl AG sync",
+  "offset_days": -142,
+  "attendees": [
+   "marco@atlasrev.io",
+   "zoe.jansen@alpenstahlag.example"
+  ],
+  "company_domain": "alpenstahlag.example"
+ },
+ {
+  "id": "gcal:93",
+  "title": "Alpenstahl AG sync",
+  "offset_days": -349,
+  "attendees": [
+   "marco@atlasrev.io",
+   "zoe.jansen@alpenstahlag.example"
+  ],
+  "company_domain": "alpenstahlag.example"
+ },
+ {
+  "id": "gcal:94",
+  "title": "Alpenstahl AG sync",
+  "offset_days": -232,
+  "attendees": [
+   "marco@atlasrev.io",
+   "zoe.jansen@alpenstahlag.example"
+  ],
+  "company_domain": "alpenstahlag.example"
+ },
+ {
+  "id": "gcal:95",
+  "title": "Alpenstahl AG sync",
+  "offset_days": -91,
+  "attendees": [
+   "marco@atlasrev.io",
+   "lea.lindgren@alpenstahlag.example"
+  ],
+  "company_domain": "alpenstahlag.example"
+ },
+ {
+  "id": "gcal:96",
+  "title": "Finexa Capital sync",
+  "offset_days": -180,
+  "attendees": [
+   "priya@atlasrev.io",
+   "hugo.andersen@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:97",
+  "title": "Finexa Capital sync",
+  "offset_days": -202,
+  "attendees": [
+   "priya@atlasrev.io",
+   "hugo.andersen@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:98",
+  "title": "Finexa Capital sync",
+  "offset_days": -143,
+  "attendees": [
+   "priya@atlasrev.io",
+   "hugo.andersen@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:99",
+  "title": "Finexa Capital sync",
+  "offset_days": -99,
+  "attendees": [
+   "priya@atlasrev.io",
+   "ines.berg@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:100",
+  "title": "Finexa Capital sync",
+  "offset_days": -298,
+  "attendees": [
+   "priya@atlasrev.io",
+   "hugo.andersen@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:101",
+  "title": "Finexa Capital sync",
+  "offset_days": -315,
+  "attendees": [
+   "priya@atlasrev.io",
+   "ines.berg@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:102",
+  "title": "Finexa Capital sync",
+  "offset_days": -223,
+  "attendees": [
+   "priya@atlasrev.io",
+   "hugo.andersen@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:103",
+  "title": "Finexa Capital sync",
+  "offset_days": -292,
+  "attendees": [
+   "priya@atlasrev.io",
+   "hugo.andersen@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:104",
+  "title": "Finexa Capital sync",
+  "offset_days": -149,
+  "attendees": [
+   "priya@atlasrev.io",
+   "ines.berg@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:105",
+  "title": "Finexa Capital sync",
+  "offset_days": -6,
+  "attendees": [
+   "priya@atlasrev.io",
+   "hugo.andersen@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:106",
+  "title": "Finexa Capital sync",
+  "offset_days": -77,
+  "attendees": [
+   "priya@atlasrev.io",
+   "hugo.andersen@finexacapital.example"
+  ],
+  "company_domain": "finexacapital.example"
+ },
+ {
+  "id": "gcal:107",
+  "title": "TransEuro Freight sync",
+  "offset_days": -78,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.weber@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:108",
+  "title": "TransEuro Freight sync",
+  "offset_days": -150,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.weber@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:109",
+  "title": "TransEuro Freight sync",
+  "offset_days": -287,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.weber@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:110",
+  "title": "TransEuro Freight sync",
+  "offset_days": -85,
+  "attendees": [
+   "tom@atlasrev.io",
+   "elias.lindgren@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:111",
+  "title": "TransEuro Freight sync",
+  "offset_days": -251,
+  "attendees": [
+   "tom@atlasrev.io",
+   "elias.lindgren@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:112",
+  "title": "TransEuro Freight sync",
+  "offset_days": -35,
+  "attendees": [
+   "tom@atlasrev.io",
+   "elias.lindgren@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:113",
+  "title": "TransEuro Freight sync",
+  "offset_days": -9,
+  "attendees": [
+   "tom@atlasrev.io",
+   "elias.lindgren@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:114",
+  "title": "TransEuro Freight sync",
+  "offset_days": -22,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.lindgren@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:115",
+  "title": "TransEuro Freight sync",
+  "offset_days": -146,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.weber@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:116",
+  "title": "TransEuro Freight sync",
+  "offset_days": -65,
+  "attendees": [
+   "tom@atlasrev.io",
+   "anton.lindgren@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:117",
+  "title": "TransEuro Freight sync",
+  "offset_days": -252,
+  "attendees": [
+   "tom@atlasrev.io",
+   "elias.lindgren@transeurofreig.example"
+  ],
+  "company_domain": "transeurofreig.example"
+ },
+ {
+  "id": "gcal:118",
+  "title": "MediSphere sync",
+  "offset_days": -222,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "paul.costa@medisphere.example"
+  ],
+  "company_domain": "medisphere.example"
+ },
+ {
+  "id": "gcal:119",
+  "title": "MediSphere sync",
+  "offset_days": -340,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "oscar.rossi@medisphere.example"
+  ],
+  "company_domain": "medisphere.example"
+ },
+ {
+  "id": "gcal:120",
+  "title": "MediSphere sync",
+  "offset_days": -27,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "paul.costa@medisphere.example"
+  ],
+  "company_domain": "medisphere.example"
+ },
+ {
+  "id": "gcal:121",
+  "title": "MediSphere sync",
+  "offset_days": -72,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "paul.costa@medisphere.example"
+  ],
+  "company_domain": "medisphere.example"
+ },
+ {
+  "id": "gcal:122",
+  "title": "MediSphere sync",
+  "offset_days": -147,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "oscar.rossi@medisphere.example"
+  ],
+  "company_domain": "medisphere.example"
+ },
+ {
+  "id": "gcal:123",
+  "title": "MediSphere sync",
+  "offset_days": -46,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "paul.costa@medisphere.example"
+  ],
+  "company_domain": "medisphere.example"
+ },
+ {
+  "id": "gcal:124",
+  "title": "Marche Central sync",
+  "offset_days": -102,
+  "attendees": [
+   "lena@atlasrev.io",
+   "nils.andersen@marchecentral.example"
+  ],
+  "company_domain": "marchecentral.example"
+ },
+ {
+  "id": "gcal:125",
+  "title": "Marche Central sync",
+  "offset_days": -301,
+  "attendees": [
+   "lena@atlasrev.io",
+   "alma.keller@marchecentral.example"
+  ],
+  "company_domain": "marchecentral.example"
+ },
+ {
+  "id": "gcal:126",
+  "title": "Marche Central sync",
+  "offset_days": -150,
+  "attendees": [
+   "lena@atlasrev.io",
+   "alma.keller@marchecentral.example"
+  ],
+  "company_domain": "marchecentral.example"
+ },
+ {
+  "id": "gcal:127",
+  "title": "Marche Central sync",
+  "offset_days": -18,
+  "attendees": [
+   "lena@atlasrev.io",
+   "nils.andersen@marchecentral.example"
+  ],
+  "company_domain": "marchecentral.example"
+ },
+ {
+  "id": "gcal:128",
+  "title": "Marche Central sync",
+  "offset_days": -183,
+  "attendees": [
+   "lena@atlasrev.io",
+   "alma.keller@marchecentral.example"
+  ],
+  "company_domain": "marchecentral.example"
+ },
+ {
+  "id": "gcal:129",
+  "title": "Marche Central sync",
+  "offset_days": -349,
+  "attendees": [
+   "lena@atlasrev.io",
+   "nils.andersen@marchecentral.example"
+  ],
+  "company_domain": "marchecentral.example"
+ },
+ {
+  "id": "gcal:130",
+  "title": "Marche Central sync",
+  "offset_days": -218,
+  "attendees": [
+   "lena@atlasrev.io",
+   "nils.andersen@marchecentral.example"
+  ],
+  "company_domain": "marchecentral.example"
+ },
+ {
+  "id": "gcal:131",
+  "title": "Nimbus Cloudworks sync",
+  "offset_days": -135,
+  "attendees": [
+   "marco@atlasrev.io",
+   "anton.keller@nimbuscloudwor.example"
+  ],
+  "company_domain": "nimbuscloudwor.example"
+ },
+ {
+  "id": "gcal:132",
+  "title": "Nimbus Cloudworks sync",
+  "offset_days": -307,
+  "attendees": [
+   "marco@atlasrev.io",
+   "anton.keller@nimbuscloudwor.example"
+  ],
+  "company_domain": "nimbuscloudwor.example"
+ },
+ {
+  "id": "gcal:133",
+  "title": "Nimbus Cloudworks sync",
+  "offset_days": -90,
+  "attendees": [
+   "marco@atlasrev.io",
+   "anton.keller@nimbuscloudwor.example"
+  ],
+  "company_domain": "nimbuscloudwor.example"
+ },
+ {
+  "id": "gcal:134",
+  "title": "Nimbus Cloudworks sync",
+  "offset_days": -349,
+  "attendees": [
+   "marco@atlasrev.io",
+   "anton.keller@nimbuscloudwor.example"
+  ],
+  "company_domain": "nimbuscloudwor.example"
+ },
+ {
+  "id": "gcal:135",
+  "title": "Nimbus Cloudworks sync",
+  "offset_days": -298,
+  "attendees": [
+   "marco@atlasrev.io",
+   "maja.bauer@nimbuscloudwor.example"
+  ],
+  "company_domain": "nimbuscloudwor.example"
+ },
+ {
+  "id": "gcal:136",
+  "title": "Nimbus Cloudworks sync",
+  "offset_days": -104,
+  "attendees": [
+   "marco@atlasrev.io",
+   "anton.keller@nimbuscloudwor.example"
+  ],
+  "company_domain": "nimbuscloudwor.example"
+ },
+ {
+  "id": "gcal:137",
+  "title": "Rheinwerk Industrie sync",
+  "offset_days": -215,
+  "attendees": [
+   "priya@atlasrev.io",
+   "max.blanc@rheinwerkindus.example"
+  ],
+  "company_domain": "rheinwerkindus.example"
+ },
+ {
+  "id": "gcal:138",
+  "title": "Rheinwerk Industrie sync",
+  "offset_days": -156,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lina.novak@rheinwerkindus.example"
+  ],
+  "company_domain": "rheinwerkindus.example"
+ },
+ {
+  "id": "gcal:139",
+  "title": "Rheinwerk Industrie sync",
+  "offset_days": -45,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lina.novak@rheinwerkindus.example"
+  ],
+  "company_domain": "rheinwerkindus.example"
+ },
+ {
+  "id": "gcal:140",
+  "title": "Rheinwerk Industrie sync",
+  "offset_days": -292,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lina.novak@rheinwerkindus.example"
+  ],
+  "company_domain": "rheinwerkindus.example"
+ },
+ {
+  "id": "gcal:141",
+  "title": "Rheinwerk Industrie sync",
+  "offset_days": -281,
+  "attendees": [
+   "priya@atlasrev.io",
+   "max.blanc@rheinwerkindus.example"
+  ],
+  "company_domain": "rheinwerkindus.example"
+ },
+ {
+  "id": "gcal:142",
+  "title": "Rheinwerk Industrie sync",
+  "offset_days": -194,
+  "attendees": [
+   "priya@atlasrev.io",
+   "lina.novak@rheinwerkindus.example"
+  ],
+  "company_domain": "rheinwerkindus.example"
+ },
+ {
+  "id": "gcal:143",
+  "title": "Rheinwerk Industrie sync",
+  "offset_days": -51,
+  "attendees": [
+   "priya@atlasrev.io",
+   "max.blanc@rheinwerkindus.example"
+  ],
+  "company_domain": "rheinwerkindus.example"
+ },
+ {
+  "id": "gcal:144",
+  "title": "LedgerLine sync",
+  "offset_days": -228,
+  "attendees": [
+   "tom@atlasrev.io",
+   "milan.eriksen@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:145",
+  "title": "LedgerLine sync",
+  "offset_days": -259,
+  "attendees": [
+   "tom@atlasrev.io",
+   "milan.eriksen@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:146",
+  "title": "LedgerLine sync",
+  "offset_days": -241,
+  "attendees": [
+   "tom@atlasrev.io",
+   "milan.eriksen@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:147",
+  "title": "LedgerLine sync",
+  "offset_days": -220,
+  "attendees": [
+   "tom@atlasrev.io",
+   "milan.eriksen@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:148",
+  "title": "LedgerLine sync",
+  "offset_days": -217,
+  "attendees": [
+   "tom@atlasrev.io",
+   "milan.eriksen@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:149",
+  "title": "LedgerLine sync",
+  "offset_days": -238,
+  "attendees": [
+   "tom@atlasrev.io",
+   "lucas.moreau@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:150",
+  "title": "LedgerLine sync",
+  "offset_days": -288,
+  "attendees": [
+   "tom@atlasrev.io",
+   "lucas.moreau@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:151",
+  "title": "LedgerLine sync",
+  "offset_days": -217,
+  "attendees": [
+   "tom@atlasrev.io",
+   "lucas.moreau@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:152",
+  "title": "LedgerLine sync",
+  "offset_days": -73,
+  "attendees": [
+   "tom@atlasrev.io",
+   "milan.eriksen@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:153",
+  "title": "LedgerLine sync",
+  "offset_days": -126,
+  "attendees": [
+   "tom@atlasrev.io",
+   "milan.eriksen@ledgerline.example"
+  ],
+  "company_domain": "ledgerline.example"
+ },
+ {
+  "id": "gcal:154",
+  "title": "SwiftHaul sync",
+  "offset_days": -319,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "theo.kovacs@swifthaul.example"
+  ],
+  "company_domain": "swifthaul.example"
+ },
+ {
+  "id": "gcal:155",
+  "title": "SwiftHaul sync",
+  "offset_days": -291,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "nora.marchetti@swifthaul.example"
+  ],
+  "company_domain": "swifthaul.example"
+ },
+ {
+  "id": "gcal:156",
+  "title": "SwiftHaul sync",
+  "offset_days": -29,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "nora.marchetti@swifthaul.example"
+  ],
+  "company_domain": "swifthaul.example"
+ },
+ {
+  "id": "gcal:157",
+  "title": "SwiftHaul sync",
+  "offset_days": -66,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "nora.marchetti@swifthaul.example"
+  ],
+  "company_domain": "swifthaul.example"
+ },
+ {
+  "id": "gcal:158",
+  "title": "SwiftHaul sync",
+  "offset_days": -345,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "freja.fontaine@swifthaul.example"
+  ],
+  "company_domain": "swifthaul.example"
+ },
+ {
+  "id": "gcal:159",
+  "title": "SwiftHaul sync",
+  "offset_days": -238,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "theo.kovacs@swifthaul.example"
+  ],
+  "company_domain": "swifthaul.example"
+ },
+ {
+  "id": "gcal:160",
+  "title": "SwiftHaul sync",
+  "offset_days": -237,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "freja.fontaine@swifthaul.example"
+  ],
+  "company_domain": "swifthaul.example"
+ },
+ {
+  "id": "gcal:161",
+  "title": "VitalSign Systems sync",
+  "offset_days": -30,
+  "attendees": [
+   "lena@atlasrev.io",
+   "nadia.vogel@vitalsignsyste.example"
+  ],
+  "company_domain": "vitalsignsyste.example"
+ },
+ {
+  "id": "gcal:162",
+  "title": "VitalSign Systems sync",
+  "offset_days": -334,
+  "attendees": [
+   "lena@atlasrev.io",
+   "hugo.jansen@vitalsignsyste.example"
+  ],
+  "company_domain": "vitalsignsyste.example"
+ },
+ {
+  "id": "gcal:163",
+  "title": "VitalSign Systems sync",
+  "offset_days": -172,
+  "attendees": [
+   "lena@atlasrev.io",
+   "hugo.jansen@vitalsignsyste.example"
+  ],
+  "company_domain": "vitalsignsyste.example"
+ },
+ {
+  "id": "gcal:164",
+  "title": "VitalSign Systems sync",
+  "offset_days": -150,
+  "attendees": [
+   "lena@atlasrev.io",
+   "nadia.vogel@vitalsignsyste.example"
+  ],
+  "company_domain": "vitalsignsyste.example"
+ },
+ {
+  "id": "gcal:165",
+  "title": "VitalSign Systems sync",
+  "offset_days": -171,
+  "attendees": [
+   "lena@atlasrev.io",
+   "hugo.jansen@vitalsignsyste.example"
+  ],
+  "company_domain": "vitalsignsyste.example"
+ },
+ {
+  "id": "gcal:166",
+  "title": "VitalSign Systems sync",
+  "offset_days": -64,
+  "attendees": [
+   "lena@atlasrev.io",
+   "hugo.jansen@vitalsignsyste.example"
+  ],
+  "company_domain": "vitalsignsyste.example"
+ },
+ {
+  "id": "gcal:167",
+  "title": "Boutique Nord sync",
+  "offset_days": -106,
+  "attendees": [
+   "marco@atlasrev.io",
+   "milan.weber@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:168",
+  "title": "Boutique Nord sync",
+  "offset_days": -75,
+  "attendees": [
+   "marco@atlasrev.io",
+   "milan.weber@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:169",
+  "title": "Boutique Nord sync",
+  "offset_days": -255,
+  "attendees": [
+   "marco@atlasrev.io",
+   "alma.andersen@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:170",
+  "title": "Boutique Nord sync",
+  "offset_days": -116,
+  "attendees": [
+   "marco@atlasrev.io",
+   "milan.weber@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:171",
+  "title": "Boutique Nord sync",
+  "offset_days": -329,
+  "attendees": [
+   "marco@atlasrev.io",
+   "alma.andersen@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:172",
+  "title": "Boutique Nord sync",
+  "offset_days": -156,
+  "attendees": [
+   "marco@atlasrev.io",
+   "milan.weber@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:173",
+  "title": "Boutique Nord sync",
+  "offset_days": -161,
+  "attendees": [
+   "marco@atlasrev.io",
+   "milan.weber@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:174",
+  "title": "Boutique Nord sync",
+  "offset_days": -5,
+  "attendees": [
+   "marco@atlasrev.io",
+   "maja.costa@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:175",
+  "title": "Boutique Nord sync",
+  "offset_days": -321,
+  "attendees": [
+   "marco@atlasrev.io",
+   "milan.weber@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:176",
+  "title": "Boutique Nord sync",
+  "offset_days": -104,
+  "attendees": [
+   "marco@atlasrev.io",
+   "alma.andersen@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:177",
+  "title": "Boutique Nord sync",
+  "offset_days": -36,
+  "attendees": [
+   "marco@atlasrev.io",
+   "alma.andersen@boutiquenord.example"
+  ],
+  "company_domain": "boutiquenord.example"
+ },
+ {
+  "id": "gcal:178",
+  "title": "Datafjord sync",
+  "offset_days": -311,
+  "attendees": [
+   "priya@atlasrev.io",
+   "aya.novak@datafjord.example"
+  ],
+  "company_domain": "datafjord.example"
+ },
+ {
+  "id": "gcal:179",
+  "title": "Datafjord sync",
+  "offset_days": -268,
+  "attendees": [
+   "priya@atlasrev.io",
+   "aya.novak@datafjord.example"
+  ],
+  "company_domain": "datafjord.example"
+ },
+ {
+  "id": "gcal:180",
+  "title": "Datafjord sync",
+  "offset_days": -128,
+  "attendees": [
+   "priya@atlasrev.io",
+   "aya.novak@datafjord.example"
+  ],
+  "company_domain": "datafjord.example"
+ },
+ {
+  "id": "gcal:181",
+  "title": "Datafjord sync",
+  "offset_days": -55,
+  "attendees": [
+   "priya@atlasrev.io",
+   "maja.andersen@datafjord.example"
+  ],
+  "company_domain": "datafjord.example"
+ },
+ {
+  "id": "gcal:182",
+  "title": "Datafjord sync",
+  "offset_days": -14,
+  "attendees": [
+   "priya@atlasrev.io",
+   "selma.keller@datafjord.example"
+  ],
+  "company_domain": "datafjord.example"
+ },
+ {
+  "id": "gcal:183",
+  "title": "Datafjord sync",
+  "offset_days": -229,
+  "attendees": [
+   "priya@atlasrev.io",
+   "maja.andersen@datafjord.example"
+  ],
+  "company_domain": "datafjord.example"
+ },
+ {
+  "id": "gcal:184",
+  "title": "Datafjord sync",
+  "offset_days": -30,
+  "attendees": [
+   "priya@atlasrev.io",
+   "aya.novak@datafjord.example"
+  ],
+  "company_domain": "datafjord.example"
+ },
+ {
+  "id": "gcal:185",
+  "title": "Eisenhof Metall sync",
+  "offset_days": -209,
+  "attendees": [
+   "tom@atlasrev.io",
+   "ruben.rossi@eisenhofmetall.example"
+  ],
+  "company_domain": "eisenhofmetall.example"
+ },
+ {
+  "id": "gcal:186",
+  "title": "Eisenhof Metall sync",
+  "offset_days": -96,
+  "attendees": [
+   "tom@atlasrev.io",
+   "jonas.bauer@eisenhofmetall.example"
+  ],
+  "company_domain": "eisenhofmetall.example"
+ },
+ {
+  "id": "gcal:187",
+  "title": "Eisenhof Metall sync",
+  "offset_days": -281,
+  "attendees": [
+   "tom@atlasrev.io",
+   "ruben.rossi@eisenhofmetall.example"
+  ],
+  "company_domain": "eisenhofmetall.example"
+ },
+ {
+  "id": "gcal:188",
+  "title": "Eisenhof Metall sync",
+  "offset_days": -315,
+  "attendees": [
+   "tom@atlasrev.io",
+   "max.berg@eisenhofmetall.example"
+  ],
+  "company_domain": "eisenhofmetall.example"
+ },
+ {
+  "id": "gcal:189",
+  "title": "Eisenhof Metall sync",
+  "offset_days": -226,
+  "attendees": [
+   "tom@atlasrev.io",
+   "max.berg@eisenhofmetall.example"
+  ],
+  "company_domain": "eisenhofmetall.example"
+ },
+ {
+  "id": "gcal:190",
+  "title": "Eisenhof Metall sync",
+  "offset_days": -317,
+  "attendees": [
+   "tom@atlasrev.io",
+   "jonas.bauer@eisenhofmetall.example"
+  ],
+  "company_domain": "eisenhofmetall.example"
+ },
+ {
+  "id": "gcal:191",
+  "title": "Eisenhof Metall sync",
+  "offset_days": -223,
+  "attendees": [
+   "tom@atlasrev.io",
+   "jonas.bauer@eisenhofmetall.example"
+  ],
+  "company_domain": "eisenhofmetall.example"
+ },
+ {
+  "id": "gcal:192",
+  "title": "Eisenhof Metall sync",
+  "offset_days": -327,
+  "attendees": [
+   "tom@atlasrev.io",
+   "jonas.bauer@eisenhofmetall.example"
+  ],
+  "company_domain": "eisenhofmetall.example"
+ },
+ {
+  "id": "gcal:193",
+  "title": "PayNordic sync",
+  "offset_days": -74,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "anton.rossi@paynordic.example"
+  ],
+  "company_domain": "paynordic.example"
+ },
+ {
+  "id": "gcal:194",
+  "title": "PayNordic sync",
+  "offset_days": -338,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "ruben.jansen@paynordic.example"
+  ],
+  "company_domain": "paynordic.example"
+ },
+ {
+  "id": "gcal:195",
+  "title": "PayNordic sync",
+  "offset_days": -89,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "anton.rossi@paynordic.example"
+  ],
+  "company_domain": "paynordic.example"
+ },
+ {
+  "id": "gcal:196",
+  "title": "PayNordic sync",
+  "offset_days": -281,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "ruben.jansen@paynordic.example"
+  ],
+  "company_domain": "paynordic.example"
+ },
+ {
+  "id": "gcal:197",
+  "title": "PayNordic sync",
+  "offset_days": -245,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "livia.marchetti@paynordic.example"
+  ],
+  "company_domain": "paynordic.example"
+ },
+ {
+  "id": "gcal:198",
+  "title": "PayNordic sync",
+  "offset_days": -150,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "livia.marchetti@paynordic.example"
+  ],
+  "company_domain": "paynordic.example"
+ },
+ {
+  "id": "gcal:199",
+  "title": "PayNordic sync",
+  "offset_days": -343,
+  "attendees": [
+   "sofia@atlasrev.io",
+   "ruben.jansen@paynordic.example"
+  ],
+  "company_domain": "paynordic.example"
+ },
+ {
+  "id": "gcal:tomorrow",
+  "title": "NovaPay discovery call",
+  "offset_days": 1,
+  "attendees": [
+   "lena@atlasrev.io",
+   "elsa.jansen@novapay.io"
+  ],
+  "company_domain": "novapay.io"
+ }
+]

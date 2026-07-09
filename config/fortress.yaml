@@ -1,0 +1,19 @@
+# Fortress graph edge-probability weights.
+# NOTE: PRD 7.1 formula is not on disk (ACR_PRD.md missing); this encodes a
+# documented placeholder: p_uv = clip(base[rel_type] * (1 - seniority_gap_penalty
+# * gap) * dept_factor, p_min, p_max), components always stored.
+base_p:
+  manages: 0.85
+  peer: 0.65
+  skip: 0.45
+  cross_dept: 0.35
+  external_mutual: 0.0   # replaced by the warmth score of the warm node
+seniority_gap_penalty: 0.06   # per level of seniority gap
+dept_factor_same: 1.0
+dept_factor_cross: 0.85
+p_min: 0.05
+p_max: 0.95
+warm_tau: 0.35          # warmth threshold to connect the virtual source
+effort_per_hop: 1.0
+epsilon_failed: 0.01
+blast_radius_alpha: 0.5

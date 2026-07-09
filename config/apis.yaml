@@ -1,0 +1,20 @@
+# External API base URLs. A human must verify each endpoint against docs_url
+# and flip `verified: true` before the live adapter is trusted. Until then the
+# adapters are implemented against the fixture shapes only.
+fullenrich:
+  base_url: https://app.fullenrich.com/api/v2
+  docs_url: https://docs.fullenrich.com/api/v2/general/introduction
+  verified: false
+sillage:
+  base_url: https://api.getsillage.com/v2
+  docs_url: https://www.getsillage.com/docs
+  verified: false
+gradium:
+  base_url: https://api.gradium.ai/eu
+  docs_url: https://docs.gradium.ai
+  verified: false
+  notes: sessions cap at 300 seconds; chunk longer audio and stitch transcripts by offset
+gamma:
+  base_url: https://public-api.gamma.app/v1.0
+  docs_url: https://developers.gamma.app
+  verified: false

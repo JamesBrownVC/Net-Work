@@ -1,0 +1,14 @@
+# Action catalog for the MCKP allocator.
+# NOTE: the PRD 6.1 cost table is not on disk (ACR_PRD.md missing); these are
+# sane hand-written placeholders to be reconciled against PRD 6.1 when the
+# document lands. Costs: rep hours + hard euro spend.
+actions:
+  qbr_review:            {hours: 2.0, eur: 0,   flavor: retention}
+  renewal_call:          {hours: 1.0, eur: 0,   flavor: retention}
+  case_study_share:      {hours: 0.5, eur: 0,   flavor: retention}
+  personalized_demo:     {hours: 3.0, eur: 50,  flavor: expansion}
+  upsell_pitch:          {hours: 2.0, eur: 0,   flavor: expansion}
+  exec_dinner:           {hours: 4.0, eur: 300, flavor: expansion}
+  onsite_workshop:       {hours: 8.0, eur: 500, flavor: expansion}
+  champion_intro_ask:    {hours: 1.0, eur: 0,   flavor: conquest}
+  swag_and_note:         {hours: 0.5, eur: 80,  flavor: retention}

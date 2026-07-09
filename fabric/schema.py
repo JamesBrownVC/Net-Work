@@ -1,135 +1,121 @@
-"""Pydantic entities produced by every connector's normalize().
+"""Pydantic entities for the unified data model.
 
-These are the typed, validated shapes that sit between a connector's raw
-payload and the unified store. A connector is only "done" once it can turn
-its fixtures into a list of these without validation errors.
+Every derived or probabilistic field travels with a components sibling so no
+naked score ever reaches the store.
 """
 
 from __future__ import annotations
 
-from datetime import date, datetime
-from enum import Enum
-from typing import Any, Union
+from datetime import datetime
+from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field
 
-
-class InteractionKind(str, Enum):
-    EMAIL = "email"
-    MEETING = "meeting"
-    CALL = "call"
-    SLACK = "slack"
-    NOTE = "note"
+InteractionKind = Literal["email", "meeting", "call", "slack", "note"]
+SeniorityLevel = Literal["IC", "MGR", "DIR", "VP", "C"]
+RelType = Literal["manages", "peer", "skip", "cross_dept", "external_mutual"]
 
 
-class SeniorityLevel(str, Enum):
-    IC = "IC"
-    MGR = "MGR"
-    DIR = "DIR"
-    VP = "VP"
-    C = "C"
-
-
-class OrgEdgeType(str, Enum):
-    MANAGES = "manages"
-    PEER = "peer"
-    SKIP = "skip"
-    CROSS_DEPT = "cross_dept"
-    EXTERNAL_MUTUAL = "external_mutual"
-
-
-class Direction(str, Enum):
-    INBOUND = "inbound"
-    OUTBOUND = "outbound"
-
-
-class EntityBase(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-
-class Company(EntityBase):
-    id: str | None = None
+class Company(BaseModel):
+    id: str
     name: str
     domain: str
-    industry: str | None = None
-    size: str | None = None
+    industry: str = ""
+    size: int = 0
     is_customer: bool = False
-    arr: float | None = None
-    renewal_date: date | None = None
+    arr: float = 0.0
+    renewal_date: datetime | None = None
 
 
-class Person(EntityBase):
-    id: str | None = None
-    company_id: str
+class Person(BaseModel):
+    id: str
+    company_id: str | None = None
     full_name: str
-    title: str | None = None
-    dept: str | None = None
-    seniority_level: SeniorityLevel | None = None
-    email: str | None = None
-    phone: str | None = None
-    source: str
+    title: str = ""
+    dept: str = ""
+    seniority_level: SeniorityLevel = "IC"
+    email: str
+    phone: str = ""
+    source: str = ""
     enriched_at: datetime | None = None
 
 
-class Interaction(EntityBase):
-    id: str | None = None
+class Interaction(BaseModel):
+    id: str
     person_id: str | None = None
-    company_id: str
+    company_id: str | None = None
     kind: InteractionKind
-    direction: Direction | None = None
+    direction: Literal["inbound", "outbound", "internal"] = "outbound"
     ts: datetime
     latency_hours: float | None = None
     sentiment: float | None = None
-    summary: str | None = None
-    source_ref: str | None = None
+    summary: str = ""
+    source_ref: str = ""
 
 
-class Deal(EntityBase):
-    id: str | None = None
+class Deal(BaseModel):
+    id: str
     company_id: str
     stage: str
-    amount: float
+    amount: float = 0.0
     products_json: list[str] = Field(default_factory=list)
-    opened_at: date | None = None
-    closed_at: date | None = None
+    opened_at: datetime | None = None
+    closed_at: datetime | None = None
 
 
-class Signal(EntityBase):
-    id: str | None = None
-    company_id: str
+class Signal(BaseModel):
+    id: str
+    company_id: str | None = None
     person_id: str | None = None
     source: str
     kind: str
     payload_json: dict[str, Any] = Field(default_factory=dict)
     ts: datetime
-    strength: float = Field(ge=0.0, le=1.0)
+    strength: float = 0.5
 
 
-class OrgEdge(EntityBase):
+class OrgEdge(BaseModel):
     src_person: str
     dst_person: str
-    rel_type: OrgEdgeType
-    p_uv: float = Field(ge=0.0, le=1.0)
+    rel_type: RelType
+    p_uv: float = 0.5
     p_components_json: dict[str, Any] = Field(default_factory=dict)
 
 
-class Transcript(EntityBase):
-    id: str | None = None
-    company_id: str
+class Warmth(BaseModel):
+    person_id: str
+    score: float
+    components_json: dict[str, Any] = Field(default_factory=dict)
+    computed_at: datetime
+
+
+class Transcript(BaseModel):
+    id: str
+    company_id: str | None = None
     call_ts: datetime
     text: str
-    objections_json: list[str] = Field(default_factory=list)
+    objections_json: list[dict[str, Any]] = Field(default_factory=list)
     sentiment: float | None = None
 
 
-class Reference(EntityBase):
-    id: str | None = None
+class Reference(BaseModel):
+    id: str
     source_doc: str
-    industry: str | None = None
-    product: str | None = None
-    outcome: str | None = None
-    quote: str | None = None
-    metric: str | None = None
+    industry: str = ""
+    product: str = ""
+    outcome: str = ""
+    quote: str = ""
+    metric: str = ""
 
 
-Entity = Union[Company, Person, Interaction, Deal, Signal, OrgEdge, Transcript, Reference]
+Entity = (
+    Company | Person | Interaction | Deal | Signal | OrgEdge | Warmth | Transcript | Reference
+)
+
+
+def person_id(email: str) -> str:
+    return f"person:{email.lower()}"
+
+
+def company_id(domain: str) -> str:
+    return f"company:{domain.lower()}"

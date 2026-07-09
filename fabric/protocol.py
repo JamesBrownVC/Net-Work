@@ -1,22 +1,22 @@
-"""The one protocol every ACR connector implements.
-
-Direct Python calls and MCP calls (added in a later phase) hit this same
-interface, so a connector written today does not change shape when it grows
-an MCP wrapper.
-"""
+"""Connector protocol shared by every source. One protocol, no exceptions."""
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
-from enum import Enum
+import enum
+import os
+from datetime import datetime
+from pathlib import Path
 from typing import Any, Protocol, runtime_checkable
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel
 
 from fabric.schema import Entity
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+FIXTURES_DIR = REPO_ROOT / "fixtures"
 
-class Status(str, Enum):
+
+class Status(enum.StrEnum):
     GREEN = "GREEN"
     YELLOW = "YELLOW"
     RED = "RED"
@@ -24,14 +24,16 @@ class Status(str, Enum):
 
 
 class RawRecord(BaseModel):
-    """One unnormalized record as returned by a connector's pull()."""
-
-    model_config = ConfigDict(frozen=True)
+    """One record straight from a source, before normalization."""
 
     source: str
-    source_id: str
+    kind: str
     payload: dict[str, Any]
-    fetched_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+def mock_mode() -> bool:
+    """MOCK_MODE defaults to true; live is per-connector opt-in."""
+    return os.getenv("MOCK_MODE", "true").strip().lower() != "false"
 
 
 @runtime_checkable
@@ -40,6 +42,6 @@ class Connector(Protocol):
 
     def health(self) -> Status: ...
 
-    def pull(self, since: datetime | None = None) -> list[RawRecord]: ...
+    def pull(self, since: datetime | None) -> list[RawRecord]: ...
 
     def normalize(self, raw: RawRecord) -> list[Entity]: ...
