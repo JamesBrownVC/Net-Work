@@ -17,7 +17,7 @@ class MockCrmConnector(FixtureConnector):
     record_kind = "crm"
     live_env_keys = ()
 
-    def pull(self, since: datetime | None) -> list[RawRecord]:
+    def pull(self, since: datetime | None = None) -> list[RawRecord]:
         records: list[RawRecord] = []
         for kind, filename in (
             ("company", "companies.json"),

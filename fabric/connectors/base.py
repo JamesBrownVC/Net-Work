@@ -50,7 +50,7 @@ class FixtureConnector:
         raw = payload.get("ts") or payload.get("call_ts")
         return datetime.fromisoformat(raw) if isinstance(raw, str) else None
 
-    def pull(self, since: datetime | None) -> list[RawRecord]:
+    def pull(self, since: datetime | None = None) -> list[RawRecord]:
         if self.mode() == "live":
             return self._pull_live(since)
         records = []

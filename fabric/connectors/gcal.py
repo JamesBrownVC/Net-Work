@@ -26,7 +26,7 @@ class GcalConnector(FixtureConnector):
         base = datetime.now().replace(hour=10, minute=0, second=0, microsecond=0)
         return base + timedelta(days=int(payload["offset_days"]))
 
-    def pull(self, since: datetime | None) -> list[RawRecord]:
+    def pull(self, since: datetime | None = None) -> list[RawRecord]:
         if self.mode() == "live":
             return self._pull_live(since)
         records = []
