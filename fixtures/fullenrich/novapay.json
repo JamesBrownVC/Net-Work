@@ -1,0 +1,333 @@
+{
+ "company": {
+  "id": "company:novapay.io",
+  "name": "NovaPay",
+  "domain": "novapay.io",
+  "industry": "fintech",
+  "size": 35,
+  "is_customer": false
+ },
+ "people": [
+  {
+   "id": "person:lucas.marchetti@novapay.io",
+   "full_name": "Lucas Marchetti",
+   "title": "CEO",
+   "dept": "C-suite",
+   "seniority_level": "C",
+   "email": "lucas.marchetti@novapay.io",
+   "manager_email": null
+  },
+  {
+   "id": "person:aya.rossi@novapay.io",
+   "full_name": "Aya Rossi",
+   "title": "CRO",
+   "dept": "Sales",
+   "seniority_level": "C",
+   "email": "aya.rossi@novapay.io",
+   "manager_email": "lucas.marchetti@novapay.io"
+  },
+  {
+   "id": "person:jan.novak@novapay.io",
+   "full_name": "Jan Novak",
+   "title": "CFO",
+   "dept": "C-suite",
+   "seniority_level": "C",
+   "email": "jan.novak@novapay.io",
+   "manager_email": "lucas.marchetti@novapay.io"
+  },
+  {
+   "id": "person:zoe.andersen@novapay.io",
+   "full_name": "Zoe Andersen",
+   "title": "CTO",
+   "dept": "C-suite",
+   "seniority_level": "C",
+   "email": "zoe.andersen@novapay.io",
+   "manager_email": "lucas.marchetti@novapay.io"
+  },
+  {
+   "id": "person:emma.kovacs@novapay.io",
+   "full_name": "Emma Kovacs",
+   "title": "COO",
+   "dept": "C-suite",
+   "seniority_level": "C",
+   "email": "emma.kovacs@novapay.io",
+   "manager_email": "lucas.marchetti@novapay.io"
+  },
+  {
+   "id": "person:elsa.jansen@novapay.io",
+   "full_name": "Elsa Jansen",
+   "title": "VP Sales",
+   "dept": "Sales",
+   "seniority_level": "VP",
+   "email": "elsa.jansen@novapay.io",
+   "manager_email": "aya.rossi@novapay.io"
+  },
+  {
+   "id": "person:oscar.eriksen@novapay.io",
+   "full_name": "Oscar Eriksen",
+   "title": "Sales Ops Manager",
+   "dept": "Sales",
+   "seniority_level": "MGR",
+   "email": "oscar.eriksen@novapay.io",
+   "manager_email": "elsa.jansen@novapay.io"
+  },
+  {
+   "id": "person:jan.lindgren@novapay.io",
+   "full_name": "Jan Lindgren",
+   "title": "AE",
+   "dept": "Sales",
+   "seniority_level": "IC",
+   "email": "jan.lindgren@novapay.io",
+   "manager_email": "elsa.jansen@novapay.io"
+  },
+  {
+   "id": "person:oscar.marchetti@novapay.io",
+   "full_name": "Oscar Marchetti",
+   "title": "AE",
+   "dept": "Sales",
+   "seniority_level": "IC",
+   "email": "oscar.marchetti@novapay.io",
+   "manager_email": "elsa.jansen@novapay.io"
+  },
+  {
+   "id": "person:jan.vogel@novapay.io",
+   "full_name": "Jan Vogel",
+   "title": "AE",
+   "dept": "Sales",
+   "seniority_level": "IC",
+   "email": "jan.vogel@novapay.io",
+   "manager_email": "elsa.jansen@novapay.io"
+  },
+  {
+   "id": "person:lucas.jansen@novapay.io",
+   "full_name": "Lucas Jansen",
+   "title": "SDR",
+   "dept": "Sales",
+   "seniority_level": "IC",
+   "email": "lucas.jansen@novapay.io",
+   "manager_email": "elsa.jansen@novapay.io"
+  },
+  {
+   "id": "person:lina.dubois@novapay.io",
+   "full_name": "Lina Dubois",
+   "title": "SDR",
+   "dept": "Sales",
+   "seniority_level": "IC",
+   "email": "lina.dubois@novapay.io",
+   "manager_email": "elsa.jansen@novapay.io"
+  },
+  {
+   "id": "person:karl.dubois@novapay.io",
+   "full_name": "Karl Dubois",
+   "title": "SDR",
+   "dept": "Sales",
+   "seniority_level": "IC",
+   "email": "karl.dubois@novapay.io",
+   "manager_email": "elsa.jansen@novapay.io"
+  },
+  {
+   "id": "person:max.bauer@novapay.io",
+   "full_name": "Max Bauer",
+   "title": "Finance Director",
+   "dept": "Finance",
+   "seniority_level": "DIR",
+   "email": "max.bauer@novapay.io",
+   "manager_email": "jan.novak@novapay.io"
+  },
+  {
+   "id": "person:ruben.marchetti@novapay.io",
+   "full_name": "Ruben Marchetti",
+   "title": "Controller",
+   "dept": "Finance",
+   "seniority_level": "MGR",
+   "email": "ruben.marchetti@novapay.io",
+   "manager_email": "max.bauer@novapay.io"
+  },
+  {
+   "id": "person:otto.meyer@novapay.io",
+   "full_name": "Otto Meyer",
+   "title": "Analyst",
+   "dept": "Finance",
+   "seniority_level": "IC",
+   "email": "otto.meyer@novapay.io",
+   "manager_email": "max.bauer@novapay.io"
+  },
+  {
+   "id": "person:nils.meyer@novapay.io",
+   "full_name": "Nils Meyer",
+   "title": "Analyst",
+   "dept": "Finance",
+   "seniority_level": "IC",
+   "email": "nils.meyer@novapay.io",
+   "manager_email": "max.bauer@novapay.io"
+  },
+  {
+   "id": "person:milan.andersen@novapay.io",
+   "full_name": "Milan Andersen",
+   "title": "Analyst",
+   "dept": "Finance",
+   "seniority_level": "IC",
+   "email": "milan.andersen@novapay.io",
+   "manager_email": "max.bauer@novapay.io"
+  },
+  {
+   "id": "person:max.andersen@novapay.io",
+   "full_name": "Max Andersen",
+   "title": "VP Engineering",
+   "dept": "Engineering",
+   "seniority_level": "VP",
+   "email": "max.andersen@novapay.io",
+   "manager_email": "zoe.andersen@novapay.io"
+  },
+  {
+   "id": "person:alma.berg@novapay.io",
+   "full_name": "Alma Berg",
+   "title": "Eng Manager",
+   "dept": "Engineering",
+   "seniority_level": "MGR",
+   "email": "alma.berg@novapay.io",
+   "manager_email": "max.andersen@novapay.io"
+  },
+  {
+   "id": "person:elsa.costa@novapay.io",
+   "full_name": "Elsa Costa",
+   "title": "Eng Manager",
+   "dept": "Engineering",
+   "seniority_level": "MGR",
+   "email": "elsa.costa@novapay.io",
+   "manager_email": "max.andersen@novapay.io"
+  },
+  {
+   "id": "person:jonas.lindgren@novapay.io",
+   "full_name": "Jonas Lindgren",
+   "title": "Engineer",
+   "dept": "Engineering",
+   "seniority_level": "IC",
+   "email": "jonas.lindgren@novapay.io",
+   "manager_email": "max.andersen@novapay.io"
+  },
+  {
+   "id": "person:paul.novak@novapay.io",
+   "full_name": "Paul Novak",
+   "title": "Engineer",
+   "dept": "Engineering",
+   "seniority_level": "IC",
+   "email": "paul.novak@novapay.io",
+   "manager_email": "max.andersen@novapay.io"
+  },
+  {
+   "id": "person:hugo.marchetti@novapay.io",
+   "full_name": "Hugo Marchetti",
+   "title": "Engineer",
+   "dept": "Engineering",
+   "seniority_level": "IC",
+   "email": "hugo.marchetti@novapay.io",
+   "manager_email": "max.andersen@novapay.io"
+  },
+  {
+   "id": "person:theo.bauer@novapay.io",
+   "full_name": "Theo Bauer",
+   "title": "Engineer",
+   "dept": "Engineering",
+   "seniority_level": "IC",
+   "email": "theo.bauer@novapay.io",
+   "manager_email": "max.andersen@novapay.io"
+  },
+  {
+   "id": "person:otto.fontaine@novapay.io",
+   "full_name": "Otto Fontaine",
+   "title": "Engineer",
+   "dept": "Engineering",
+   "seniority_level": "IC",
+   "email": "otto.fontaine@novapay.io",
+   "manager_email": "max.andersen@novapay.io"
+  },
+  {
+   "id": "person:lina.berg@novapay.io",
+   "full_name": "Lina Berg",
+   "title": "Engineer",
+   "dept": "Engineering",
+   "seniority_level": "IC",
+   "email": "lina.berg@novapay.io",
+   "manager_email": "max.andersen@novapay.io"
+  },
+  {
+   "id": "person:elsa.schmid@novapay.io",
+   "full_name": "Elsa Schmid",
+   "title": "Head of Ops",
+   "dept": "Ops",
+   "seniority_level": "DIR",
+   "email": "elsa.schmid@novapay.io",
+   "manager_email": "emma.kovacs@novapay.io"
+  },
+  {
+   "id": "person:alma.meyer@novapay.io",
+   "full_name": "Alma Meyer",
+   "title": "Ops Manager",
+   "dept": "Ops",
+   "seniority_level": "MGR",
+   "email": "alma.meyer@novapay.io",
+   "manager_email": "elsa.schmid@novapay.io"
+  },
+  {
+   "id": "person:paul.schmid@novapay.io",
+   "full_name": "Paul Schmid",
+   "title": "Ops Specialist",
+   "dept": "Ops",
+   "seniority_level": "IC",
+   "email": "paul.schmid@novapay.io",
+   "manager_email": "elsa.schmid@novapay.io"
+  },
+  {
+   "id": "person:emma.lindgren@novapay.io",
+   "full_name": "Emma Lindgren",
+   "title": "Ops Specialist",
+   "dept": "Ops",
+   "seniority_level": "IC",
+   "email": "emma.lindgren@novapay.io",
+   "manager_email": "elsa.schmid@novapay.io"
+  },
+  {
+   "id": "person:ida.andersen@novapay.io",
+   "full_name": "Ida Andersen",
+   "title": "Ops Specialist",
+   "dept": "Ops",
+   "seniority_level": "IC",
+   "email": "ida.andersen@novapay.io",
+   "manager_email": "elsa.schmid@novapay.io"
+  },
+  {
+   "id": "person:mia.moreau@novapay.io",
+   "full_name": "Mia Moreau",
+   "title": "Support Lead",
+   "dept": "Ops",
+   "seniority_level": "MGR",
+   "email": "mia.moreau@novapay.io",
+   "manager_email": "elsa.schmid@novapay.io"
+  },
+  {
+   "id": "person:lina.weber@novapay.io",
+   "full_name": "Lina Weber",
+   "title": "Support Agent",
+   "dept": "Ops",
+   "seniority_level": "IC",
+   "email": "lina.weber@novapay.io",
+   "manager_email": "elsa.schmid@novapay.io"
+  },
+  {
+   "id": "person:jan.berg@novapay.io",
+   "full_name": "Jan Berg",
+   "title": "Support Agent",
+   "dept": "Ops",
+   "seniority_level": "IC",
+   "email": "jan.berg@novapay.io",
+   "manager_email": "elsa.schmid@novapay.io"
+  }
+ ],
+ "warm_nodes": [
+  "elsa.jansen@novapay.io",
+  "max.bauer@novapay.io",
+  "oscar.eriksen@novapay.io",
+  "alma.berg@novapay.io"
+ ]
+}
