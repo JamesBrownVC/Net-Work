@@ -116,7 +116,7 @@ button { background:var(--accent); border:0; color:#0d1117; font-weight:600;
 </style></head><body>
 <h1><span>Net</span>-Work</h1>
 <div id="sub">target: novapay.io &middot; objective: CRO &middot; mode: fixtures &middot;
-  <a href="/orbit?account=novapay.io" style="color:var(--accent)">Orbit pre-call brief &rarr;</a></div>
+  <a href="/orbit?account=novapay.io" style="color:var(--accent)">Net-Work pre-call brief &rarr;</a></div>
 <button id="go" onclick="run()">Run conquest</button>
 <div class="grid" style="margin-top:16px">
   <div class="panel"><h2>Agent choreography</h2><div id="events" class="muted">

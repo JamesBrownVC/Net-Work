@@ -1,4 +1,4 @@
-# ACR / Orbit — Demo Walkthrough
+# ACR / Net-Work — Demo Walkthrough
 
 One-command start, then a guided click-through. Everything runs on
 deterministic fixtures with **zero API keys required**.
@@ -91,7 +91,7 @@ Static plan-of-attack mockup — same navigation, not yet wired to the
 ## 4. Command reference
 
 ```bash
-.venv/Scripts/python.exe -m surfaces.web          # web UI (Orbit) on :8787
+.venv/Scripts/python.exe -m surfaces.web          # web UI (Net-Work) on :8787
 .venv/Scripts/python.exe -m fabric.cli demo       # terminal: agent choreography + full Battle Plan
 .venv/Scripts/python.exe -m pytest -q             # 49 tests
 .venv/Scripts/python.exe -m ruff check .          # lint

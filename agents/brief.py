@@ -1,6 +1,6 @@
 """MeetingBrief assembler (Part B).
 
-Composes the pre-call brief the Orbit frontend renders, from REAL backend data:
+Composes the pre-call brief the Net-Work frontend renders, from REAL backend data:
 warmth (engines.warmth), interaction content analysis (engines.content, Part A),
 the allocator's recommended action (engines.allocator), Sillage signals (live or
 cached via fabric.sillage_provider), and Notion references. Maps to the Network
@@ -277,7 +277,7 @@ def build_brief(domain: str) -> dict[str, Any]:
             "signals": signals,
             "talking_points": talking_points,
             "social_proof": references,
-            # THE FINAL CASTLE: intentionally-empty slot. See web.py / Orbit.
+            # THE FINAL CASTLE: intentionally-empty slot. See web.py / the Net-Work frontend.
             "fortress_slot": {
                 "label": "Conquest map renders here",
                 "data_contract": "engines.fortress.solve(domain, target) -> "
@@ -524,7 +524,11 @@ def _script_fallback(pb: dict[str, Any]) -> str:
         "",
         "OPEN",
         f"\"Hi {p['name'].split()[0]}, thanks for making time"
-        + (f" — I wanted to talk through {pb['purpose'].lower()}.\"" if pb.get("purpose") else '."'),
+        + (
+            f" — I wanted to talk through {pb['purpose'].lower()}.\""
+            if pb.get("purpose")
+            else '."'
+        ),
         "",
         "RELATIONSHIP CHECK-IN",
         f"\"{rel['sentiment_line']}\"",
@@ -615,8 +619,8 @@ def _action_plan_fallback(pb: dict[str, Any], action: dict[str, Any]) -> dict[st
         )
     if rel.get("risk_flags"):
         steps.append(f"Neutralize the risk first: {rel['risk_flags'][0]['text'][:100]}")
-    steps.append(f"Send the outreach email and propose a slot within the next 5 business days.")
-    steps.append(f"Log the outcome and update warmth after the touch.")
+    steps.append("Send the outreach email and propose a slot within the next 5 business days.")
+    steps.append("Log the outcome and update warmth after the touch.")
 
     subject = f"{action['label']} — {p['company']}"
     body = (
@@ -736,7 +740,9 @@ def send_email(to_email: str, subject: str, body: str) -> dict[str, Any]:
     }
 
 
-def book_meeting(email: str, when: str, duration_mins: int = 30, agenda: str = "") -> dict[str, Any]:
+def book_meeting(
+    email: str, when: str, duration_mins: int = 30, agenda: str = ""
+) -> dict[str, Any]:
     """Mock booking: no live GCal-write scope is wired, so this simulates the
     booking and returns a confirmation. Swap for a real GCal insert once
     write credentials exist."""

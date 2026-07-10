@@ -5,7 +5,7 @@
   "person_email": "max.bauer@novapay.io",
   "kind": "champion_move",
   "strength": 0.9,
-  "ts": "2026-06-21T16:00:00",
+  "ts": "2026-06-22T12:00:00",
   "payload": {
    "note": "Former champion at Finexa Capital joined NovaPay as Finance Director.",
    "from_company": "finexacapital.example"
@@ -17,7 +17,7 @@
   "person_email": null,
   "kind": "champion_move",
   "strength": 0.7,
-  "ts": "2026-05-30T16:00:00",
+  "ts": "2026-05-31T12:00:00",
   "payload": {
    "note": "Champion left Vektor Software for a competitor account."
   }
@@ -28,7 +28,7 @@
   "person_email": null,
   "kind": "hiring_spike",
   "strength": 0.8,
-  "ts": "2026-06-30T16:00:00",
+  "ts": "2026-07-01T12:00:00",
   "payload": {
    "note": "NovaPay posted 4 Sales Ops roles in two weeks.",
    "dept": "Sales Ops",
@@ -41,7 +41,7 @@
   "person_email": null,
   "kind": "competitor_engagement",
   "strength": 0.85,
-  "ts": "2026-07-03T16:00:00",
+  "ts": "2026-07-04T12:00:00",
   "payload": {
    "note": "Meridian Bank engaged with a competitor webinar series. Combined with 72 days of email silence."
   }
@@ -52,7 +52,7 @@
   "person_email": null,
   "kind": "buying_intent",
   "strength": 0.75,
-  "ts": "2026-07-06T16:00:00",
+  "ts": "2026-07-07T12:00:00",
   "payload": {
    "note": "NovaPay researching payment reconciliation tooling."
   }
@@ -63,7 +63,7 @@
   "person_email": null,
   "kind": "job_change",
   "strength": 0.5,
-  "ts": "2026-06-14T16:00:00",
+  "ts": "2026-06-15T12:00:00",
   "payload": {
    "note": "New CTO at PayNordic."
   }

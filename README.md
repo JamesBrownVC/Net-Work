@@ -118,10 +118,10 @@ warmth drops from `0.909` (metadata only) to `0.815` (with content), and the
 Relationship agent flags it as a churn risk that the old ARR/silence rules
 missed entirely. See `tests/test_content.py`.
 
-## Orbit (web): schedule → pre-call brief → onward intros
+## Net-Work (web): schedule → pre-call brief → onward intros
 
-`surfaces/orbit/` is the Orbit UI, wired to real backend data and served by the
-web surface. The flow mirrors a rep's day:
+`surfaces/orbit/` is the Net-Work UI, wired to real backend data and served by
+the web surface. The flow mirrors a rep's day:
 
 ```
 python -m surfaces.web
